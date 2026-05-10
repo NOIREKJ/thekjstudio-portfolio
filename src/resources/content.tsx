@@ -6,7 +6,7 @@ const person: Person = {
   lastName: "Kim",
   name: `Joon Kim`,
   role: "Composer & App Developer",
-  avatar: "/images/avatar.jpg",
+  avatar: "/images/kimjoonmain.jpeg",
   email: "kimwns109@gmail.com",
   location: "Asia/Seoul",
   languages: ["Korean", "English"],
@@ -59,7 +59,7 @@ const social: Social = [
 
 const home: Home = {
   path: "/",
-  image: "/images/og/home.jpg",
+  image: "/images/kimjoonmain.jpeg",
   label: "Home",
   title: `${person.name}'s Portfolio`,
   description: `Portfolio website showcasing my work as a ${person.role}`,
@@ -185,42 +185,42 @@ const gallery: Gallery = {
   description: `A visual collection by ${person.name}`,
   images: [
     {
-      src: "/images/gallery/horizontal-1.jpg",
+      src: "/images/gallery/horizontal-1-kj-blueshirt.jpeg",
       alt: "image",
       orientation: "horizontal",
     },
     {
-      src: "/images/gallery/vertical-4.jpg",
+      src: "/images/gallery/vertical-1-kj-piano.jpeg",
       alt: "image",
       orientation: "vertical",
     },
     {
-      src: "/images/gallery/horizontal-3.jpg",
+      src: "/images/gallery/horizontal-2-kj-blueshirt.jpeg",
       alt: "image",
       orientation: "horizontal",
     },
     {
-      src: "/images/gallery/vertical-1.jpg",
+      src: "/images/gallery/vertical-2-kj-family.jpeg",
       alt: "image",
       orientation: "vertical",
     },
     {
-      src: "/images/gallery/vertical-2.jpg",
+      src: "/images/gallery/vertical-3-kj-spring.jpeg",
       alt: "image",
       orientation: "vertical",
     },
     {
-      src: "/images/gallery/horizontal-2.jpg",
+      src: "/images/gallery/horizontal-3-kj-beach.jpeg",
       alt: "image",
       orientation: "horizontal",
     },
     {
-      src: "/images/gallery/horizontal-4.jpg",
+      src: "/images/gallery/horizontal-4-kj-room.jpg",
       alt: "image",
       orientation: "horizontal",
     },
     {
-      src: "/images/gallery/vertical-3.jpg",
+      src: "/images/gallery/vertical-4-kj-piano.jpeg",
       alt: "image",
       orientation: "vertical",
     },
