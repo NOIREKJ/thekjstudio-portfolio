@@ -7,7 +7,7 @@ const person: Person = {
   name: `Joon Kim`,
   role: "Composer & App Developer",
   avatar: "/images/kimjoonmain.jpeg",
-  email: "contact@gmail.com",
+  email: "contact@thekjstudio.com",
   location: "Asia/Seoul",
   languages: ["Korean", "English"],
 };
