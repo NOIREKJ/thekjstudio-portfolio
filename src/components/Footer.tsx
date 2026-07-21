@@ -1,52 +1,33 @@
-import { Row, IconButton, SmartLink, Text } from "@once-ui-system/core";
-import { person, social } from "@/resources";
-import styles from "./Footer.module.scss";
+import styles from "./Footer.module.css";
 
-export const Footer = () => {
-  const currentYear = new Date().getFullYear();
+const LINKS = [
+  { name: "GitHub", href: "https://github.com/NOIREKJ" },
+  { name: "YouTube", href: "https://www.youtube.com/@K_Joon_P" },
+  { name: "Spotify", href: "https://open.spotify.com/user/31waehtdbctb5mqpag7pmrmnmhte" },
+  { name: "Apple Music", href: "https://music.apple.com/profile/K_Joon_P" },
+  { name: "SoundCloud", href: "https://on.soundcloud.com/5UnKPuPovp5dgfz96" },
+];
 
+export function Footer() {
   return (
-    <Row as="footer" fillWidth padding="8" horizontal="center" s={{ direction: "column" }}>
-      <Row
-        className={styles.mobile}
-        maxWidth="m"
-        paddingY="8"
-        paddingX="16"
-        gap="16"
-        horizontal="between"
-        vertical="center"
-        s={{
-          direction: "column",
-          horizontal: "center",
-          align: "center",
-        }}
-      >
-        <Text variant="body-default-s" onBackground="neutral-strong">
-          <Text onBackground="neutral-weak">© {currentYear} /</Text>
-          <Text paddingX="4">{person.name}</Text>
-          <Text onBackground="neutral-weak">
-            {/* Usage of this template requires attribution. Please don't remove the link to Once UI unless you have a Pro license. */}
-            / Build your portfolio with{" "}
-            <SmartLink href="https://once-ui.com/products/magic-portfolio">Once UI</SmartLink>
-          </Text>
-        </Text>
-        <Row gap="16">
-          {social.map(
-            (item) =>
-              item.link && (
-                <IconButton
-                  key={item.name}
-                  href={item.link}
-                  icon={item.icon}
-                  tooltip={item.name}
-                  size="s"
-                  variant="ghost"
-                />
-              ),
-          )}
-        </Row>
-      </Row>
-      <Row height="80" hide s={{ hide: false }} />
-    </Row>
+    <footer className={styles.footer}>
+      <div className={styles.inner}>
+        <ul className={styles.links}>
+          {LINKS.map((link) => (
+            <li key={link.name}>
+              <a href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.name} ↗
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href="mailto:contact@thekjstudio.com">Email ↗</a>
+          </li>
+        </ul>
+        <p className={styles.note}>
+          © 2026 the KJ Studio — 이 사이트는 악기입니다. 마음껏 연주하세요.
+        </p>
+      </div>
+    </footer>
   );
-};
+}

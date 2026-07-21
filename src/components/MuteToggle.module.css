@@ -1,0 +1,43 @@
+/* 우하단 — 상단은 이제 헤더의 자리다 */
+.toggle {
+  position: fixed;
+  bottom: 22px;
+  right: 24px;
+  z-index: 10;
+  padding: 9px 16px;
+  border: 1px solid #3a3944;
+  border-radius: 999px;
+  background: rgb(16 16 20 / 0.55);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  color: var(--ink-soft);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: border-color 150ms ease, color 150ms ease, transform 120ms var(--ease-out-strong);
+}
+
+.toggle:hover {
+  border-color: var(--brass);
+  color: var(--ink);
+}
+
+.toggle:active { transform: scale(0.96); }
+
+.toggle:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .toggle {
+    background: #131215;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .toggle { bottom: 16px; right: 16px; }
+}

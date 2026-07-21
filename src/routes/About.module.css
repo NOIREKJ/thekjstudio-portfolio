@@ -1,0 +1,137 @@
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 108px 28px 140px;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 64px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid #35343c;
+  padding-bottom: 3px;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.back:hover {
+  color: var(--brass);
+  border-color: var(--brass);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  gap: 64px;
+  align-items: start;
+}
+
+.overline {
+  margin: 0 0 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.title {
+  margin: 0 0 10px;
+  font-size: clamp(34px, 5vw, 46px);
+  font-weight: 900;
+  font-style: italic;
+  letter-spacing: -0.02em;
+}
+
+.meta {
+  margin: 0 0 44px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+}
+
+.body {
+  font-size: 17px;
+  line-height: 2.0;
+  white-space: pre-line;
+  word-break: keep-all;
+}
+
+.facts {
+  margin: 56px 0 0;
+  padding-top: 28px;
+  border-top: 1px solid rgb(255 255 255 / 0.07);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.fact {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+}
+
+.fact dt {
+  min-width: 44px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fact dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+}
+
+.fact dd a {
+  text-decoration: none;
+  border-bottom: 1px solid #35343c;
+  padding-bottom: 2px;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.fact dd a:hover {
+  color: var(--brass);
+  border-color: var(--brass);
+}
+
+.figure {
+  margin: 0;
+  position: sticky;
+  top: 96px;
+}
+
+.figure img {
+  display: block;
+  width: 100%;
+  border-radius: 6px;
+  filter: saturate(0.88) contrast(1.02);
+  box-shadow: 0 18px 44px rgb(0 0 0 / 0.5);
+}
+
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  .figure {
+    position: static;
+    max-width: 340px;
+  }
+}
+
+@media (max-width: 560px) {
+  .page { padding: 84px 20px 110px; }
+  .body { font-size: 16px; }
+}

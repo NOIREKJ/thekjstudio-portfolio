@@ -1,0 +1,141 @@
+/* 조용한 문서. 진입 화면이 시끄러운 만큼 안쪽은 고요해야 한다 */
+.page {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 108px 28px 140px;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 64px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  border-bottom: 1px solid #35343c;
+  padding-bottom: 3px;
+  transition: color 150ms ease, border-color 150ms ease;
+}
+
+.back:hover {
+  color: var(--brass);
+  border-color: var(--brass);
+}
+
+.overline {
+  margin: 0 0 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.title {
+  margin: 0 0 14px;
+  font-size: clamp(30px, 5vw, 40px);
+  font-weight: 900;
+  line-height: 1.3;
+  letter-spacing: -0.025em;
+  word-break: keep-all;
+}
+
+.meta {
+  margin: 0 0 56px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+}
+
+.body {
+  font-size: 17px;
+  line-height: 2.0;
+  white-space: pre-line;
+  word-break: keep-all;
+}
+
+/* 커버 — 음반 재킷처럼 제목 아래 한 장.
+   와이드 이미지는 전폭, 정사각 아이콘은 높이를 눌러 가운데에 놓인다 */
+.cover {
+  display: block;
+  max-width: 100%;
+  max-height: 400px;
+  margin: 0 auto 56px;
+  border-radius: 12px;
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.06),
+    0 20px 48px rgb(0 0 0 / 0.5);
+}
+
+/* 화면들 — 캡션 달린 그리드. 원본 문서의 App Store Preview를 잇는다 */
+.screens { margin-top: 80px; }
+
+.screensLabel {
+  margin: 0 0 24px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.screenGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 28px 16px;
+}
+
+.screenGrid figure { margin: 0; }
+
+.screenGrid img {
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.07),
+    0 12px 30px rgb(0 0 0 / 0.45);
+}
+
+.screenGrid figcaption {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: var(--ink-soft);
+}
+
+/* 이전 / 다음 — 책장을 넘기듯 */
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 96px;
+  padding-top: 28px;
+  border-top: 1px solid rgb(255 255 255 / 0.07);
+}
+
+.pagerLink {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 150ms ease;
+  word-break: keep-all;
+}
+
+.pagerLink:hover { color: var(--brass); }
+
+@media (max-width: 560px) {
+  .page { padding: 84px 20px 110px; }
+  .body { font-size: 16px; }
+  .cover { margin-bottom: 44px; }
+  .screens { margin-top: 60px; }
+  .screenGrid { grid-template-columns: repeat(2, 1fr); }
+  .pager { margin-top: 72px; }
+}

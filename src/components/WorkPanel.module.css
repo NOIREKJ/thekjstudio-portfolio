@@ -1,0 +1,91 @@
+.panel {
+  width: 100%;
+  max-width: 780px;
+  margin: 88px auto 0;
+  padding: 0 28px;
+}
+
+.deckRow {
+  display: flex;
+  align-items: center;
+  gap: 52px;
+}
+
+/* 판이 바뀌면 정보가 재질처럼 떠오른다 — 뚝 바뀌지 않게 */
+.info {
+  min-width: 0;
+  transition: opacity 240ms ease, transform 240ms var(--ease-out-strong), filter 240ms ease;
+  @starting-style {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(3px);
+  }
+}
+
+.nowPlaying {
+  margin: 0 0 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.standby {
+  margin: 0 0 10px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.idleHint {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--ink-soft);
+  word-break: keep-all;
+}
+
+.title {
+  margin: 0 0 14px;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
+}
+
+.body {
+  margin: 0 0 20px;
+  font-size: 15.5px;
+  line-height: 1.85;
+  color: var(--ink-soft);
+  white-space: pre-line;
+  word-break: keep-all;
+}
+
+.link {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--brass);
+  text-decoration: none;
+  border-bottom: 1px solid rgb(201 168 106 / 0.4);
+  padding-bottom: 3px;
+  transition: border-color 150ms ease;
+}
+
+.link:hover { border-color: var(--brass); }
+
+@media (max-width: 700px) {
+  .panel { margin-top: 60px; padding: 0 20px; }
+  .deckRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+  .title { font-size: 22px; }
+}
