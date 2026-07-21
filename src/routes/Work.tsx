@@ -32,14 +32,32 @@ export function Work() {
         ♪ {work.note} · {work.year}
       </p>
 
+      {work.cover && (
+        <img
+          className={styles.cover}
+          src={work.cover}
+          alt={`${work.title} 커버`}
+        />
+      )}
+
       <div className={styles.body}>{work.body}</div>
 
-      {work.images.length > 0 && (
-        <div className={styles.gallery} aria-label={`${work.title} 화면`}>
-          {work.images.map((src) => (
-            <img key={src} src={src} alt={`${work.title} 화면`} loading="lazy" />
-          ))}
-        </div>
+      {work.screens.length > 0 && (
+        <section className={styles.screens} aria-label={`${work.title} 화면`}>
+          <p className={styles.screensLabel}>Screens — 화면</p>
+          <div className={styles.screenGrid}>
+            {work.screens.map((screen) => (
+              <figure key={screen.src}>
+                <img
+                  src={screen.src}
+                  alt={screen.caption || `${work.title} 화면`}
+                  loading="lazy"
+                />
+                {screen.caption && <figcaption>{screen.caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        </section>
       )}
 
       <nav className={styles.pager} aria-label="다른 작업">

@@ -57,27 +57,54 @@
   word-break: keep-all;
 }
 
-/* 필름스트립 — 옆으로 넘겨 보는 화면들 */
-.gallery {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  margin: 64px -28px 0;
-  padding: 6px 28px 20px;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: thin;
-  scrollbar-color: #35343c transparent;
-}
-
-.gallery img {
-  height: 400px;
-  width: auto;
-  flex-shrink: 0;
-  border-radius: 10px;
-  scroll-snap-align: start;
+/* 커버 — 음반 재킷처럼 제목 아래 한 장 */
+.cover {
+  display: block;
+  width: 100%;
+  margin: 0 0 56px;
+  border-radius: 12px;
   box-shadow:
     inset 0 0 0 1px rgb(255 255 255 / 0.06),
-    0 16px 40px rgb(0 0 0 / 0.5);
+    0 20px 48px rgb(0 0 0 / 0.5);
+}
+
+/* 화면들 — 캡션 달린 그리드. 원본 문서의 App Store Preview를 잇는다 */
+.screens { margin-top: 80px; }
+
+.screensLabel {
+  margin: 0 0 24px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.screenGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 28px 16px;
+}
+
+.screenGrid figure { margin: 0; }
+
+.screenGrid img {
+  display: block;
+  width: 100%;
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.07),
+    0 12px 30px rgb(0 0 0 / 0.45);
+}
+
+.screenGrid figcaption {
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: var(--ink-soft);
 }
 
 /* 이전 / 다음 — 책장을 넘기듯 */
@@ -105,7 +132,8 @@
 @media (max-width: 560px) {
   .page { padding: 84px 20px 110px; }
   .body { font-size: 16px; }
-  .gallery { margin: 48px -20px 0; padding: 6px 20px 16px; }
-  .gallery img { height: 300px; }
+  .cover { margin-bottom: 44px; }
+  .screens { margin-top: 60px; }
+  .screenGrid { grid-template-columns: repeat(2, 1fr); }
   .pager { margin-top: 72px; }
 }

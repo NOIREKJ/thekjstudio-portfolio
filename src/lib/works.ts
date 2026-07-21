@@ -3,6 +3,8 @@ import { noteToFrequency } from "./note";
 
 export type WorkKind = "music" | "app";
 
+export type Screen = { src: string; caption: string };
+
 export type Work = {
   slug: string;
   title: string;
@@ -10,7 +12,8 @@ export type Work = {
   note: string;
   sound?: string;
   year: number;
-  images: string[];
+  cover?: string;
+  screens: Screen[];
   body: string;
 };
 
@@ -35,13 +38,18 @@ export function buildWorks(modules: Record<string, string>): Work[] {
       note: String(data.note),
       sound: data.sound === undefined ? undefined : String(data.sound),
       year: Number(data.year),
-      images:
-        data.images === undefined
+      cover: data.cover === undefined ? undefined : String(data.cover),
+      screens:
+        data.screens === undefined
           ? []
-          : String(data.images)
+          : String(data.screens)
               .split(",")
               .map((s) => s.trim())
-              .filter(Boolean),
+              .filter(Boolean)
+              .map((entry) => {
+                const [src, caption = ""] = entry.split("|").map((s) => s.trim());
+                return { src, caption };
+              }),
       body,
     };
   });

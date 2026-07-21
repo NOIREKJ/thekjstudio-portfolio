@@ -40,18 +40,30 @@ test("sound가 있으면 그대로 싣는다", () => {
   expect(works[0].sound).toBe("/audio/x.mp3");
 });
 
-test("images는 쉼표로 구분된 목록이다", () => {
+test("cover와 캡션 달린 screens를 읽는다", () => {
   const works = buildWorks({
-    "/src/works/x.md": `---\ntitle: "X"\nkind: app\nnote: C4\nyear: 2026\nimages: /a.png, /b.png\n---\n본문`,
+    "/src/works/x.md": `---\ntitle: "X"\nkind: app\nnote: C4\nyear: 2026\ncover: /c.png\nscreens: /a.png|로그인, /b.png|결제 홈\n---\n본문`,
   });
-  expect(works[0].images).toEqual(["/a.png", "/b.png"]);
+  expect(works[0].cover).toBe("/c.png");
+  expect(works[0].screens).toEqual([
+    { src: "/a.png", caption: "로그인" },
+    { src: "/b.png", caption: "결제 홈" },
+  ]);
 });
 
-test("images가 없으면 빈 배열이다", () => {
+test("캡션이 없는 screen은 빈 캡션이 된다", () => {
+  const works = buildWorks({
+    "/src/works/x.md": `---\ntitle: "X"\nkind: app\nnote: C4\nyear: 2026\nscreens: /a.png\n---\n본문`,
+  });
+  expect(works[0].screens).toEqual([{ src: "/a.png", caption: "" }]);
+});
+
+test("cover·screens가 없으면 비어 있다", () => {
   const works = buildWorks({
     "/src/works/x.md": `---\ntitle: "X"\nkind: music\nnote: C4\nyear: 2024\n---\n본문`,
   });
-  expect(works[0].images).toEqual([]);
+  expect(works[0].cover).toBeUndefined();
+  expect(works[0].screens).toEqual([]);
 });
 
 test("필수 필드가 없으면 어느 파일인지 알려주며 실패한다", () => {
