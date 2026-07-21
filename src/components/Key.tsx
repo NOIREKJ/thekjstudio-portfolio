@@ -1,19 +1,21 @@
 import type { Work } from "../lib/works";
 import styles from "./Key.module.css";
 
-type Props = {
+export function Key({ work, letter, pressed, onPress }: {
   work: Work;
   letter?: string;
   pressed: boolean;
   onPress: (slug: string) => void;
-};
+}) {
+  // 건반에는 짧은 이름만 새긴다. 전체 제목은 라벨과 패널의 몫이다.
+  const shortTitle = work.title.split(" (")[0];
 
-export function Key({ work, letter, pressed, onPress }: Props) {
   return (
     <button
       type="button"
       className={`${styles.key} ${styles[work.kind]}`}
       aria-pressed={pressed}
+      aria-label={`${work.title} — ${work.kind} · ${work.year}`}
       onPointerDown={() => onPress(work.slug)}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -27,7 +29,7 @@ export function Key({ work, letter, pressed, onPress }: Props) {
           {letter}
         </span>
       )}
-      <span className={styles.title}>{work.title}</span>
+      <span className={styles.title}>{shortTitle}</span>
       <span className={styles.meta}>
         {work.kind} · {work.year}
       </span>

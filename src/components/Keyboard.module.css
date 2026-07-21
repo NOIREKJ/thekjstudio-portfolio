@@ -11,10 +11,11 @@
   touch-action: manipulation;
 }
 
+/* 폰: 2열 카드가 아니라 다섯 건반이 한 줄 — 실제 건반의 문법 */
 @media (max-width: 560px) {
   .keyboard {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-    padding: 0 20px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+    padding: 0 14px;
   }
 }

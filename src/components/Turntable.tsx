@@ -30,7 +30,8 @@ export function Turntable({
       </div>
 
       <div className={styles.controls}>
-        <span className={styles.speed}>33⅓</span>
+        <span className={styles.speed}>33⅓ RPM</span>
+        <span className={styles.brand}>the KJ Studio</span>
         <span className={styles.power} data-on={spinning} />
       </div>
     </div>
