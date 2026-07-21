@@ -1,30 +1,49 @@
 .panel {
   width: 100%;
-  max-width: 600px;
-  margin: 64px auto 0;
-  padding: 0 28px;
+  max-width: 680px;
+  margin: 72px auto 0;
+  padding: 28px 28px 0;
+  border-top: 1px solid #2a2932;
+
+  /* 등장은 요소가 붙는 순간 한 번 — transition이라 도중에 끊겨도 부드럽다 */
+  transition: opacity 300ms var(--ease-out-strong), transform 300ms var(--ease-out-strong);
+  @starting-style {
+    opacity: 0;
+    transform: translateY(10px);
+  }
 }
 
 .title {
   margin: 0 0 12px;
-  font-size: 22px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  word-break: keep-all;
 }
 
 .body {
-  margin: 0 0 20px;
+  margin: 0 0 22px;
   font-size: 16px;
-  line-height: 1.85;
+  line-height: 1.9;
   color: var(--ink-soft);
   white-space: pre-line;
+  word-break: keep-all;
 }
 
 .link {
-  font-size: 13px;
-  letter-spacing: 0.02em;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--brass);
+  text-decoration: none;
+  border-bottom: 1px solid rgb(201 168 106 / 0.4);
+  padding-bottom: 3px;
+  transition: border-color 150ms ease;
 }
 
+.link:hover { border-color: var(--brass); }
+
 @media (max-width: 560px) {
-  .panel { margin-top: 44px; padding: 0 20px; }
+  .panel { margin-top: 48px; padding: 24px 20px 0; }
+  .title { font-size: 22px; }
 }

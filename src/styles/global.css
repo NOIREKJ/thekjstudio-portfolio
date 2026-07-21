@@ -1,25 +1,47 @@
 :root {
-  /* 무대 — 어두운 홀, 조명 꺼진 피아노 옆 */
-  --stage: #131215;
-  --stage-deep: #0c0b0e;
-  --ink: #e9e6df;
-  --ink-soft: #97928a;
+  /* 무대 — 조명이 하나 켜진 어두운 홀 */
+  --stage: #101014;
+  --ink: #ece9e2;
+  --ink-soft: #8f8a81;
+  /* 놋쇠 — 피아노 페달·경첩의 금속. 포인트는 이 하나만 쓴다 */
+  --brass: #c9a86a;
 
-  --serif: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia,
-    AppleMyungjo, "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
+  --serif: "Fraunces", "Noto Serif KR", "Iowan Old Style", Georgia,
+    "Apple SD Gothic Neo", serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+
+  /* 기성 커브는 힘이 없다 */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: var(--stage);
+  background:
+    radial-gradient(1100px 640px at 50% -10%, #232230 0%, rgb(35 34 48 / 0) 62%),
+    var(--stage);
   color: var(--ink);
   font-family: var(--serif);
   -webkit-font-smoothing: antialiased;
 }
 
-a { color: inherit; text-underline-offset: 3px; }
+/* 필름 그레인 — 균일한 검정은 화면처럼 보이고, 약간의 입자는 공간처럼 보인다 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+#root { position: relative; z-index: 2; }
+
+a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+
+::selection { background: var(--brass); color: #131215; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

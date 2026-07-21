@@ -3,25 +3,29 @@
   top: 22px;
   right: 24px;
   z-index: 10;
-  padding: 8px 15px;
-  border: 1px solid #3b3a40;
+  padding: 9px 16px;
+  border: 1px solid #3a3944;
   border-radius: 999px;
-  background: transparent;
+  background: rgb(16 16 20 / 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: var(--ink-soft);
-  font-family: inherit;
-  font-size: 12px;
-  letter-spacing: 0.04em;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
   cursor: pointer;
-  transition: border-color 140ms ease, color 140ms ease;
+  transition: border-color 150ms ease, color 150ms ease, transform 120ms var(--ease-out-strong);
 }
 
 .toggle:hover {
-  border-color: #6a6870;
+  border-color: var(--brass);
   color: var(--ink);
 }
 
+.toggle:active { transform: scale(0.96); }
+
 .toggle:focus-visible {
-  outline: 2px solid #cdc7b6;
+  outline: 2px solid var(--brass);
   outline-offset: 3px;
 }
 

@@ -53,10 +53,12 @@ export function Home() {
     <main className={styles.page}>
       <MuteToggle muted={muted} onToggle={toggleMute} />
 
-      <div className={styles.intro}>
-        <h1 className={styles.headline}>음악을 쓰고 앱을 만듭니다.</h1>
-        <p className={styles.hint}>아래를 눌러보세요. 여러 개를 같이 눌러도 됩니다.</p>
-      </div>
+      <header className={styles.intro}>
+        <p className={styles.overline}>Composer · App Developer</p>
+        <h1 className={styles.headline}>the KJ Studio</h1>
+        <p className={styles.sub}>음악을 쓰고, 앱을 만듭니다.</p>
+        <p className={styles.hint}>건반을 눌러보세요 — 같이 누르면 화음이 됩니다</p>
+      </header>
 
       <Keyboard works={works} selected={selected} onPress={press} />
 

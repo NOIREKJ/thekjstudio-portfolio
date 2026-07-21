@@ -2,80 +2,109 @@
   피아노.
   음악은 상아(흰건반), 앱은 흑단(검은건반) — 음 높이 순서가 곧
   앱·음악 교차라서, 배치가 그대로 건반 무늬가 된다.
-  검은건반이 실제 피아노처럼 짧고 살짝 떠 있다.
+  검은건반이 실제 피아노처럼 짧고, 상아 건반이 무대 조명을 받는다.
 
   누르면 건반이 아래로 꺼진다: 옆면(단색 그림자)이 사라지는 만큼.
 */
 .key {
-  --key-lift: 7px;
+  --key-lift: 8px;
 
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 6px;
+  gap: 7px;
   border: none;
-  border-radius: 3px 3px 10px 10px;
+  border-radius: 4px 4px 12px 12px;
   text-align: left;
   cursor: pointer;
   font-family: inherit;
-  padding: 30px 18px 24px;
+  padding: 32px 20px 26px;
 
   transition:
-    transform 70ms cubic-bezier(0.25, 0, 0.35, 1),
-    box-shadow 70ms cubic-bezier(0.25, 0, 0.35, 1),
-    filter 70ms ease;
+    transform 90ms var(--ease-out-strong),
+    box-shadow 90ms var(--ease-out-strong),
+    filter 150ms ease;
+
+  /* 입장: 한 번뿐인 막 오르는 순간이라 애니메이션을 허락한다 */
+  animation: keyIn 600ms var(--ease-out-strong) backwards;
+}
+
+.key:nth-child(1) { animation-delay: 60ms; }
+.key:nth-child(2) { animation-delay: 120ms; }
+.key:nth-child(3) { animation-delay: 180ms; }
+.key:nth-child(4) { animation-delay: 240ms; }
+.key:nth-child(5) { animation-delay: 300ms; }
+
+@keyframes keyIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
 }
 
 /* 상아 — 음악 */
 .music {
-  min-height: 240px;
-  color: #2c2a25;
-  background: linear-gradient(175deg, #f4f1e8 0%, #e9e5d8 70%, #ddd8c8 100%);
+  min-height: 248px;
+  color: #262420;
+  background: linear-gradient(176deg, #f7f4ec 0%, #ebe7da 68%, #ddd8c8 100%);
   box-shadow:
-    0 var(--key-lift) 0 #b3ad9c,
-    0 calc(var(--key-lift) + 8px) 22px rgb(0 0 0 / 0.55);
+    inset 0 1px 0 rgb(255 255 255 / 0.9),
+    0 var(--key-lift) 0 #a9a390,
+    0 calc(var(--key-lift) + 10px) 26px rgb(0 0 0 / 0.6);
 }
 
-/* 흑단 — 앱. 실제 검은건반처럼 짧다 */
+/* 흑단 — 앱. 실제 검은건반처럼 짧다.
+   무대에 묻히지 않도록 윗면 하이라이트와 헤어라인 테두리를 준다 */
 .app {
-  min-height: 196px;
-  color: #dcd9d2;
-  background: linear-gradient(175deg, #34333a 0%, #232228 60%, #1a191e 100%);
+  min-height: 200px;
+  color: #e6e3dc;
+  background: linear-gradient(176deg, #45444f 0%, #302f38 55%, #232229 100%);
   box-shadow:
-    0 var(--key-lift) 0 #060608,
-    0 calc(var(--key-lift) + 8px) 22px rgb(0 0 0 / 0.65);
+    inset 0 1px 0 rgb(255 255 255 / 0.18),
+    inset 0 0 0 1px rgb(255 255 255 / 0.07),
+    0 var(--key-lift) 0 #0a0a0d,
+    0 calc(var(--key-lift) + 10px) 26px rgb(0 0 0 / 0.7);
 }
 
-.music:hover { filter: brightness(1.03); }
-.app:hover   { filter: brightness(1.12); }
+@media (hover: hover) and (pointer: fine) {
+  .music:hover { filter: brightness(1.03); }
+  .app:hover   { filter: brightness(1.16); }
+}
 
 .key:focus-visible {
-  outline: 2px solid #cdc7b6;
-  outline-offset: 5px;
+  outline: 2px solid var(--brass);
+  outline-offset: 6px;
 }
 
-/* 눌린 건반: 꺼진다 */
+/* 누르는 순간 즉시 반응한다 — aria-pressed(리렌더)를 기다리지 않는다 */
+.key:active,
 .key[aria-pressed="true"] {
   --key-lift: 1px;
-  transform: translateY(6px);
+  transform: translateY(7px);
 }
-.music[aria-pressed="true"] { background: linear-gradient(175deg, #e6e2d4, #d4cfbe); }
-.app[aria-pressed="true"]   { background: linear-gradient(175deg, #2a2930, #161519); }
+.music[aria-pressed="true"], .music:active {
+  background: linear-gradient(176deg, #eae6d7, #d6d1c0);
+}
+.app[aria-pressed="true"], .app:active {
+  background: linear-gradient(176deg, #3a3943, #1e1d24);
+}
 
 .letter {
   position: absolute;
-  top: 14px;
+  top: 16px;
   left: 50%;
   transform: translateX(-50%);
+  font-family: var(--mono);
   font-size: 10px;
-  letter-spacing: 0.18em;
-  opacity: 0.4;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  opacity: 0.45;
   text-transform: uppercase;
 }
 
 .title {
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 600;
   line-height: 1.35;
   letter-spacing: -0.01em;
@@ -85,8 +114,9 @@
 }
 
 .meta {
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  opacity: 0.6;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  opacity: 0.58;
   text-transform: lowercase;
 }
