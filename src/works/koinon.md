@@ -3,6 +3,7 @@ title: "KOINON (코이논)"
 kind: app
 note: A4
 year: 2026
+cover: /images/projects/hanil-church/main-icon.png
 screens: /images/projects/hanil-church/home-screen1.png|메인 대시보드, /images/projects/hanil-church/home-screen2.png|실시간 예배 & VOD, /images/projects/hanil-church/home-screen3.png|스마트 교인 요람, /images/projects/hanil-church/home-screen4.png|교회 캘린더, /images/projects/hanil-church/home-screen5.png|마이페이지
 ---
 

@@ -1,4 +1,5 @@
 .page {
+  position: relative;
   padding: 116px 0 160px;
   /* 오른쪽으로 삐져나가는 LP가 가로 스크롤을 만들면 안 된다 */
   overflow-x: clip;
@@ -130,49 +131,6 @@
   background-size: 100% 36px;
 }
 
-/* 소개 미리보기 */
-.about {
-  max-width: 680px;
-  margin: 110px auto 0;
-  padding: 0 28px;
-}
-
-.aboutOverline {
-  margin: 0 0 22px;
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--brass);
-}
-
-.aboutBody {
-  margin: 0 0 24px;
-  max-width: 540px;
-  font-size: 16.5px;
-  line-height: 2.0;
-  color: var(--ink);
-  opacity: 0.82;
-  word-break: keep-all;
-}
-
-.aboutLink {
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--ink-soft);
-  text-decoration: none;
-  border-bottom: 1px solid #35343c;
-  padding-bottom: 3px;
-  transition: color 150ms ease, border-color 150ms ease;
-}
-
-.aboutLink:hover {
-  color: var(--brass);
-  border-color: var(--brass);
-}
-
 @media (max-width: 900px) {
   .heroVinyl { display: none; }
   .heroGrid {
@@ -187,5 +145,4 @@
   .page { padding: 90px 0 110px; }
   .intro { margin-bottom: 48px; padding: 0 20px; }
   .stage { padding: 24px 0; }
-  .about { margin-top: 80px; padding: 0 20px; }
 }

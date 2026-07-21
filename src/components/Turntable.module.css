@@ -1,0 +1,115 @@
+/* 플린터 — 어두운 목재 데크 */
+.deck {
+  position: relative;
+  flex-shrink: 0;
+  width: 288px;
+  padding: 22px;
+  border-radius: 16px;
+  background: linear-gradient(168deg, #282329 0%, #1c181d 60%, #151217 100%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    inset 0 0 0 1px rgb(255 255 255 / 0.05),
+    0 22px 48px rgb(0 0 0 / 0.55);
+}
+
+/* 플래터 — 판이 얹히는 자리 */
+.platter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 196px;
+  height: 196px;
+  border-radius: 50%;
+  background: #121116;
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.05),
+    inset 0 4px 10px rgb(0 0 0 / 0.6);
+}
+
+/* 톤암 — 재생이면 판 위로 내려앉는다 */
+.tonearm {
+  position: absolute;
+  top: 20px;
+  right: 26px;
+}
+
+.pivot {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #6b6a73, #3a393f 70%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.25),
+    0 4px 10px rgb(0 0 0 / 0.5);
+}
+
+.counterweight {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 12px;
+  border-radius: 3px;
+  background: linear-gradient(#55545c, #2e2d33);
+}
+
+.arm {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  width: 5px;
+  height: 128px;
+  margin-left: -2.5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #8e8d96, #5a595f);
+  transform-origin: 50% -9px;
+  transform: rotate(-22deg);
+  transition: transform 700ms cubic-bezier(0.3, 0, 0.2, 1);
+  box-shadow: 0 6px 14px rgb(0 0 0 / 0.45);
+}
+
+.tonearm[data-playing="true"] .arm {
+  transform: rotate(9deg);
+}
+
+.headshell {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%) rotate(4deg);
+  width: 13px;
+  height: 24px;
+  border-radius: 4px 4px 6px 6px;
+  background: linear-gradient(#3c3b42, #232228);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.15);
+}
+
+/* 속도 표시와 전원등 */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.speed {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ink-soft);
+}
+
+.power {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3a3940;
+  transition: background 250ms ease, box-shadow 250ms ease;
+}
+
+.power[data-on="true"] {
+  background: var(--brass);
+  box-shadow: 0 0 10px rgb(201 168 106 / 0.7);
+}
