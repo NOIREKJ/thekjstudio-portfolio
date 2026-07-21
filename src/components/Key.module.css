@@ -1,0 +1,47 @@
+.key {
+  --key-radius: 14px;
+  --key-min-height: 180px;
+  --key-tint: 200;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+  min-height: var(--key-min-height);
+  padding: 16px;
+  border: none;
+  border-radius: var(--key-radius);
+  background: hsl(var(--key-tint) 30% 92%);
+  color: hsl(var(--key-tint) 40% 20%);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 120ms ease, background-color 120ms ease;
+}
+
+.key:hover { background: hsl(var(--key-tint) 35% 88%); }
+
+.key:focus-visible {
+  outline: 3px solid hsl(var(--key-tint) 50% 35%);
+  outline-offset: 3px;
+}
+
+.key[aria-pressed="true"] {
+  transform: translateY(6px);
+  background: hsl(var(--key-tint) 45% 78%);
+}
+
+.music { --key-tint: 150; }
+.app { --key-tint: 220; }
+
+.letter {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0.45;
+  text-transform: uppercase;
+}
+
+.title { font-size: 15px; font-weight: 650; }
+.meta { font-size: 11px; opacity: 0.65; text-transform: lowercase; }

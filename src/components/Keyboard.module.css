@@ -1,0 +1,10 @@
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px;
+  touch-action: manipulation;
+}

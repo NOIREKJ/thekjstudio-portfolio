@@ -1,0 +1,10 @@
+.panel {
+  width: 100%;
+  max-width: 640px;
+  margin: 32px auto 0;
+  padding: 0 16px;
+}
+
+.title { margin: 0 0 8px; font-size: 20px; }
+.body { margin: 0 0 16px; line-height: 1.75; opacity: 0.8; white-space: pre-line; }
+.link { font-size: 14px; }
