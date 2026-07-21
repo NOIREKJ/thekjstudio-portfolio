@@ -4,7 +4,7 @@
   right: 24px;
   z-index: 10;
   padding: 8px 15px;
-  border: 1px solid hsl(34 14% 62%);
+  border: 1px solid #3b3a40;
   border-radius: 999px;
   background: transparent;
   color: var(--ink-soft);
@@ -16,12 +16,12 @@
 }
 
 .toggle:hover {
-  border-color: hsl(34 16% 48%);
+  border-color: #6a6870;
   color: var(--ink);
 }
 
 .toggle:focus-visible {
-  outline: 2px solid hsl(34 30% 40%);
+  outline: 2px solid #cdc7b6;
   outline-offset: 3px;
 }
 

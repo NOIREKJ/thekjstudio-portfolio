@@ -1,9 +1,9 @@
 :root {
-  /* 땅 — 흙빛 종이 */
-  --ground: #e9e4da;
-  --ground-deep: #ddd6c9;
-  --ink: #35302a;
-  --ink-soft: #6b6357;
+  /* 무대 — 어두운 홀, 조명 꺼진 피아노 옆 */
+  --stage: #131215;
+  --stage-deep: #0c0b0e;
+  --ink: #e9e6df;
+  --ink-soft: #97928a;
 
   --serif: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia,
     AppleMyungjo, "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
@@ -13,7 +13,7 @@
 
 body {
   margin: 0;
-  background: var(--ground);
+  background: var(--stage);
   color: var(--ink);
   font-family: var(--serif);
   -webkit-font-smoothing: antialiased;

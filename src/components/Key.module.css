@@ -1,74 +1,71 @@
 /*
-  돌.
-  형태는 다섯 개가 모두 같은 재질이고, 다른 것은 광물뿐이다 —
-  음악은 따뜻한 사암, 앱은 차가운 슬레이트. 같은 땅에서 나온 다른 돌.
-  두 세계를 한 재질로 묶기 위해 모양으로는 구분하지 않는다.
+  피아노.
+  음악은 상아(흰건반), 앱은 흑단(검은건반) — 음 높이 순서가 곧
+  앱·음악 교차라서, 배치가 그대로 건반 무늬가 된다.
+  검은건반이 실제 피아노처럼 짧고 살짝 떠 있다.
 
-  반지름은 px로 준다. 퍼센트를 쓰면 어떤 값을 넣어도 타원(달걀)이 되고,
-  글자가 실루엣 밖으로 새어나간다. 돌은 몸통이 각지고 모서리만 닳은 것이다.
+  누르면 건반이 아래로 꺼진다: 옆면(단색 그림자)이 사라지는 만큼.
 */
 .key {
-  --stone-hue: 34;
-  --stone-sat: 16%;
-  --stone-light: 62%;
-  --stone-lift: 7px;
+  --key-lift: 7px;
 
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   gap: 6px;
-  min-height: 200px;
-  padding: 34px 22px 26px;
   border: none;
+  border-radius: 3px 3px 10px 10px;
   text-align: left;
   cursor: pointer;
   font-family: inherit;
-  color: hsl(var(--stone-hue) 24% 19%);
-
-  background: linear-gradient(
-    158deg,
-    hsl(var(--stone-hue) var(--stone-sat) calc(var(--stone-light) + 9%)),
-    hsl(var(--stone-hue) var(--stone-sat) calc(var(--stone-light) - 11%))
-  );
-
-  /* 두께: 아래로 깔린 단색 그림자가 돌의 옆면이다 */
-  box-shadow:
-    0 var(--stone-lift) 0 hsl(var(--stone-hue) calc(var(--stone-sat) - 4%) calc(var(--stone-light) - 25%)),
-    0 calc(var(--stone-lift) + 6px) 18px hsl(var(--stone-hue) 20% 30% / 0.28);
+  padding: 30px 18px 24px;
 
   transition:
-    transform 90ms cubic-bezier(0.2, 0, 0.3, 1),
-    box-shadow 90ms cubic-bezier(0.2, 0, 0.3, 1);
+    transform 70ms cubic-bezier(0.25, 0, 0.35, 1),
+    box-shadow 70ms cubic-bezier(0.25, 0, 0.35, 1),
+    filter 70ms ease;
 }
 
-.music { --stone-hue: 33; --stone-sat: 21%; --stone-light: 64%; }
-.app   { --stone-hue: 199; --stone-sat: 8%;  --stone-light: 61%; }
+/* 상아 — 음악 */
+.music {
+  min-height: 240px;
+  color: #2c2a25;
+  background: linear-gradient(175deg, #f4f1e8 0%, #e9e5d8 70%, #ddd8c8 100%);
+  box-shadow:
+    0 var(--key-lift) 0 #b3ad9c,
+    0 calc(var(--key-lift) + 8px) 22px rgb(0 0 0 / 0.55);
+}
 
-/* 다섯 개가 저마다 다르게 닳도록. 자연물은 반복되지 않는다 */
-.key:nth-child(5n + 1) { border-radius: 54px 30px 46px 38px / 42px 50px 34px 48px; margin-top: 0; }
-.key:nth-child(5n + 2) { border-radius: 32px 52px 36px 48px / 46px 34px 52px 38px; margin-top: 16px; }
-.key:nth-child(5n + 3) { border-radius: 46px 36px 54px 30px / 34px 48px 40px 52px; margin-top: 6px; }
-.key:nth-child(5n + 4) { border-radius: 38px 48px 32px 54px / 52px 36px 46px 34px; margin-top: 22px; }
-.key:nth-child(5n + 5) { border-radius: 50px 34px 42px 44px / 38px 52px 32px 46px; margin-top: 9px; }
+/* 흑단 — 앱. 실제 검은건반처럼 짧다 */
+.app {
+  min-height: 196px;
+  color: #dcd9d2;
+  background: linear-gradient(175deg, #34333a 0%, #232228 60%, #1a191e 100%);
+  box-shadow:
+    0 var(--key-lift) 0 #060608,
+    0 calc(var(--key-lift) + 8px) 22px rgb(0 0 0 / 0.65);
+}
 
-.key:hover { --stone-light: 66%; }
+.music:hover { filter: brightness(1.03); }
+.app:hover   { filter: brightness(1.12); }
 
 .key:focus-visible {
-  outline: 2px solid hsl(var(--stone-hue) 30% 32%);
-  outline-offset: 7px;
+  outline: 2px solid #cdc7b6;
+  outline-offset: 5px;
 }
 
-/* 누르면 돌이 땅으로 내려앉는다 — 옆면이 사라지는 만큼 내려간다 */
+/* 눌린 건반: 꺼진다 */
 .key[aria-pressed="true"] {
-  --stone-lift: 1px;
-  --stone-light: 55%;
+  --key-lift: 1px;
   transform: translateY(6px);
 }
+.music[aria-pressed="true"] { background: linear-gradient(175deg, #e6e2d4, #d4cfbe); }
+.app[aria-pressed="true"]   { background: linear-gradient(175deg, #2a2930, #161519); }
 
 .letter {
   position: absolute;
-  top: 15px;
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 10px;
@@ -90,6 +87,6 @@
 .meta {
   font-size: 11px;
   letter-spacing: 0.06em;
-  opacity: 0.62;
+  opacity: 0.6;
   text-transform: lowercase;
 }

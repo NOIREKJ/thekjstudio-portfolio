@@ -1,8 +1,8 @@
-/* 돌은 줄 맞춰 놓이지 않는다. 격자는 쓰되 각 돌이 제 높이를 갖는다(Key.module.css) */
+/* 건반은 붙어서 놓인다. 위쪽 정렬 — 검은건반이 짧아도 시작선은 같다 */
 .keyboard {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
-  gap: 18px;
+  gap: 8px;
   align-items: start;
   width: 100%;
   max-width: 880px;
@@ -14,7 +14,7 @@
 @media (max-width: 560px) {
   .keyboard {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 8px;
     padding: 0 20px;
   }
 }
