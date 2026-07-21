@@ -1,7 +1,7 @@
 ---
 title: "NOIRE"
 kind: app
-note: E4
+note: C4
 year: 2026
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: "위로 (Consolation)"
 kind: music
-note: C4
+note: D4
 year: 2024
 ---
 

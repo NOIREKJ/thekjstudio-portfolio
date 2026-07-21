@@ -1,4 +1,5 @@
 import { parseFrontmatter } from "./frontmatter";
+import { noteToFrequency } from "./note";
 
 export type WorkKind = "music" | "app";
 
@@ -37,7 +38,10 @@ export function buildWorks(modules: Record<string, string>): Work[] {
     };
   });
 
-  return works.sort((a, b) => b.year - a.year || a.slug.localeCompare(b.slug));
+  // 음 높이 오름차순. 왼쪽이 낮은음, 오른쪽이 높은음 — 악기의 순서다.
+  // 연도순으로 두면 음악(2024)과 앱(2026)이 좌우로 갈라져 버린다.
+  // 두 세계는 섞여 있어야 하므로, 섞이도록 음을 배정하고 음 높이로 정렬한다.
+  return works.sort((a, b) => noteToFrequency(a.note) - noteToFrequency(b.note));
 }
 
 const modules = import.meta.glob("../works/*.md", {

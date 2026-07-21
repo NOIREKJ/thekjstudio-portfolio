@@ -10,8 +10,17 @@ test("파일명에서 slug를 뽑는다", () => {
   expect(works.map((w) => w.slug).sort()).toEqual(["consolation", "noire"]);
 });
 
-test("연도 내림차순으로 정렬한다", () => {
-  expect(buildWorks(modules)[0].slug).toBe("noire");
+test("음 높이 오름차순으로 정렬한다 (왼쪽이 낮은음)", () => {
+  expect(buildWorks(modules).map((w) => w.slug)).toEqual(["consolation", "noire"]);
+});
+
+test("음악과 앱이 좌우로 갈라지지 않는다", () => {
+  const kinds = buildWorks({
+    "/src/works/a.md": `---\ntitle: "A"\nkind: app\nnote: C4\nyear: 2026\n---\n본문`,
+    "/src/works/b.md": `---\ntitle: "B"\nkind: music\nnote: D4\nyear: 2024\n---\n본문`,
+    "/src/works/c.md": `---\ntitle: "C"\nkind: app\nnote: E4\nyear: 2026\n---\n본문`,
+  }).map((w) => w.kind);
+  expect(kinds).toEqual(["app", "music", "app"]);
 });
 
 test("frontmatter를 타입이 있는 필드로 옮긴다", () => {

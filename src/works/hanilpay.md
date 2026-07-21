@@ -1,7 +1,7 @@
 ---
 title: "한일페이 (HANIL Pay)"
 kind: app
-note: G4
+note: E4
 year: 2026
 ---
 

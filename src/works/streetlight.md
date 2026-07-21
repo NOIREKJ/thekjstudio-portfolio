@@ -1,7 +1,7 @@
 ---
 title: "가로등 (Streetlight)"
 kind: music
-note: D4
+note: G4
 year: 2024
 ---
 
