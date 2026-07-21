@@ -21,9 +21,10 @@
   font-family: inherit;
   padding: 32px 20px 26px;
 
+  /* 놓을 때: 실제 건반처럼 살짝 튕기며 복귀 (모멘텀이 있는 동작에만 바운스) */
   transition:
-    transform 90ms var(--ease-out-strong),
-    box-shadow 90ms var(--ease-out-strong),
+    transform 240ms cubic-bezier(0.34, 1.45, 0.64, 1),
+    box-shadow 240ms cubic-bezier(0.34, 1.45, 0.64, 1),
     filter 150ms ease;
 
   /* 입장: 한 번뿐인 막 오르는 순간이라 애니메이션을 허락한다 */
@@ -77,11 +78,14 @@
   outline-offset: 6px;
 }
 
-/* 누르는 순간 즉시 반응한다 — aria-pressed(리렌더)를 기다리지 않는다 */
+/* 누르는 순간 즉시 반응한다 — aria-pressed(리렌더)를 기다리지 않고,
+   내려갈 때는 튕김 없이 빠르게 (반응은 즉각, 복귀만 스프링) */
 .key:active,
 .key[aria-pressed="true"] {
   --key-lift: 1px;
   transform: translateY(7px);
+  transition-duration: 70ms, 70ms, 150ms;
+  transition-timing-function: cubic-bezier(0.3, 0, 0.4, 1), cubic-bezier(0.3, 0, 0.4, 1), ease;
 }
 .music[aria-pressed="true"], .music:active {
   background: linear-gradient(176deg, #eae6d7, #d6d1c0);

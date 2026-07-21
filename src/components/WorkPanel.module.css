@@ -11,7 +11,16 @@
   gap: 52px;
 }
 
-.info { min-width: 0; }
+/* 판이 바뀌면 정보가 재질처럼 떠오른다 — 뚝 바뀌지 않게 */
+.info {
+  min-width: 0;
+  transition: opacity 240ms ease, transform 240ms var(--ease-out-strong), filter 240ms ease;
+  @starting-style {
+    opacity: 0;
+    transform: translateY(6px);
+    filter: blur(3px);
+  }
+}
 
 .nowPlaying {
   margin: 0 0 10px;

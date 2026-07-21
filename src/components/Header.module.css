@@ -9,10 +9,36 @@
   justify-content: space-between;
   height: 58px;
   padding: 0 28px;
-  background: rgb(16 16 20 / 0.65);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  background: rgb(16 16 20 / 0.6);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   border-bottom: 1px solid rgb(255 255 255 / 0.06);
+}
+
+/* 스크롤 엣지 — 고정 선 대신, 스크롤해야 나타나는 그림자 */
+@supports (animation-timeline: scroll()) {
+  .header {
+    border-bottom-color: transparent;
+    animation: headerEdge linear both;
+    animation-timeline: scroll();
+    animation-range: 0 90px;
+  }
+
+  @keyframes headerEdge {
+    to {
+      border-bottom-color: rgb(255 255 255 / 0.07);
+      box-shadow: 0 14px 34px rgb(0 0 0 / 0.4);
+    }
+  }
+}
+
+/* 투명도를 줄인 사용자에겐 유리 대신 벽을 */
+@media (prefers-reduced-transparency: reduce) {
+  .header {
+    background: #131215;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
 .mark {

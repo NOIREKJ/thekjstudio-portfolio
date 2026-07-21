@@ -25,7 +25,7 @@ export function WorkPanel({
           label={work ? `♪ ${work.note}` : undefined}
         />
 
-        <div className={styles.info}>
+        <div className={styles.info} key={work?.slug ?? "standby"}>
           {work ? (
             <>
               <p className={styles.nowPlaying}>Now Playing — ♪ {work.note}</p>
