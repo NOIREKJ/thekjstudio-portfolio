@@ -13,8 +13,25 @@
   }
 }
 
+.row {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-bottom: 18px;
+}
+
+.nowPlaying {
+  margin: 0 0 8px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
 .title {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 26px;
   font-weight: 900;
   letter-spacing: -0.02em;

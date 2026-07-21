@@ -4,6 +4,9 @@ import { Keyboard } from "../components/Keyboard";
 import { WorkPanel } from "../components/WorkPanel";
 import { WorkIndex } from "../components/WorkIndex";
 import { MuteToggle } from "../components/MuteToggle";
+import { Marquee } from "../components/Marquee";
+import { LocalTime } from "../components/LocalTime";
+import { Vinyl } from "../components/Vinyl";
 import { createAudioEngine } from "../audio/engine";
 import { getWorks } from "../lib/works";
 import styles from "./Home.module.css";
@@ -55,15 +58,49 @@ export function Home() {
       <MuteToggle muted={muted} onToggle={toggleMute} />
 
       <header className={styles.intro}>
-        <p className={styles.overline}>Composer · App Developer</p>
-        <h1 className={styles.headline}>the KJ Studio</h1>
+        <div className={styles.heroVinyl}>
+          <Vinyl size={560} duration="46s" label={"K_Joon_P\n— Op.05 —"} />
+        </div>
+        <div className={styles.heroGrid}>
+          <div>
+            <p className={styles.overline}>Composer · App Developer</p>
+            <h1 className={styles.headline}>
+              the KJ
+              <br />
+              <em>Studio</em>
+              <span className={styles.dot}>.</span>
+            </h1>
+          </div>
+
+          <dl className={styles.facts}>
+            <div className={styles.fact}>
+              <dt>Base</dt>
+              <dd>Seoul, KR</dd>
+            </div>
+            <div className={styles.fact}>
+              <dt>Local</dt>
+              <dd>
+                <LocalTime />
+              </dd>
+            </div>
+            <div className={styles.fact}>
+              <dt>Works</dt>
+              <dd>Op. 01 — 05</dd>
+            </div>
+          </dl>
+        </div>
+
         <p className={styles.sub}>음악을 쓰고, 앱을 만듭니다.</p>
         <p className={styles.hint}>건반을 눌러보세요 — 같이 누르면 화음이 됩니다</p>
       </header>
 
-      <Keyboard works={works} selected={selected} onPress={press} />
+      <div className={styles.stage}>
+        <Keyboard works={works} selected={selected} onPress={press} />
+      </div>
 
-      {selectedWork && <WorkPanel work={selectedWork} />}
+      {selectedWork && <WorkPanel work={selectedWork} spinning={!muted} />}
+
+      <Marquee text="음악을 쓰고, 앱을 만듭니다 — Composing &amp; Building, Seoul" />
 
       <WorkIndex works={works} />
 

@@ -1,14 +1,38 @@
-.page { padding: 116px 0 160px; }
+.page {
+  padding: 116px 0 160px;
+  /* 오른쪽으로 삐져나가는 LP가 가로 스크롤을 만들면 안 된다 */
+  overflow-x: clip;
+}
 
 .intro {
-  max-width: 680px;
-  margin: 0 auto 76px;
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto 72px;
   padding: 0 28px;
+}
+
+/* 턴테이블 위의 판 — 화면 밖에서 호(弧)만 걸쳐 천천히 돈다.
+   라벨이 글자와 겹치지 않도록 중심은 항상 화면 바깥에 둔다 */
+.heroVinyl {
+  position: absolute;
+  top: -120px;
+  right: -400px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.heroGrid {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 36px;
+  margin-bottom: 30px;
 }
 
 /* 직함 — 놋쇠 명판처럼 작게 */
 .overline {
-  margin: 0 0 18px;
+  margin: 0 0 22px;
   font-family: var(--mono);
   font-size: 11px;
   font-weight: 500;
@@ -19,12 +43,55 @@
 
 /* 워드마크 — 문장이 아니라 이름이 무대에 선다 */
 .headline {
-  margin: 0 0 18px;
-  font-size: clamp(46px, 8vw, 76px);
+  margin: 0;
+  font-size: clamp(52px, 10vw, 100px);
   font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.headline em {
   font-style: italic;
-  line-height: 1.06;
-  letter-spacing: -0.02em;
+  margin-left: 0.45em;
+}
+
+.dot {
+  color: var(--brass);
+  font-style: normal;
+}
+
+/* 음반 뒷면의 크레딧 같은 사실들 */
+.facts {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 12px;
+  flex-shrink: 0;
+}
+
+.fact {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.fact dt {
+  min-width: 42px;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.fact dd {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
 }
 
 .sub {
@@ -43,6 +110,24 @@
   line-height: 1.8;
   letter-spacing: 0.02em;
   color: var(--ink-soft);
+}
+
+/* 무대 — 건반 뒤에 오선이 지나간다 */
+.stage {
+  position: relative;
+  padding: 40px 0;
+}
+
+.stage::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 148px;
+  transform: translateY(-50%);
+  background-image: linear-gradient(rgb(255 255 255 / 0.055) 1px, transparent 1px);
+  background-size: 100% 36px;
 }
 
 /* 소개 미리보기 */
@@ -88,8 +173,19 @@
   border-color: var(--brass);
 }
 
+@media (max-width: 900px) {
+  .heroVinyl { display: none; }
+  .heroGrid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 26px;
+  }
+  .facts { padding-bottom: 0; }
+}
+
 @media (max-width: 560px) {
   .page { padding: 90px 0 110px; }
-  .intro { margin-bottom: 52px; padding: 0 20px; }
+  .intro { margin-bottom: 48px; padding: 0 20px; }
+  .stage { padding: 24px 0; }
   .about { margin-top: 80px; padding: 0 20px; }
 }

@@ -1,0 +1,36 @@
+.marquee {
+  overflow: hidden;
+  margin-top: 120px;
+  padding: 18px 0;
+  border-top: 1px solid rgb(255 255 255 / 0.06);
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: slide 36s linear infinite;
+}
+
+.track span {
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+}
+
+@keyframes slide {
+  to { transform: translateX(-50%); }
+}
+
+/* 모션을 줄인 사용자에게는 멈춘 띠 하나로 충분하다 */
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none; }
+}
+
+@media (max-width: 560px) {
+  .marquee { margin-top: 84px; }
+}
