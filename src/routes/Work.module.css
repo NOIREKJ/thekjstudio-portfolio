@@ -57,6 +57,29 @@
   word-break: keep-all;
 }
 
+/* 필름스트립 — 옆으로 넘겨 보는 화면들 */
+.gallery {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  margin: 64px -28px 0;
+  padding: 6px 28px 20px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: #35343c transparent;
+}
+
+.gallery img {
+  height: 400px;
+  width: auto;
+  flex-shrink: 0;
+  border-radius: 10px;
+  scroll-snap-align: start;
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.06),
+    0 16px 40px rgb(0 0 0 / 0.5);
+}
+
 /* 이전 / 다음 — 책장을 넘기듯 */
 .pager {
   display: flex;
@@ -82,5 +105,7 @@
 @media (max-width: 560px) {
   .page { padding: 84px 20px 110px; }
   .body { font-size: 16px; }
+  .gallery { margin: 48px -20px 0; padding: 6px 20px 16px; }
+  .gallery img { height: 300px; }
   .pager { margin-top: 72px; }
 }

@@ -10,6 +10,7 @@ export type Work = {
   note: string;
   sound?: string;
   year: number;
+  images: string[];
   body: string;
 };
 
@@ -34,6 +35,13 @@ export function buildWorks(modules: Record<string, string>): Work[] {
       note: String(data.note),
       sound: data.sound === undefined ? undefined : String(data.sound),
       year: Number(data.year),
+      images:
+        data.images === undefined
+          ? []
+          : String(data.images)
+              .split(",")
+              .map((s) => s.trim())
+              .filter(Boolean),
       body,
     };
   });

@@ -40,6 +40,20 @@ test("sound가 있으면 그대로 싣는다", () => {
   expect(works[0].sound).toBe("/audio/x.mp3");
 });
 
+test("images는 쉼표로 구분된 목록이다", () => {
+  const works = buildWorks({
+    "/src/works/x.md": `---\ntitle: "X"\nkind: app\nnote: C4\nyear: 2026\nimages: /a.png, /b.png\n---\n본문`,
+  });
+  expect(works[0].images).toEqual(["/a.png", "/b.png"]);
+});
+
+test("images가 없으면 빈 배열이다", () => {
+  const works = buildWorks({
+    "/src/works/x.md": `---\ntitle: "X"\nkind: music\nnote: C4\nyear: 2024\n---\n본문`,
+  });
+  expect(works[0].images).toEqual([]);
+});
+
 test("필수 필드가 없으면 어느 파일인지 알려주며 실패한다", () => {
   expect(() => buildWorks({ "/src/works/bad.md": `---\ntitle: "X"\n---\n본문` })).toThrow(
     /bad\.md/,

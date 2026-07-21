@@ -34,6 +34,14 @@ export function Work() {
 
       <div className={styles.body}>{work.body}</div>
 
+      {work.images.length > 0 && (
+        <div className={styles.gallery} aria-label={`${work.title} 화면`}>
+          {work.images.map((src) => (
+            <img key={src} src={src} alt={`${work.title} 화면`} loading="lazy" />
+          ))}
+        </div>
+      )}
+
       <nav className={styles.pager} aria-label="다른 작업">
         {prev ? (
           <Link to={`/work/${prev.slug}`} className={styles.pagerLink}>
