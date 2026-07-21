@@ -2,7 +2,7 @@
 .page {
   max-width: 620px;
   margin: 0 auto;
-  padding: 92px 28px 160px;
+  padding: 108px 28px 140px;
 }
 
 .back {
@@ -23,6 +23,16 @@
   border-color: var(--brass);
 }
 
+.overline {
+  margin: 0 0 16px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
 .title {
   margin: 0 0 14px;
   font-size: clamp(30px, 5vw, 40px);
@@ -35,10 +45,9 @@
 .meta {
   margin: 0 0 56px;
   font-family: var(--mono);
-  font-size: 11px;
+  font-size: 11.5px;
   letter-spacing: 0.14em;
-  text-transform: lowercase;
-  color: var(--brass);
+  color: var(--ink-soft);
 }
 
 .body {
@@ -48,7 +57,30 @@
   word-break: keep-all;
 }
 
+/* 이전 / 다음 — 책장을 넘기듯 */
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 96px;
+  padding-top: 28px;
+  border-top: 1px solid rgb(255 255 255 / 0.07);
+}
+
+.pagerLink {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  text-decoration: none;
+  transition: color 150ms ease;
+  word-break: keep-all;
+}
+
+.pagerLink:hover { color: var(--brass); }
+
 @media (max-width: 560px) {
-  .page { padding: 68px 20px 110px; }
+  .page { padding: 84px 20px 110px; }
   .body { font-size: 16px; }
+  .pager { margin-top: 72px; }
 }
