@@ -1,47 +1,95 @@
+/*
+  돌.
+  형태는 다섯 개가 모두 같은 재질이고, 다른 것은 광물뿐이다 —
+  음악은 따뜻한 사암, 앱은 차가운 슬레이트. 같은 땅에서 나온 다른 돌.
+  두 세계를 한 재질로 묶기 위해 모양으로는 구분하지 않는다.
+
+  반지름은 px로 준다. 퍼센트를 쓰면 어떤 값을 넣어도 타원(달걀)이 되고,
+  글자가 실루엣 밖으로 새어나간다. 돌은 몸통이 각지고 모서리만 닳은 것이다.
+*/
 .key {
-  --key-radius: 14px;
-  --key-min-height: 180px;
-  --key-tint: 200;
+  --stone-hue: 34;
+  --stone-sat: 16%;
+  --stone-light: 62%;
+  --stone-lift: 7px;
+
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 4px;
-  min-height: var(--key-min-height);
-  padding: 16px;
+  gap: 6px;
+  min-height: 200px;
+  padding: 34px 22px 26px;
   border: none;
-  border-radius: var(--key-radius);
-  background: hsl(var(--key-tint) 30% 92%);
-  color: hsl(var(--key-tint) 40% 20%);
   text-align: left;
   cursor: pointer;
-  transition: transform 120ms ease, background-color 120ms ease;
+  font-family: inherit;
+  color: hsl(var(--stone-hue) 24% 19%);
+
+  background: linear-gradient(
+    158deg,
+    hsl(var(--stone-hue) var(--stone-sat) calc(var(--stone-light) + 9%)),
+    hsl(var(--stone-hue) var(--stone-sat) calc(var(--stone-light) - 11%))
+  );
+
+  /* 두께: 아래로 깔린 단색 그림자가 돌의 옆면이다 */
+  box-shadow:
+    0 var(--stone-lift) 0 hsl(var(--stone-hue) calc(var(--stone-sat) - 4%) calc(var(--stone-light) - 25%)),
+    0 calc(var(--stone-lift) + 6px) 18px hsl(var(--stone-hue) 20% 30% / 0.28);
+
+  transition:
+    transform 90ms cubic-bezier(0.2, 0, 0.3, 1),
+    box-shadow 90ms cubic-bezier(0.2, 0, 0.3, 1);
 }
 
-.key:hover { background: hsl(var(--key-tint) 35% 88%); }
+.music { --stone-hue: 33; --stone-sat: 21%; --stone-light: 64%; }
+.app   { --stone-hue: 199; --stone-sat: 8%;  --stone-light: 61%; }
+
+/* 다섯 개가 저마다 다르게 닳도록. 자연물은 반복되지 않는다 */
+.key:nth-child(5n + 1) { border-radius: 54px 30px 46px 38px / 42px 50px 34px 48px; margin-top: 0; }
+.key:nth-child(5n + 2) { border-radius: 32px 52px 36px 48px / 46px 34px 52px 38px; margin-top: 16px; }
+.key:nth-child(5n + 3) { border-radius: 46px 36px 54px 30px / 34px 48px 40px 52px; margin-top: 6px; }
+.key:nth-child(5n + 4) { border-radius: 38px 48px 32px 54px / 52px 36px 46px 34px; margin-top: 22px; }
+.key:nth-child(5n + 5) { border-radius: 50px 34px 42px 44px / 38px 52px 32px 46px; margin-top: 9px; }
+
+.key:hover { --stone-light: 66%; }
 
 .key:focus-visible {
-  outline: 3px solid hsl(var(--key-tint) 50% 35%);
-  outline-offset: 3px;
+  outline: 2px solid hsl(var(--stone-hue) 30% 32%);
+  outline-offset: 7px;
 }
 
+/* 누르면 돌이 땅으로 내려앉는다 — 옆면이 사라지는 만큼 내려간다 */
 .key[aria-pressed="true"] {
+  --stone-lift: 1px;
+  --stone-light: 55%;
   transform: translateY(6px);
-  background: hsl(var(--key-tint) 45% 78%);
 }
-
-.music { --key-tint: 150; }
-.app { --key-tint: 220; }
 
 .letter {
   position: absolute;
-  top: 12px;
-  left: 16px;
-  font-size: 11px;
-  font-weight: 700;
-  opacity: 0.45;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  opacity: 0.4;
   text-transform: uppercase;
 }
 
-.title { font-size: 15px; font-weight: 650; }
-.meta { font-size: 11px; opacity: 0.65; text-transform: lowercase; }
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  /* 한국어는 어절 단위로 끊어야 한다. 없으면 '코이논'이 '코 / 이논'으로 갈라진다 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.meta {
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  opacity: 0.62;
+  text-transform: lowercase;
+}

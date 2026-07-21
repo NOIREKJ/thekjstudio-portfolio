@@ -1,5 +1,25 @@
+:root {
+  /* 땅 — 흙빛 종이 */
+  --ground: #e9e4da;
+  --ground-deep: #ddd6c9;
+  --ink: #35302a;
+  --ink-soft: #6b6357;
+
+  --serif: "Iowan Old Style", Palatino, "Palatino Linotype", Georgia,
+    AppleMyungjo, "Nanum Myeongjo", "Apple SD Gothic Neo", serif;
+}
+
 *, *::before, *::after { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, -apple-system, "Apple SD Gothic Neo", sans-serif; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--serif);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-underline-offset: 3px; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

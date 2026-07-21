@@ -1,10 +1,20 @@
+/* 돌은 줄 맞춰 놓이지 않는다. 격자는 쓰되 각 돌이 제 높이를 갖는다(Key.module.css) */
 .keyboard {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
+  gap: 18px;
+  align-items: start;
   width: 100%;
-  max-width: 900px;
+  max-width: 880px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 28px;
   touch-action: manipulation;
+}
+
+@media (max-width: 560px) {
+  .keyboard {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    padding: 0 20px;
+  }
 }

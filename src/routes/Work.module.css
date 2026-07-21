@@ -1,5 +1,42 @@
-.page { max-width: 640px; margin: 0 auto; padding: 64px 16px 120px; }
-.back { display: inline-block; margin-bottom: 32px; font-size: 14px; }
-.title { margin: 0 0 6px; font-size: 30px; line-height: 1.3; }
-.meta { margin: 0 0 32px; font-size: 13px; opacity: 0.55; }
-.body { font-size: 16px; line-height: 1.85; white-space: pre-line; }
+/* 조용한 문서. 진입 화면이 시끄러운 만큼 안쪽은 고요해야 한다 */
+.page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 84px 28px 140px;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 56px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--ink-soft);
+}
+
+.title {
+  margin: 0 0 10px;
+  font-size: 32px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -0.015em;
+}
+
+.meta {
+  margin: 0 0 48px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--ink-soft);
+}
+
+.body {
+  font-size: 17px;
+  line-height: 1.95;
+  white-space: pre-line;
+}
+
+@media (max-width: 560px) {
+  .page { padding: 64px 20px 100px; }
+  .title { font-size: 26px; }
+  .body { font-size: 16px; }
+}

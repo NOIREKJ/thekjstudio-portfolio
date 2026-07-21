@@ -1,0 +1,30 @@
+.toggle {
+  position: fixed;
+  top: 22px;
+  right: 24px;
+  z-index: 10;
+  padding: 8px 15px;
+  border: 1px solid hsl(34 14% 62%);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink-soft);
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: border-color 140ms ease, color 140ms ease;
+}
+
+.toggle:hover {
+  border-color: hsl(34 16% 48%);
+  color: var(--ink);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid hsl(34 30% 40%);
+  outline-offset: 3px;
+}
+
+@media (max-width: 560px) {
+  .toggle { top: 14px; right: 16px; }
+}
