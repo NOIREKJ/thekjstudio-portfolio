@@ -45,13 +45,34 @@
   color: var(--ink-soft);
 }
 
-.nav {
+/* 소개 미리보기 */
+.about {
   max-width: 680px;
-  margin: 96px auto 0;
+  margin: 110px auto 0;
   padding: 0 28px;
 }
 
-.nav a {
+.aboutOverline {
+  margin: 0 0 22px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.aboutBody {
+  margin: 0 0 24px;
+  max-width: 540px;
+  font-size: 16.5px;
+  line-height: 2.0;
+  color: var(--ink);
+  opacity: 0.82;
+  word-break: keep-all;
+}
+
+.aboutLink {
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 0.08em;
@@ -62,13 +83,13 @@
   transition: color 150ms ease, border-color 150ms ease;
 }
 
-.nav a:hover {
+.aboutLink:hover {
   color: var(--brass);
   border-color: var(--brass);
 }
 
 @media (max-width: 560px) {
-  .page { padding: 72px 0 110px; }
+  .page { padding: 90px 0 110px; }
   .intro { margin-bottom: 52px; padding: 0 20px; }
-  .nav { margin-top: 64px; padding: 0 20px; }
+  .about { margin-top: 80px; padding: 0 20px; }
 }

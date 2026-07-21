@@ -26,3 +26,16 @@ test("음소거 토글이 항상 있다", () => {
   renderHome();
   expect(screen.getByRole("button", { name: /소리/ })).toBeInTheDocument();
 });
+
+test("건반 아래에 작업 목록이 있다 — 건반을 못 쓰는 사람의 두 번째 통로", () => {
+  renderHome();
+  const workLinks = screen
+    .getAllByRole("link")
+    .filter((link) => link.getAttribute("href")?.startsWith("/work/"));
+  expect(workLinks).toHaveLength(5);
+});
+
+test("소개 미리보기가 있다", () => {
+  renderHome();
+  expect(screen.getByRole("link", { name: /소개 더 보기/ })).toBeInTheDocument();
+});

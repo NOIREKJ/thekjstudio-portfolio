@@ -1,6 +1,7 @@
+/* 우하단 — 상단은 이제 헤더의 자리다 */
 .toggle {
   position: fixed;
-  top: 22px;
+  bottom: 22px;
   right: 24px;
   z-index: 10;
   padding: 9px 16px;
@@ -30,5 +31,5 @@
 }
 
 @media (max-width: 560px) {
-  .toggle { top: 14px; right: 16px; }
+  .toggle { bottom: 16px; right: 16px; }
 }

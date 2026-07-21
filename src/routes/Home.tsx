@@ -2,6 +2,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { Link } from "react-router";
 import { Keyboard } from "../components/Keyboard";
 import { WorkPanel } from "../components/WorkPanel";
+import { WorkIndex } from "../components/WorkIndex";
 import { MuteToggle } from "../components/MuteToggle";
 import { createAudioEngine } from "../audio/engine";
 import { getWorks } from "../lib/works";
@@ -64,9 +65,19 @@ export function Home() {
 
       {selectedWork && <WorkPanel work={selectedWork} />}
 
-      <nav className={styles.nav}>
-        <Link to="/about">소개</Link>
-      </nav>
+      <WorkIndex works={works} />
+
+      <section className={styles.about} aria-label="소개 미리보기">
+        <p className={styles.aboutOverline}>About — 소개</p>
+        <p className={styles.aboutBody}>
+          서울에서 음악을 쓰고 앱을 만듭니다. 두 가지를 따로 하는 것처럼
+          보이지만, 하는 일은 같습니다 — 누군가의 하루를 조금 덜 힘들게
+          만드는 것. 곡은 K_Joon_P라는 이름으로 냅니다.
+        </p>
+        <Link to="/about" className={styles.aboutLink}>
+          소개 더 보기 →
+        </Link>
+      </section>
     </main>
   );
 }
