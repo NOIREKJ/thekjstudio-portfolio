@@ -58,6 +58,16 @@ test("캡션이 없는 screen은 빈 캡션이 된다", () => {
   expect(works[0].screens).toEqual([{ src: "/a.png", caption: "" }]);
 });
 
+test("listen은 '이름|주소' 목록이다", () => {
+  const works = buildWorks({
+    "/src/works/x.md": `---\ntitle: "X"\nkind: music\nnote: C4\nyear: 2024\nlisten: Spotify|https://sp.example/a, YouTube|https://yt.example/b\n---\n본문`,
+  });
+  expect(works[0].listen).toEqual([
+    { label: "Spotify", url: "https://sp.example/a" },
+    { label: "YouTube", url: "https://yt.example/b" },
+  ]);
+});
+
 test("cover·screens가 없으면 비어 있다", () => {
   const works = buildWorks({
     "/src/works/x.md": `---\ntitle: "X"\nkind: music\nnote: C4\nyear: 2024\n---\n본문`,

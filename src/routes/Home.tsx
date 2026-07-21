@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Keyboard } from "../components/Keyboard";
 import { WorkPanel } from "../components/WorkPanel";
 import { MuteToggle } from "../components/MuteToggle";
@@ -6,10 +6,20 @@ import { LocalTime } from "../components/LocalTime";
 import { Vinyl } from "../components/Vinyl";
 import { createAudioEngine } from "../audio/engine";
 import { getWorks } from "../lib/works";
+import { applyMeta } from "../lib/meta";
 import styles from "./Home.module.css";
 
 export function Home() {
   const works = useMemo(() => getWorks(), []);
+
+  useEffect(() => {
+    applyMeta({
+      title: "the KJ Studio — 음악을 쓰고, 앱을 만듭니다",
+      description:
+        "작곡가이자 앱 개발자 Joon Kim의 개인 사이트. 건반을 누르면 소리가 나고 작업이 열립니다.",
+      image: "/images/projects/noire/horizontal-kj-01.png",
+    });
+  }, []);
   const [selected, setSelected] = useState<string | null>(null);
   const [muted, setMuted] = useState(false);
   const engineRef = useRef<ReturnType<typeof createAudioEngine> | null>(null);
@@ -39,6 +49,10 @@ export function Home() {
     },
     [works, muted],
   );
+
+  const release = useCallback((slug: string) => {
+    engineRef.current?.release(slug);
+  }, []);
 
   const toggleMute = useCallback(() => {
     setMuted((current) => {
@@ -93,7 +107,7 @@ export function Home() {
       </header>
 
       <div className={styles.stage}>
-        <Keyboard works={works} selected={selected} onPress={press} />
+        <Keyboard works={works} selected={selected} onPress={press} onRelease={release} />
       </div>
 
       <WorkPanel work={selectedWork} spinning={!muted} />

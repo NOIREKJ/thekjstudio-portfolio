@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { Link, useParams } from "react-router";
 import { getWorks } from "../lib/works";
+import { applyMeta } from "../lib/meta";
 import styles from "./Work.module.css";
 
 export function Work() {
@@ -7,6 +9,15 @@ export function Work() {
   const works = getWorks();
   const index = works.findIndex((w) => w.slug === slug);
   const work = index >= 0 ? works[index] : undefined;
+
+  useEffect(() => {
+    if (!work) return;
+    applyMeta({
+      title: `${work.title} — the KJ Studio`,
+      description: work.body.split("\n\n")[0] ?? "",
+      image: work.cover,
+    });
+  }, [work]);
 
   if (!work) {
     return (
@@ -31,6 +42,22 @@ export function Work() {
       <p className={styles.meta}>
         ♪ {work.note} · {work.year}
       </p>
+
+      {work.listen.length > 0 && (
+        <div className={styles.listen}>
+          {work.listen.map((link) => (
+            <a
+              key={link.url}
+              className={styles.listenLink}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {link.label} ↗
+            </a>
+          ))}
+        </div>
+      )}
 
       {work.cover && (
         <img

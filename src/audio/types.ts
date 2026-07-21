@@ -7,6 +7,7 @@ export interface AudioEngine {
   unlock(): Promise<void>;
   preload(specs: SoundSpec[]): Promise<void>;
   play(id: string): void;
+  release(id: string): void;
   setMuted(muted: boolean): void;
   isMuted(): boolean;
 }

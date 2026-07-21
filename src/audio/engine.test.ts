@@ -6,6 +6,7 @@ class FakeParam {
   setValueAtTime(v: number) { this.value = v; this.calls.push("set"); return this; }
   linearRampToValueAtTime(v: number) { this.value = v; this.calls.push("ramp"); return this; }
   exponentialRampToValueAtTime(v: number) { this.value = v; this.calls.push("exp"); return this; }
+  cancelScheduledValues() { this.calls.push("cancel"); return this; }
 }
 
 class FakeNode {
@@ -111,6 +112,27 @@ test("모르는 id는 조용히 무시한다", async () => {
   await engine.preload([{ id: "a", note: "C4" }]);
   expect(() => engine.play("없음")).not.toThrow();
   expect(ctx.oscillators).toHaveLength(0);
+});
+
+test("떼면 잔향이 짧게 잦아든다 (서스테인 릴리즈)", async () => {
+  const { ctx, engine } = setup();
+  await engine.unlock();
+  await engine.preload([{ id: "a", note: "C4" }]);
+  engine.play("a");
+  const gainNode = ctx.oscillators[0].connected[0];
+  engine.release("a");
+  expect(gainNode.gain.calls).toContain("cancel");
+  expect(gainNode.gain.calls.filter((c) => c === "exp").length).toBeGreaterThanOrEqual(2);
+});
+
+test("모르는 id나 이미 뗀 건반의 release는 조용히 무시한다", async () => {
+  const { engine } = setup();
+  await engine.unlock();
+  await engine.preload([{ id: "a", note: "C4" }]);
+  expect(() => engine.release("없음")).not.toThrow();
+  engine.play("a");
+  engine.release("a");
+  expect(() => engine.release("a")).not.toThrow();
 });
 
 test("동시에 여러 음을 낼 수 있다 (화음)", async () => {

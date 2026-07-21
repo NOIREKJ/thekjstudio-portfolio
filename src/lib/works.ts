@@ -4,6 +4,7 @@ import { noteToFrequency } from "./note";
 export type WorkKind = "music" | "app";
 
 export type Screen = { src: string; caption: string };
+export type ListenLink = { label: string; url: string };
 
 export type Work = {
   slug: string;
@@ -14,6 +15,7 @@ export type Work = {
   year: number;
   cover?: string;
   screens: Screen[];
+  listen: ListenLink[];
   body: string;
 };
 
@@ -49,6 +51,17 @@ export function buildWorks(modules: Record<string, string>): Work[] {
               .map((entry) => {
                 const [src, caption = ""] = entry.split("|").map((s) => s.trim());
                 return { src, caption };
+              }),
+      listen:
+        data.listen === undefined
+          ? []
+          : String(data.listen)
+              .split(",")
+              .map((s) => s.trim())
+              .filter(Boolean)
+              .map((entry) => {
+                const [label, url = ""] = entry.split("|").map((s) => s.trim());
+                return { label, url };
               }),
       body,
     };

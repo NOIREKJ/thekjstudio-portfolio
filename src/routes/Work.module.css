@@ -57,6 +57,33 @@
   word-break: keep-all;
 }
 
+/* 듣기 — 음악가 사이트에 없으면 안 되는 것 */
+.listen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 44px;
+}
+
+.listenLink {
+  padding: 9px 16px;
+  border: 1px solid rgb(201 168 106 / 0.35);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--brass);
+  text-decoration: none;
+  transition: border-color 150ms ease, background 150ms ease, transform 120ms var(--ease-out-strong);
+}
+
+.listenLink:hover {
+  border-color: var(--brass);
+  background: rgb(201 168 106 / 0.08);
+}
+
+.listenLink:active { transform: scale(0.96); }
+
 /* 커버 — 음반 재킷처럼 제목 아래 한 장.
    와이드 이미지는 전폭, 정사각 아이콘은 높이를 눌러 가운데에 놓인다 */
 .cover {

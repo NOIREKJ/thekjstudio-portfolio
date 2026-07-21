@@ -4,6 +4,7 @@ kind: music
 note: G4
 year: 2024
 cover: /images/projects/noire/horizontal-kj-02.png
+listen: Spotify|https://open.spotify.com/user/31waehtdbctb5mqpag7pmrmnmhte, Apple Music|https://music.apple.com/profile/K_Joon_P, YouTube|https://www.youtube.com/@K_Joon_P, SoundCloud|https://on.soundcloud.com/5UnKPuPovp5dgfz96
 ---
 
 지친 하루 끝, 언제나 같은 자리에서 길을 비추는 가로등 같은 발라드입니다.

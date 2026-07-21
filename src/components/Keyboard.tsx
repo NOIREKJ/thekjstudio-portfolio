@@ -10,11 +10,12 @@ type Props = {
   works: Work[];
   selected: string | null;
   onPress: (slug: string) => void;
+  onRelease?: (slug: string) => void;
 };
 
-export function Keyboard({ works, selected, onPress }: Props) {
+export function Keyboard({ works, selected, onPress, onRelease }: Props) {
   const slugs = useMemo(() => works.map((w) => w.slug), [works]);
-  useLetterKeys(slugs, onPress);
+  useLetterKeys(slugs, onPress, onRelease);
 
   return (
     <div className={styles.keyboard} role="group" aria-label="작업물 건반">
@@ -25,6 +26,7 @@ export function Keyboard({ works, selected, onPress }: Props) {
           letter={LETTERS[index]}
           pressed={selected === work.slug}
           onPress={onPress}
+          onRelease={onRelease}
         />
       ))}
     </div>

@@ -45,3 +45,16 @@ test("길게 눌러 생기는 반복 입력은 무시한다", () => {
   fireEvent.keyDown(window, { key: "a", repeat: true });
   expect(onPress).not.toHaveBeenCalled();
 });
+
+test("키를 떼면 onRelease가 불린다", () => {
+  const onPress = vi.fn();
+  const onRelease = vi.fn();
+  function ReleaseHarness() {
+    useLetterKeys(["consolation"], onPress, onRelease);
+    return null;
+  }
+  render(<ReleaseHarness />);
+  fireEvent.keyDown(window, { key: "a" });
+  fireEvent.keyUp(window, { key: "a" });
+  expect(onRelease).toHaveBeenCalledWith("consolation");
+});

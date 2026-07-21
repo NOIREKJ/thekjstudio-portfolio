@@ -1,7 +1,18 @@
+import { useEffect } from "react";
 import { Link } from "react-router";
+import { applyMeta } from "../lib/meta";
 import styles from "./About.module.css";
 
 export function About() {
+  useEffect(() => {
+    applyMeta({
+      title: "소개 — the KJ Studio",
+      description:
+        "서울에서 음악을 쓰고 앱을 만듭니다. 곡은 K_Joon_P라는 이름으로 냅니다.",
+      image: "/images/kimjoonmain.jpeg",
+    });
+  }, []);
+
   return (
     <main className={styles.page}>
       <Link className={styles.back} to="/">← 처음으로</Link>

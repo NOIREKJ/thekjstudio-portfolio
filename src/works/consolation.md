@@ -4,6 +4,7 @@ kind: music
 note: D4
 year: 2024
 cover: /images/projects/noire/horizontal-kj-01.png
+listen: Spotify|https://open.spotify.com/user/31waehtdbctb5mqpag7pmrmnmhte, Apple Music|https://music.apple.com/profile/K_Joon_P, YouTube|https://www.youtube.com/@K_Joon_P, SoundCloud|https://on.soundcloud.com/5UnKPuPovp5dgfz96
 ---
 
 깊은 밤, 혼자라고 느껴지는 이들에게 전하는 포옹 같은 발라드입니다.

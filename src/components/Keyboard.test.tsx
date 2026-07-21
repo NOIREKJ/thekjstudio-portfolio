@@ -4,8 +4,8 @@ import { Keyboard } from "./Keyboard";
 import type { Work } from "../lib/works";
 
 const works: Work[] = [
-  { slug: "noire", title: "NOIRE", kind: "app", note: "E4", year: 2026, screens: [], body: "본문 N" },
-  { slug: "consolation", title: "위로", kind: "music", note: "C4", year: 2024, screens: [], body: "본문 C" },
+  { slug: "noire", title: "NOIRE", kind: "app", note: "E4", year: 2026, screens: [], listen: [], body: "본문 N" },
+  { slug: "consolation", title: "위로", kind: "music", note: "C4", year: 2024, screens: [], listen: [], body: "본문 C" },
 ];
 
 test("작업물마다 건반을 하나씩 그린다", () => {
