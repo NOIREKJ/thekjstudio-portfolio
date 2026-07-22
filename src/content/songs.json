@@ -1,0 +1,62 @@
+[
+  {
+    "id": "19e89693-bdc8-495b-9f1a-1341ae44208c",
+    "slug": "consolation",
+    "title": "위로 (Consolation)",
+    "year": 2024,
+    "note": "D4",
+    "sound": null,
+    "cover": "/images/projects/noire/horizontal-kj-01.png",
+    "body": "깊은 밤, 혼자라고 느껴지는 이들에게 전하는 포옹 같은 발라드입니다.\n\n살다 보면 아무 이유 없이 어둠에 잠기거나, 지친 하루 끝에 철저히 혼자라고 느껴지는 순간이 있습니다. 그럴 때 \"힘내\"라는 말 대신 \"맘껏 울어도 돼, 내가 곁에 있을게\"라는 말을 전하고 싶었습니다.\n\n서정적인 피아노 선율과 감성적인 보컬 라인 위에, 혼자가 아니라는 안도감을 담았습니다.\n\n프로듀스·작곡·편곡 — 김준\n작사 — 김준, 양한솔\n노래 — 최병준\n믹싱·마스터링 — 찬뮤직 (CHAN MUSIC Ent.)",
+    "listen": [
+      {
+        "label": "Spotify",
+        "url": "https://open.spotify.com/user/31waehtdbctb5mqpag7pmrmnmhte"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/profile/K_Joon_P"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@K_Joon_P"
+      },
+      {
+        "label": "SoundCloud",
+        "url": "https://on.soundcloud.com/5UnKPuPovp5dgfz96"
+      }
+    ],
+    "featured": true,
+    "sortOrder": 10
+  },
+  {
+    "id": "764423e7-cb83-4db8-81c4-0ec0307dd2ed",
+    "slug": "streetlight",
+    "title": "가로등 (Streetlight)",
+    "year": 2024,
+    "note": "G4",
+    "sound": null,
+    "cover": "/images/projects/noire/horizontal-kj-02.png",
+    "body": "지친 하루 끝, 언제나 같은 자리에서 길을 비추는 가로등 같은 발라드입니다.\n\n어두운 밤길을 걷다 문득 받은 작은 위로에서 시작한 곡입니다. 가로등은 아무 말 없이 곁을 지키는 존재처럼 늘 그 자리에 서 있습니다. 그 따뜻한 빛을 잔잔한 피아노와 새벽 공기 같은 사운드로 옮겼습니다.\n\n외롭고 흔들리는 마음이 천천히 위로받는 과정을 담았습니다. 듣는 사람도 각자의 밤에서 작은 쉼을 얻기를 바랍니다.\n\n프로듀스·작곡·편곡 — 김준\n작사 — 김준, 김지선\n노래 — 이해솔\n믹싱·마스터링 — 찬뮤직 (CHAN MUSIC Ent.)",
+    "listen": [
+      {
+        "label": "Spotify",
+        "url": "https://open.spotify.com/user/31waehtdbctb5mqpag7pmrmnmhte"
+      },
+      {
+        "label": "Apple Music",
+        "url": "https://music.apple.com/profile/K_Joon_P"
+      },
+      {
+        "label": "YouTube",
+        "url": "https://www.youtube.com/@K_Joon_P"
+      },
+      {
+        "label": "SoundCloud",
+        "url": "https://on.soundcloud.com/5UnKPuPovp5dgfz96"
+      }
+    ],
+    "featured": true,
+    "sortOrder": 20
+  }
+]
