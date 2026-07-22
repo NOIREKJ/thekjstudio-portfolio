@@ -1,1 +1,80 @@
-[]
+[
+  {
+    "id": "146a5b9d-0693-4cde-a866-8b6e1602e88b",
+    "name": "SSL The Bus+",
+    "category": "아웃보드",
+    "sortOrder": 10
+  },
+  {
+    "id": "90b0a53b-2ab6-4d96-be32-e3c6df2235c4",
+    "name": "SSL Fusion",
+    "category": "아웃보드",
+    "sortOrder": 20
+  },
+  {
+    "id": "7d625948-3ddc-4d09-bdb1-ceaebdc85b26",
+    "name": "Avalon VT-737SP",
+    "category": "아웃보드",
+    "sortOrder": 30
+  },
+  {
+    "id": "c77399b2-0803-4b4d-8cf0-5564b0fa4f39",
+    "name": "Universal Audio Apollo Twin X",
+    "category": "인터페이스·컨버터",
+    "sortOrder": 40
+  },
+  {
+    "id": "3ea577d6-806d-45ae-a068-b08b64f4c550",
+    "name": "Apogee AD-8000",
+    "category": "인터페이스·컨버터",
+    "sortOrder": 50
+  },
+  {
+    "id": "bcdc6f4e-2252-4401-ae2c-1025b598ff92",
+    "name": "Yamaha NS-10M",
+    "category": "모니터·헤드폰",
+    "sortOrder": 60
+  },
+  {
+    "id": "73f450e2-7a04-469f-abea-dd7450842185",
+    "name": "IK Multimedia iLoud Micro Sub",
+    "category": "모니터·헤드폰",
+    "sortOrder": 70
+  },
+  {
+    "id": "71d73504-647a-4236-849c-2f11e5a3c37d",
+    "name": "Sennheiser HD 600",
+    "category": "모니터·헤드폰",
+    "sortOrder": 80
+  },
+  {
+    "id": "d67da22a-4909-4fbd-addb-ee00473b41ea",
+    "name": "Studiologic SL88 Grand",
+    "category": "건반",
+    "sortOrder": 90
+  },
+  {
+    "id": "29e0fb56-113e-4880-8287-65a73f23a747",
+    "name": "Yamaha Motif Rack",
+    "category": "음원 모듈",
+    "sortOrder": 100
+  },
+  {
+    "id": "c3cb1c64-4b44-49a7-aec5-1fc026584347",
+    "name": "Roland JV-2080",
+    "category": "음원 모듈",
+    "sortOrder": 110
+  },
+  {
+    "id": "843ce866-9504-48ce-a1a1-45abe198d46e",
+    "name": "E-mu Proteus 2000",
+    "category": "음원 모듈",
+    "sortOrder": 120
+  },
+  {
+    "id": "b2b99ac7-944a-47f4-823a-b509a9b85769",
+    "name": "MacBook Air M5",
+    "category": "컴퓨터",
+    "sortOrder": 130
+  }
+]
