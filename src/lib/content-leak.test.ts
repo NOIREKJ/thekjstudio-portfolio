@@ -16,6 +16,7 @@ const FORBIDDEN = [
   "purchase_date", "purchaseDate",
   "serial_number", "serialNumber",
   "market_price", "marketPrice",
+  "market_price_usd", "marketPriceUsd",
   "market_listings", "marketListings",
   "location",
   "household_id", "householdId",
