@@ -1,4 +1,4 @@
-import { mapApp, mapGear, mapLp, mapSong } from "./map";
+import { mapApp, mapCredit, mapGear, mapLp, mapPerformance, mapSong } from "./map";
 
 test("snake_case 컬럼을 화면이 쓰는 이름으로 옮긴다", () => {
   const song = mapSong({
@@ -41,4 +41,59 @@ test("LP 는 재산 정보를 담을 자리가 없다", () => {
 test("장비는 이름과 분류만 나온다", () => {
   const gear = mapGear({ id: "g1", name: "Genelec 8030", category: "모니터", sort_order: 0 });
   expect(gear).toEqual({ id: "g1", name: "Genelec 8030", category: "모니터", sortOrder: 0 });
+});
+
+test("크레딧: work_title 이 workTitle 로, roles 배열이 그대로 옮겨진다", () => {
+  const credit = mapCredit({
+    id: "c1", artist: "김준", work_title: "가로등", album: "위로 EP",
+    roles: ["작곡", "편곡"], year: 2023, url: "https://example.com/c1",
+    sort_order: 3,
+  });
+  expect(credit).toEqual({
+    id: "c1", artist: "김준", workTitle: "가로등", album: "위로 EP",
+    roles: ["작곡", "편곡"], year: 2023, url: "https://example.com/c1",
+    sortOrder: 3,
+  });
+});
+
+test("크레딧: roles 가 배열이 아니면 빈 배열이 되고, nullable 필드는 null 이 유지된다", () => {
+  const credit = mapCredit({
+    id: "c2", artist: "김준", work_title: "무제", album: null,
+    roles: null, year: null, url: null, sort_order: 0,
+  });
+  expect(credit.roles).toEqual([]);
+  expect(credit.album).toBeNull();
+  expect(credit.year).toBeNull();
+  expect(credit.url).toBeNull();
+  expect(Object.keys(credit).sort()).toEqual([
+    "album", "artist", "id", "roles", "sortOrder", "url", "workTitle", "year",
+  ]);
+});
+
+test("공연: poster_path 가 poster 로, venue/date/role 은 null 이 유지된다", () => {
+  const performance = mapPerformance({
+    id: "p1", title: "위로 콘서트", venue: "예술의전당", date: "2024-05-01",
+    poster_path: "/images/poster.png", role: "연주", url: "https://example.com/p1",
+    sort_order: 1,
+  });
+  expect(performance).toEqual({
+    id: "p1", title: "위로 콘서트", venue: "예술의전당", date: "2024-05-01",
+    poster: "/images/poster.png", role: "연주", url: "https://example.com/p1",
+    sortOrder: 1,
+  });
+});
+
+test("공연: venue/date/poster_path/role/url 이 모두 null 이어도 null 이 유지된다", () => {
+  const performance = mapPerformance({
+    id: "p2", title: "무제 공연", venue: null, date: null,
+    poster_path: null, role: null, url: null, sort_order: 0,
+  });
+  expect(performance.venue).toBeNull();
+  expect(performance.date).toBeNull();
+  expect(performance.poster).toBeNull();
+  expect(performance.role).toBeNull();
+  expect(performance.url).toBeNull();
+  expect(Object.keys(performance).sort()).toEqual([
+    "date", "id", "poster", "role", "sortOrder", "title", "url", "venue",
+  ]);
 });

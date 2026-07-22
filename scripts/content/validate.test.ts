@@ -32,3 +32,11 @@ test("featured 인데 음이 없으면 실패한다", () => {
 test("featured 가 아니면 음이 없어도 되고 음계 밖이어도 된다", () => {
   expect(() => validateFeatured([ok("a", null, false), ok("b", "F4", false)])).not.toThrow();
 });
+
+test("note 가 빈 문자열이어도 음 없음과 똑같이 실패한다 (null 과 동일 취급, 5음계 밖 오류로 새지 않음)", () => {
+  expect(() => validateFeatured([ok("a", "")])).toThrow(/음이 있어야/);
+});
+
+test("빈 배열은 통과한다 — 콘텐츠가 하나도 없어도 빌드는 깨지지 않는다", () => {
+  expect(() => validateFeatured([])).not.toThrow();
+});
