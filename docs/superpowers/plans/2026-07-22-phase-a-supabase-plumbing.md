@@ -1141,12 +1141,20 @@ Vercel 등록은 **사용자가 직접 한다.** 다음을 그대로 전달할 �
 
 - [ ] **Step 5-1: Deploy Hook 이 실제로 도는지 확인한다**
 
-사용자가 준 훅 URL로 한 번 호출한다:
+**훅 URL은 저장소에 커밋하지 않는다.** 인증 없이 POST만으로 배포가 트리거되므로
+사실상 비밀키다. `.env`(gitignore됨)에 `VERCEL_DEPLOY_HOOK` 으로 둔다:
+
+```
+VERCEL_DEPLOY_HOOK=https://api.vercel.com/v1/integrations/deploy/<프로젝트>/<토큰>
+```
+
+(2026-07-23 발급 완료 — 값은 로컬 `.env` 에 있다. Vercel 프로젝트 `prj_6uN7t…`, 브랜치 `main`.)
 
 ```bash
-curl -s -X POST "<발급받은 Deploy Hook URL>" | head -c 200
+set -a; . ./.env; set +a
+curl -s -X POST "$VERCEL_DEPLOY_HOOK" -w "\nHTTP %{http_code}\n" | head -c 400
 ```
-Expected: `{"job":{"id":"...","state":"PENDING",...}}` 형태의 JSON
+Expected: `{"job":{"id":"...","state":"PENDING",...}}` 형태의 JSON, HTTP 201
 
 Vercel 대시보드의 Deployments 에 새 배포가 뜨는지 확인한다. 이것이 스펙 §6의 갱신 경로이며,
 여기서 **수동 호출로만** 검증한다. 자동 호출은 앱의 책임이다(스펙 3).
