@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "content": "tsx scripts/fetch-content.ts",
-    "build": "tsx scripts/fetch-content.ts && tsc --noEmit && vite build",
+    "content": "node --env-file-if-exists=.env --import tsx scripts/fetch-content.ts",
+    "build": "node --env-file-if-exists=.env --import tsx scripts/fetch-content.ts && tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
