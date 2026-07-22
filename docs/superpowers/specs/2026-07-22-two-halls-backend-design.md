@@ -189,10 +189,13 @@ public_performances   public_lp   public_gear
 2. **안전한 컬럼만 명시적으로 나열** — `select *`를 쓰지 않는다.
    나중에 민감한 컬럼이 추가돼도 자동으로 새지 않는다
 
+모든 뷰는 `id`(uuid)를 포함한다. 목록 렌더링의 키와 딥링크에 필요하고, 그 자체로는
+아무 정보도 담지 않는 불투명 식별자다.
+
 | 뷰 | 내보내는 것 | **절대 내보내지 않는 것** |
 |---|---|---|
-| `public_lp` | `artist` `title` `label` `catalog_no` `release_year` `country` `genre` `format` `speed` `cover` `apple_music_url` `sort_order` | `purchase_price` `current_price` `purchase_date` `market_price_usd` `market_listings` `market_checked_at` `location` `notes` `media_condition` `sleeve_condition` `user_id` `household_id` `discogs_release_id` |
-| `public_gear` | `name` `category` `sort_order` | `purchase_price` `current_price` `serial_number` `location` `is_new` `notes` `user_id` `household_id` |
+| `public_lp` | `id` `artist` `title` `label` `catalog_no` `release_year` `country` `genre` `format` `speed` `cover` `apple_music_url` `sort_order` | `purchase_price` `current_price` `purchase_date` `market_price_usd` `market_listings` `market_checked_at` `location` `notes` `media_condition` `sleeve_condition` `user_id` `household_id` `discogs_release_id` |
+| `public_gear` | `id` `name` `category` `sort_order` | `purchase_price` `current_price` `serial_number` `location` `is_new` `notes` `user_id` `household_id` |
 | `public_songs` · `public_apps` · `public_credits` · `public_performances` | 표시에 필요한 것만 | `user_id` `household_id` |
 
 ### 권한
