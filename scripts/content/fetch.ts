@@ -20,7 +20,7 @@ export async function fetchView(
   creds: { url: string; key: string },
 ): Promise<Row[]> {
   const res = await fetch(
-    `${creds.url}/rest/v1/${view}?select=*&order=sort_order.asc`,
+    `${creds.url}/rest/v1/${view}?select=*&order=sort_order.asc,id.asc`,
     {
       headers: {
         apikey: creds.key,

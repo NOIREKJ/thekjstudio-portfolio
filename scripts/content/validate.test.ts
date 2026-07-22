@@ -1,4 +1,4 @@
-import { PENTATONIC, validateFeatured } from "./validate";
+import { PENTATONIC, assertContentNotEmpty, validateFeatured } from "./validate";
 
 const ok = (slug: string, note: string | null, featured = true) => ({ slug, note, featured });
 
@@ -39,4 +39,16 @@ test("note 가 빈 문자열이어도 음 없음과 똑같이 실패한다 (null
 
 test("빈 배열은 통과한다 — 콘텐츠가 하나도 없어도 빌드는 깨지지 않는다", () => {
   expect(() => validateFeatured([])).not.toThrow();
+});
+
+test("songs 와 apps 가 합쳐서 0건이면 실패한다 — 빈 사이트가 배포되는 것을 막는다", () => {
+  expect(() => assertContentNotEmpty({ songs: 0, apps: 0 })).toThrow(/0건/);
+});
+
+test("songs 만 있고 apps 가 0건이어도 통과한다 — 개별 0건은 정상일 수 있다", () => {
+  expect(() => assertContentNotEmpty({ songs: 3, apps: 0 })).not.toThrow();
+});
+
+test("apps 만 있고 songs 가 0건이어도 통과한다", () => {
+  expect(() => assertContentNotEmpty({ songs: 0, apps: 5 })).not.toThrow();
 });

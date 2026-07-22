@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "vite",
     "content": "node --env-file-if-exists=.env --import tsx scripts/fetch-content.ts",
-    "build": "node --env-file-if-exists=.env --import tsx scripts/fetch-content.ts && tsc --noEmit && vite build",
+    "build": "node --env-file-if-exists=.env --import tsx scripts/fetch-content.ts && vitest run && tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
