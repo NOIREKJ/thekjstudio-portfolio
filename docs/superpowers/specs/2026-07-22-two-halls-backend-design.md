@@ -203,7 +203,18 @@ public_performances   public_lp   public_gear
 - `anon` 에게는 **뷰 SELECT 권한만** 준다. 원본 테이블 권한은 0
 - `authenticated`(앱)는 기존 RLS 정책대로 원본 테이블을 쓴다
 - **빌드 스크립트는 원본 테이블을 절대 조회하지 않고 뷰만 읽는다.**
-  service key가 RLS를 우회해도 뷰의 컬럼 목록은 우회할 수 없다
+  그리고 빌드는 `anon` 권한(publishable 키)으로 읽는다 — RLS를 우회하는 키를
+  빌드 환경에 두지 않는다. 굽는 대상이 전부 공개 뷰뿐이므로 그 이상의 권한이 필요 없다
+
+**2026-07-22 추가 — 실측으로 확인한 것.** 뷰에 `grant select`를 준 것만으로는
+부족했다. Supabase는 `public` 스키마의 신규 객체에 `anon`·`authenticated` **전 권한**을
+기본 부여하고(`pg_default_acl`), 이 뷰들은 단일 테이블 + `WHERE` 절이라 PostgreSQL이
+**자동 갱신 가능 뷰**로 만든다. `security_invoker = false`와 겹치면 **쓰기가 RLS를
+우회해 원본 테이블에 그대로 꽂힌다** — 즉 누구나 `DELETE /rest/v1/public_lp`로
+`studiorack_records` 행을 지울 수 있었다.
+
+따라서 뷰를 만들 때는 **반드시 `revoke all … from anon, authenticated`를 먼저 하고
+`grant select`를 준다.** 이 순서가 규칙이며 `supabase/migrations/README.md`에 적혀 있다.
 
 ### 누출 회귀 테스트
 
@@ -222,7 +233,7 @@ market_price    market_listings  location  household_id  user_id
 ## 6. 빌드 배관
 
 ```
-Supabase ──(빌드 시, service key, 공개 뷰만)──▶ scripts/fetch-content.ts
+Supabase ──(빌드 시, publishable 키, 공개 뷰만)──▶ scripts/fetch-content.ts
                                                      │
                                                      ▼
                                             src/content/*.json  (git 커밋)
@@ -238,7 +249,7 @@ Supabase ──(빌드 시, service key, 공개 뷰만)──▶ scripts/fetch-c
 
 ### 키가 없을 때의 동작
 
-`SUPABASE_SERVICE_KEY`가 없으면 **실패하지 않는다.** 커밋된 JSON을 그대로 쓰고
+`SUPABASE_PUBLISHABLE_KEY`가 없으면 **실패하지 않는다.** 커밋된 JSON을 그대로 쓰고
 경고를 출력한다. 이유:
 
 - 키 없이도 `npm run dev`가 돌아야 한다

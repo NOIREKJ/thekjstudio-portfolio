@@ -4,7 +4,7 @@
 
 **Goal:** 사이트의 콘텐츠 단일 진실을 Supabase로 옮기되, **화면은 지금과 완전히 동일하게 동작한다.**
 
-**Architecture:** Supabase에 콘텐츠 테이블을 만들고, 안전한 컬럼만 담은 공개 뷰 6개를 그 위에 얹는다. 빌드 시 Node 스크립트가 service key로 **뷰만** 조회해 `src/content/*.json`으로 굽고, 그 JSON을 git에 커밋한다. `src/lib/works.ts`는 마크다운 glob 대신 이 JSON을 읽는다. 브라우저로는 어떤 Supabase 키도 나가지 않는다.
+**Architecture:** Supabase에 콘텐츠 테이블을 만들고, 안전한 컬럼만 담은 공개 뷰 6개를 그 위에 얹는다. 빌드 시 Node 스크립트가 publishable 키로 **뷰만** 조회해 `src/content/*.json`으로 굽고, 그 JSON을 git에 커밋한다. `src/lib/works.ts`는 마크다운 glob 대신 이 JSON을 읽는다. 브라우저로는 어떤 Supabase 키도 나가지 않는다.
 
 **Tech Stack:** Supabase(PostgreSQL 17) · PostgREST · TypeScript · Node 24 · tsx · Vite 8 · Vitest 4 · React 19
 
@@ -16,7 +16,7 @@
 - 신규 테이블의 RLS는 기존 household 패턴을 그대로 따른다 — `household_id in (select public.my_household_ids())`.
 - 건반에 쓸 수 있는 음은 **`C4 D4 E4 G4 A4 C5 D5`** 일곱 개뿐이다. 따라서 `featured` 상한은 **7**이며, `note`는 수동 지정하고 중복될 수 없다.
 - 빌드 스크립트는 **원본 테이블을 절대 조회하지 않는다.** `public_*` 뷰만 읽는다.
-- `SUPABASE_SERVICE_KEY`는 `scripts/` 밖에서 참조되어서는 안 된다. Vite는 `VITE_` 접두사가 붙은 변수만 번들에 인라인하므로 접두사를 붙이지 않는다.
+- 빌드는 **publishable 키**(`sb_publishable_…`)를 쓴다. `service_role` 키는 쓰지 않는다 — 굽는 대상이 전부 공개 뷰뿐이라 RLS를 우회할 이유가 없고, 그런 키를 Vercel 빌드 환경에 두지 않는 편이 안전하다. 환경변수 이름은 `SUPABASE_URL` · `SUPABASE_PUBLISHABLE_KEY`. `VITE_` 접두사를 붙이지 않는다(붙이면 Vite가 번들에 인라인한다).
 - 마이그레이션 SQL은 MCP로 적용하더라도 **반드시 `supabase/migrations/` 에 파일로 남긴다.**
 - 커밋 메시지는 한국어. 기존 저장소 관례를 따른다.
 
@@ -986,14 +986,15 @@ DB 컬럼 이름과 화면이 쓰는 이름 사이의 변환을 한 곳에 모�
   PostgREST 를 직접 부른다. supabase-js 를 쓰지 않는 이유는
   빌드 스크립트 하나 때문에 사이트에 런타임 의존성을 늘리지 않기 위해서다.
 
-  service key 는 여기서만 쓴다. Vite 는 VITE_ 접두사가 붙은 변수만
-  번들에 인라인하므로 접두사를 붙이지 않는 한 브라우저로 새지 않는다.
+  publishable 키를 쓴다. 굽는 대상이 전부 public_* 뷰뿐이고 그 뷰에는
+  anon 에게 SELECT 권한이 있으므로 이걸로 충분하다. RLS 를 우회하는
+  service_role 키를 빌드 환경에 두지 않는 편이 안전하다.
 */
 export type Row = Record<string, unknown>;
 
 export function credentials(): { url: string; key: string } | null {
   const url = process.env.SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_KEY;
+  const key = process.env.SUPABASE_PUBLISHABLE_KEY;
   if (!url || !key) return null;
   return { url: url.replace(/\/+$/, ""), key };
 }
@@ -1060,7 +1061,7 @@ async function main(): Promise<void> {
     const songs = resolve(OUT_DIR, "songs.json");
     if (!existsSync(songs)) {
       throw new Error(
-        "SUPABASE_URL / SUPABASE_SERVICE_KEY 가 없고 커밋된 콘텐츠도 없습니다. " +
+        "SUPABASE_URL / SUPABASE_PUBLISHABLE_KEY 가 없고 커밋된 콘텐츠도 없습니다. " +
           "둘 중 하나는 있어야 빌드할 수 있습니다.",
       );
     }
@@ -1115,20 +1116,24 @@ main().catch((error) => {
   },
 ```
 
-- [ ] **Step 5: 사용자에게 환경변수를 요청한다**
+- [ ] **Step 5: 로컬 `.env` 를 만든다**
 
-이 단계는 **사용자가 직접 한다.** 다음을 그대로 전달할 것:
+publishable 키는 공개용이므로 대시보드를 열 필요 없이 그대로 쓴다.
+저장소 루트에 `.env` 를 만든다 (gitignore 되어 있다):
 
-> Supabase 대시보드 → `KJ Data App` → Project Settings → API 에서 값을 복사해 저장소 루트에 `.env` 를 만드세요:
+```
+SUPABASE_URL=https://eiiifadgwbxfutallmsq.supabase.co
+SUPABASE_PUBLISHABLE_KEY=sb_publishable_9wmIMWbMQ1NP-3wky1lV9g_LpId0Pif
+```
+
+Vercel 등록은 **사용자가 직접 한다.** 다음을 그대로 전달할 것:
+
+> Vercel 대시보드 → 프로젝트 → Settings → Environment Variables 에 위 두 값을
+> Production·Preview 둘 다 등록하세요. 비밀 키가 아니라 공개용 키이므로
+> 유출 위험은 없지만, 회전(rotation)이 가능하도록 환경변수로 둡니다.
 >
-> ```
-> SUPABASE_URL=https://eiiifadgwbxfutallmsq.supabase.co
-> SUPABASE_SERVICE_KEY=<service_role 키>
-> ```
->
-> 그리고 Vercel 대시보드 → 프로젝트 → Settings → Environment Variables 에 같은 두 값을 등록하세요 (Production·Preview 둘 다).
->
-> **service_role 키는 RLS 를 전부 우회합니다.** `.env` 는 gitignore 되어 있고, 이 키는 `scripts/` 밖에서 참조되지 않습니다.
+> 등록하지 않아도 배포는 됩니다 — 커밋된 `src/content/*.json` 으로 빌드되고,
+> 다만 콘텐츠가 갱신되지 않습니다.
 >
 > 이어서 Vercel → Settings → Git → **Deploy Hooks** 에서 훅을 하나 만드세요.
 > 이름 `content-refresh`, 브랜치 `main`. 생성된 URL을 알려주시면 계획에 기록합니다.
@@ -1174,8 +1179,8 @@ Expected: `consolation D4 | streetlight G4`
 git add .gitignore package.json scripts/content/fetch.ts scripts/fetch-content.ts src/content/
 git commit -m "빌드 시 Supabase 공개 뷰를 JSON 으로 굽는다
 
-원본 테이블이 아니라 public_* 뷰만 읽는다. service key 가 RLS 를
-우회해도 뷰의 컬럼 목록은 우회할 수 없다.
+원본 테이블이 아니라 public_* 뷰만 읽는다. 그리고 anon 권한으로 읽는다 —
+RLS 를 우회하는 키를 빌드 환경에 두지 않는다.
 
 구운 JSON 은 커밋한다 — 키 없이도 dev 가 돌고, 디프로 변경이 보이고,
 Supabase 가 죽어도 빌드가 산다. 배포가 DB 가용성에 인질로 잡히면 안 된다."
