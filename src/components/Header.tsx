@@ -10,8 +10,11 @@ export function Header() {
         the KJ Studio
       </Link>
       <nav className={styles.nav} aria-label="주 메뉴">
-        <Link to="/" aria-current={pathname === "/" ? "page" : undefined}>
-          건반
+        <Link to="/studio" aria-current={pathname === "/studio" ? "page" : undefined}>
+          스튜디오
+        </Link>
+        <Link to="/collection" aria-current={pathname === "/collection" ? "page" : undefined}>
+          컬렉션
         </Link>
         <Link to="/about" aria-current={pathname === "/about" ? "page" : undefined}>
           소개

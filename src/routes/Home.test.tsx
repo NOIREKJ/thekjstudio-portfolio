@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 import { Home } from "./Home";
+import { getWorks } from "../lib/works";
 
 function renderHome() {
   return render(
@@ -11,25 +11,33 @@ function renderHome() {
   );
 }
 
-test("소리가 없어도 모든 건반이 보인다", () => {
+// 콘텐츠 하드코딩 금지 — 특정 제목이 아니라 구조·개수로 검증(Phase B 교훈).
+
+test("히어로 제목이 있다", () => {
   renderHome();
-  expect(screen.getAllByRole("button", { name: /·/ }).length).toBeGreaterThanOrEqual(5);
+  expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
 });
 
-test("건반을 누르면 패널이 열린다", async () => {
+test("작업물 카드가 데이터 수만큼 상세로 링크된다", () => {
   renderHome();
-  await userEvent.click(screen.getByRole("button", { name: /NOIRE/ }));
-  expect(screen.getByRole("link", { name: /자세히 보기/ })).toBeInTheDocument();
+  const count = getWorks().length;
+  const links = screen.getAllByRole("link").filter((a) =>
+    (a.getAttribute("href") ?? "").startsWith("/work/"),
+  );
+  expect(links).toHaveLength(count);
 });
 
-test("음소거 토글이 항상 있다", () => {
+test("스튜디오·컬렉션 티저로 가는 링크가 있다", () => {
   renderHome();
-  expect(screen.getByRole("button", { name: /소리/ })).toBeInTheDocument();
+  const hrefs = screen.getAllByRole("link").map((a) => a.getAttribute("href"));
+  expect(hrefs).toContain("/studio");
+  expect(hrefs).toContain("/collection");
 });
 
-test("건반을 누르면 상세로 가는 링크가 생긴다 — 이동 경로는 항상 존재한다", async () => {
+test("연락 경로가 있다", () => {
   renderHome();
-  await userEvent.click(screen.getByRole("button", { name: /위로/ }));
-  const link = screen.getByRole("link", { name: /자세히 보기/ });
-  expect(link).toHaveAttribute("href", "/work/consolation");
+  const mail = screen.getAllByRole("link").find((a) =>
+    (a.getAttribute("href") ?? "").startsWith("mailto:"),
+  );
+  expect(mail).toBeTruthy();
 });

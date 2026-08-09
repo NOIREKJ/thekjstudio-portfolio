@@ -1,0 +1,30 @@
+.page {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 12vh, 7rem) clamp(1.2rem, 5vw, 3.5rem) 6rem;
+  min-height: 50vh;
+}
+
+.label {
+  margin: 0 0 1rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.head {
+  margin: 0 0 1rem;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 6vw, 3.4rem);
+  color: var(--ink);
+}
+
+.note {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+}
