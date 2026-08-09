@@ -1,0 +1,59 @@
+.page {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 12vh, 7rem) clamp(1.2rem, 5vw, 3.5rem) 6rem;
+}
+
+.head { max-width: 40rem; margin-bottom: clamp(2rem, 5vh, 3rem); }
+
+.label {
+  margin: 0 0 1rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.title {
+  margin: 0 0 1rem;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 7vw, 3.8rem);
+  color: var(--ink);
+}
+
+.lede { margin: 0; font-family: var(--serif); font-size: 1.15rem; color: var(--ink-soft); }
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: clamp(1.8rem, 4vh, 2.6rem);
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.08);
+}
+
+.genres, .sorts { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.chip, .chipOn, .sort, .sortOn {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background: none;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+
+.chip:hover, .sort:hover { color: var(--ink); border-color: rgb(255 255 255 / 0.25); }
+
+.chipOn, .sortOn {
+  color: #131215;
+  background: var(--brass);
+  border-color: var(--brass);
+}
