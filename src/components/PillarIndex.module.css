@@ -32,7 +32,7 @@
 
 .ko {
   font-family: var(--serif);
-  font-size: clamp(2.2rem, 6.5vw, 4.2rem);
+  font-size: clamp(1.6rem, 4.2vw, 2.7rem);
   line-height: 1;
   color: var(--ink);
   transition: color 0.3s var(--ease-out-strong);

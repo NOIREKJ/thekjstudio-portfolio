@@ -19,7 +19,7 @@
   margin: 0 0 1rem;
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(2.8rem, 9vw, 5.6rem);
+  font-size: clamp(2rem, 5.5vw, 3.6rem);
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -41,7 +41,7 @@
 }
 
 @media (min-width: 52rem) {
-  .layout { grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); }
+  .layout { grid-template-columns: minmax(0, 26rem) minmax(0, 1fr); }
 }
 
 .colLabel {
