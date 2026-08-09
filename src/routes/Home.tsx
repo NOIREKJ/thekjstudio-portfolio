@@ -1,15 +1,11 @@
-import { useEffect, useMemo } from "react";
-import { getWorks } from "../lib/works";
+import { useEffect } from "react";
 import { applyMeta } from "../lib/meta";
 import { Hero } from "../components/Hero";
-import { WorkGrid } from "../components/WorkGrid";
-import { StudioTeaser } from "../components/StudioTeaser";
-import { CollectionTeaser } from "../components/CollectionTeaser";
+import { PillarIndex } from "../components/PillarIndex";
+import { LpMarquee } from "../components/LpMarquee";
 import styles from "./Home.module.css";
 
 export function Home() {
-  const works = useMemo(() => getWorks(), []);
-
   useEffect(() => {
     applyMeta({
       title: "the KJ Studio — 음악을 쓰고, 앱을 만듭니다",
@@ -23,14 +19,12 @@ export function Home() {
     <main className={styles.page}>
       <Hero />
 
-      <section id="work" className={styles.section} aria-labelledby="work-h">
-        <p id="work-h" className={styles.sectionLabel}>Work</p>
-        <WorkGrid works={works} />
+      <section className={styles.pillars} aria-label="둘러보기">
+        <PillarIndex />
       </section>
 
-      <section className={styles.teasers}>
-        <StudioTeaser />
-        <CollectionTeaser />
+      <section className={styles.marquee} aria-label="컬렉션 미리보기">
+        <LpMarquee />
       </section>
 
       <section className={styles.contact} aria-labelledby="contact-h">

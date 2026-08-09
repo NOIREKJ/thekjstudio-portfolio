@@ -1,0 +1,26 @@
+.page {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 12vh, 7rem) clamp(1.2rem, 5vw, 3.5rem) 6rem;
+}
+
+.head { max-width: 40rem; margin-bottom: clamp(2.5rem, 7vh, 4rem); }
+
+.label {
+  margin: 0 0 1rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.title {
+  margin: 0 0 1rem;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 7vw, 3.8rem);
+  color: var(--ink);
+}
+
+.lede { margin: 0; font-family: var(--sans); font-size: 1.15rem; color: var(--ink-soft); }

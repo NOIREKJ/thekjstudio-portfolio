@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Home } from "./routes/Home";
+import { Works } from "./routes/Works";
 import { Studio } from "./routes/Studio";
 import { Collection } from "./routes/Collection";
 import { Work } from "./routes/Work";
@@ -13,6 +14,7 @@ export default function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/work" element={<Works />} />
         <Route path="/studio" element={<Studio />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/work/:slug" element={<Work />} />

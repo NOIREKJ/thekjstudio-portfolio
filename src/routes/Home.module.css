@@ -4,10 +4,19 @@
   padding: 0 clamp(1.2rem, 5vw, 3.5rem) 6rem;
 }
 
-.section { margin-top: clamp(2.5rem, 8vh, 5rem); }
+.pillars { margin-top: clamp(2rem, 6vh, 4rem); }
+
+/* 마퀴는 페이지 여백을 뚫고 화면 폭 전체로 흐른다 */
+.marquee {
+  margin-top: clamp(3.5rem, 10vh, 7rem);
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+}
+
+.contact { margin-top: clamp(3.5rem, 10vh, 7rem); }
 
 .sectionLabel {
-  margin: 0 0 1.8rem;
+  margin: 0 0 1.4rem;
   font-family: var(--mono);
   font-size: 0.75rem;
   letter-spacing: 0.24em;
@@ -15,13 +24,9 @@
   color: var(--ink-soft);
 }
 
-.teasers { margin-top: clamp(3rem, 9vh, 6rem); }
-
-.contact { margin-top: clamp(3rem, 9vh, 6rem); }
-
 .mail {
   font-family: var(--serif);
-  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-size: clamp(1.6rem, 5vw, 2.6rem);
   color: var(--ink);
   text-decoration: none;
   transition: color 0.3s var(--ease-out-strong);
