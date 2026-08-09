@@ -38,9 +38,21 @@ test("LP 는 재산 정보를 담을 자리가 없다", () => {
   ]);
 });
 
-test("장비는 이름과 분류만 나온다", () => {
-  const gear = mapGear({ id: "g1", name: "Genelec 8030", category: "모니터", sort_order: 0 });
-  expect(gear).toEqual({ id: "g1", name: "Genelec 8030", category: "모니터", sortOrder: 0 });
+test("장비는 이름·분류·랙 배치(rackU·rackMounted)를 담고 재산정보는 없다", () => {
+  const gear = mapGear({
+    id: "g1", name: "Genelec 8030", category: "모니터", sort_order: 0,
+    rack_u: 2, rack_mounted: true,
+  });
+  expect(gear).toEqual({
+    id: "g1", name: "Genelec 8030", category: "모니터", sortOrder: 0,
+    rackU: 2, rackMounted: true,
+  });
+});
+
+test("장비: rack_u 가 없으면 rackU=null, rackMounted=false", () => {
+  const gear = mapGear({ id: "g2", name: "MacBook", category: "컴퓨터/Mac", sort_order: 1 });
+  expect(gear.rackU).toBeNull();
+  expect(gear.rackMounted).toBe(false);
 });
 
 test("크레딧: work_title 이 workTitle 로, roles 배열이 그대로 옮겨진다", () => {

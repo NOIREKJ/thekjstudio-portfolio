@@ -77,4 +77,6 @@ export type GearContent = {
   name: string;
   category: string;
   sortOrder: number;
+  rackU: number | null;
+  rackMounted: boolean;
 };

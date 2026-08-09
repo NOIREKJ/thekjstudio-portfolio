@@ -108,5 +108,7 @@ export function mapGear(row: Row): GearContent {
     name: str(row.name),
     category: str(row.category),
     sortOrder: num(row.sort_order),
+    rackU: nullableNum(row.rack_u),
+    rackMounted: Boolean(row.rack_mounted),
   };
 }
