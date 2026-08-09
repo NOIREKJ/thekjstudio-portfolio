@@ -1,20 +1,41 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
+import { getGear } from "../lib/gear";
 import { applyMeta } from "../lib/meta";
-import styles from "./Placeholder.module.css";
+import { RackDiagram } from "../components/RackDiagram";
+import { GearInventory } from "../components/GearInventory";
+import styles from "./Studio.module.css";
 
-// P1 자리표시 — P2 에서 RackDiagram + GearInventory 로 교체.
 export function Studio() {
+  const gear = useMemo(() => getGear(), []);
+
   useEffect(() => {
     applyMeta({
       title: "스튜디오 — the KJ Studio",
       description: "작업에 쓰는 장비와 랙 구성.",
     });
   }, []);
+
   return (
     <main className={styles.page}>
-      <p className={styles.label}>Studio</p>
-      <h1 className={styles.head}>스튜디오</h1>
-      <p className={styles.note}>장비와 랙 구성을 곧 여기에 담습니다.</p>
+      <header className={styles.head}>
+        <p className={styles.label}>Studio</p>
+        <h1 className={styles.title}>스튜디오</h1>
+        <p className={styles.lede}>
+          소리를 만드는 도구들. 랙에 걸린 아웃보드와 음원, 그리고 전체 장비.
+        </p>
+      </header>
+
+      <div className={styles.layout}>
+        <section className={styles.rackCol} aria-labelledby="rack-h">
+          <p id="rack-h" className={styles.colLabel}>Rack</p>
+          <RackDiagram gear={gear} />
+        </section>
+
+        <section className={styles.invCol} aria-labelledby="inv-h">
+          <p id="inv-h" className={styles.colLabel}>전체 장비 · {gear.length}</p>
+          <GearInventory gear={gear} />
+        </section>
+      </div>
     </main>
   );
 }
