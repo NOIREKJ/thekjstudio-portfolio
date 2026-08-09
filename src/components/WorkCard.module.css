@@ -1,11 +1,14 @@
 .card {
   display: block;
+  min-width: 0;
   text-decoration: none;
   color: inherit;
 }
 
 .cover {
+  display: block;
   position: relative;
+  width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   border-radius: 4px;

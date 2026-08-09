@@ -39,7 +39,7 @@
 }
 
 @media (min-width: 52rem) {
-  .layout { grid-template-columns: minmax(0, 22rem) 1fr; }
+  .layout { grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); }
 }
 
 .colLabel {
