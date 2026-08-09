@@ -10,8 +10,8 @@ export function Studio() {
 
   useEffect(() => {
     applyMeta({
-      title: "스튜디오 — the KJ Studio",
-      description: "작업에 쓰는 장비와 랙 구성.",
+      title: "Studio — the KJ Studio",
+      description: "The gear and rack behind the work.",
     });
   }, []);
 
@@ -19,9 +19,9 @@ export function Studio() {
     <main className={styles.page}>
       <header className={styles.head}>
         <p className={styles.label}>Studio</p>
-        <h1 className={styles.title}>스튜디오</h1>
+        <h1 className={styles.title}>Studio</h1>
         <p className={styles.lede}>
-          소리를 만드는 도구들. 랙에 걸린 아웃보드와 음원, 그리고 전체 장비.
+          The tools I make sound with — outboard and sound modules in the rack, and everything else.
         </p>
       </header>
 
@@ -32,7 +32,7 @@ export function Studio() {
         </section>
 
         <section className={styles.invCol} aria-labelledby="inv-h">
-          <p id="inv-h" className={styles.colLabel}>전체 장비 · {gear.length}</p>
+          <p id="inv-h" className={styles.colLabel}>Equipment · {gear.length}</p>
           <GearInventory gear={gear} />
         </section>
       </div>

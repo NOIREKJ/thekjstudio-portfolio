@@ -1,0 +1,171 @@
+.unit, .blank {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.4rem 2rem 1fr auto 1.4rem;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 3.1rem;
+  padding: 0 0.5rem;
+  border-radius: 2px;
+  background:
+    linear-gradient(180deg, rgb(255 255 255 / 0.05), transparent 14%),
+    linear-gradient(180deg, #26242c 0%, #17161c 52%, #201e26 100%);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), inset 0 -1px 0 rgb(0 0 0 / 0.5), 0 1px 2px rgb(0 0 0 / 0.4);
+}
+
+.blank {
+  min-height: 1.5rem;
+  background: linear-gradient(180deg, #16151b, #121116);
+  grid-template-columns: 1.4rem 1fr 1.4rem;
+}
+
+/* 랙 귀 나사 한 쌍 */
+.ear {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  align-items: center;
+}
+.ear i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #55545c, #232228 70%);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.5);
+  position: relative;
+}
+.ear i::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-top: 1px solid rgb(0 0 0 / 0.55);
+  transform: rotate(35deg);
+}
+
+.u {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--ink-soft);
+  opacity: 0.5;
+  text-align: center;
+}
+
+.name {
+  font-family: var(--serif);
+  font-size: 1.02rem;
+  color: #e7e2d6;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.face { display: flex; align-items: center; justify-content: flex-end; padding-right: 0.3rem; }
+
+/* ── VU 미터 ── */
+.vu {
+  position: relative;
+  width: 58px;
+  height: 30px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #d8cba6, #b9a97e);
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.4);
+}
+.vuArc {
+  position: absolute;
+  left: 8%; right: 8%; top: 30%;
+  height: 60%;
+  border-top: 1px solid rgb(60 45 20 / 0.5);
+  border-radius: 50%;
+}
+.vuNeedle {
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 1.4px;
+  height: 20px;
+  background: #3a2410;
+  transform-origin: bottom center;
+  transform: rotate(-22deg);
+}
+.vu::after {
+  content: "";
+  position: absolute;
+  right: 12%; top: 22%;
+  width: 22%; height: 34%;
+  border-top: 2px solid rgb(170 40 30 / 0.65);
+  border-radius: 50%;
+}
+
+/* ── LED 레벨 ── */
+.leds {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 26px;
+  padding: 3px 5px;
+  border-radius: 3px;
+  background: #0c0c0f;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.04);
+}
+.leds i {
+  width: 3px;
+  border-radius: 1px;
+  background: linear-gradient(180deg, #d8654a 0%, #d8a24a 40%, #6fae5a 100%);
+  opacity: 0.9;
+}
+
+/* ── LCD 디스플레이 ── */
+.display {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 68px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #0a1c18, #0c241d);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.5), inset 0 0 10px rgb(80 220 170 / 0.12);
+}
+.displayLine {
+  height: 3px;
+  border-radius: 1px;
+  background: rgb(90 226 178 / 0.75);
+  box-shadow: 0 0 5px rgb(90 226 178 / 0.5);
+}
+
+/* ── 노브 줄 ── */
+.knobs { display: flex; gap: 8px; align-items: center; }
+.knobs i {
+  position: relative;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 30%, #3e3d45, #1c1b21 72%);
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.5);
+}
+.knobs i::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 2px;
+  width: 1.4px; height: 6px;
+  background: var(--brass);
+  transform: translateX(-50%);
+}
+
+/* 빈 U — 통풍 블랭크 패널 */
+.vents { display: flex; gap: 5px; justify-content: center; }
+.vents i {
+  width: 26px;
+  height: 3px;
+  border-radius: 2px;
+  background: rgb(0 0 0 / 0.5);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.03);
+}
+
+@media (max-width: 32rem) {
+  .face { display: none; }
+  .unit { grid-template-columns: 1.4rem 2rem 1fr 1.4rem; }
+}
