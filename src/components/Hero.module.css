@@ -27,7 +27,7 @@
 .sub {
   margin: 1.8rem 0 0;
   max-width: 34rem;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: clamp(1rem, 2.2vw, 1.25rem);
   line-height: 1.55;
   color: var(--ink-soft);

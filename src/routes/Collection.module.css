@@ -23,7 +23,7 @@
   color: var(--ink);
 }
 
-.lede { margin: 0; font-family: var(--serif); font-size: 1.15rem; color: var(--ink-soft); }
+.lede { margin: 0; font-family: var(--sans); font-size: 1.15rem; color: var(--ink-soft); }
 
 .controls {
   display: flex;

@@ -25,7 +25,7 @@
 
 .lede {
   margin: 0;
-  font-family: var(--serif);
+  font-family: var(--sans);
   font-size: 1.15rem;
   line-height: 1.6;
   color: var(--ink-soft);

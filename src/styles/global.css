@@ -6,8 +6,11 @@
   /* 놋쇠 — 피아노 페달·경첩의 금속. 포인트는 이 하나만 쓴다 */
   --brass: #c9a86a;
 
-  --serif: "Fraunces", "Noto Serif KR", "Iowan Old Style", Georgia,
-    "Apple SD Gothic Neo", serif;
+  /* 라틴 제목 = Instrument Serif(고대비 디스플레이), 한글은 Pretendard 로 폴백 */
+  --serif: "Instrument Serif", "Pretendard Variable", Pretendard, Georgia, serif;
+  /* 본문·한글 = Pretendard(프리미엄 한글 산세리프) */
+  --sans: "Pretendard Variable", Pretendard, system-ui, -apple-system,
+    "Apple SD Gothic Neo", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
 
   /* 기성 커브는 힘이 없다 */
@@ -23,7 +26,7 @@ body {
     radial-gradient(800px 520px at 18% 88%, rgb(46 38 32 / 0.5) 0%, rgb(46 38 32 / 0) 65%),
     var(--stage);
   color: var(--ink);
-  font-family: var(--serif);
+  font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
 }
 
