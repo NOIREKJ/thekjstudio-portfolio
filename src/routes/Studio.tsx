@@ -25,6 +25,10 @@ export function Studio() {
         </p>
       </header>
 
+      <figure className={styles.photo}>
+        <img src="/images/gallery/horizontal-4-kj-room.jpg" alt="The studio desk — monitors, interface, and keys." loading="lazy" />
+      </figure>
+
       <div className={styles.layout}>
         <section className={styles.rackCol} aria-labelledby="rack-h">
           <p id="rack-h" className={styles.colLabel}>Rack</p>
