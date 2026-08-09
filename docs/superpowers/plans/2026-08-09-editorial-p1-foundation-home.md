@@ -109,7 +109,7 @@ test("LP 를 sortOrder 순으로, 안전 필드만", () => {
 ### Task 4 — 에디토리얼 홈 조립 + 네비 + 라우트
 
 **Files:** Modify `src/routes/Home.tsx`·`Home.module.css`, `src/components/Header.tsx`, `src/App.tsx`; Create `src/routes/Studio.tsx`·`Collection.tsx`(자리표시)
-- `Home` 을 건반 버전에서 에디토리얼로 **교체**: `<Hero/>` → 소개 카피 → `<WorkGrid works={featured}/>`(getWorks 의 featured, 없으면 전체 앞) → `<StudioTeaser/>` → `<CollectionTeaser/>` → 연락 블록. `applyMeta`(제목·설명·이미지) 유지. 건반·오디오 import 제거.
+- `Home` 을 건반 버전에서 에디토리얼로 **교체**: `<Hero/>` → 소개 카피 → `<WorkGrid works={getWorks()}/>`(전체 — 작업물 수가 적어 별도 featured 불필요; 많아지면 그때 선별 도입) → `<StudioTeaser/>` → `<CollectionTeaser/>` → 연락 블록. `applyMeta`(제목·설명·이미지) 유지. 건반·오디오 import 제거.
 - `Header` 네비: Work(`/#work` 앵커 또는 홈 스크롤)·Studio(`/studio`)·Collection(`/collection`)·About(`/about`)·연락(mailto). `aria-current`.
 - `Studio.tsx`·`Collection.tsx`: 최소 페이지(제목 + "곧" 안내 + 각각 티저 재사용) — P2·P3 에서 대체.
 - `App.tsx`: `/studio`·`/collection` 라우트 추가.
@@ -117,7 +117,7 @@ test("LP 를 sortOrder 순으로, 안전 필드만", () => {
 - [ ] **Step 1: Home 교체**(섹션 조립, applyMeta, 건반/오디오 의존 제거)
 - [ ] **Step 2: Header 네비 갱신**
 - [ ] **Step 3: Studio·Collection 자리표시 + App 라우트**
-- [ ] **Step 4: 홈 구조 테스트**(`Home.test.tsx` 재작성) — 콘텐츠 하드코딩 없이: 히어로 존재, 작업물 카드 수 = featured 수(또는 >0), 스튜디오·컬렉션 티저 섹션 존재, `/work/:slug` 링크 형식. (Phase B 교훈: 제목·장비명 하드코딩 금지)
+- [ ] **Step 4: 홈 구조 테스트**(`Home.test.tsx` 재작성) — 콘텐츠 하드코딩 없이: 히어로 존재, 작업물 카드 수 = `getWorks().length`, 스튜디오·컬렉션 티저 섹션 존재, `/work/:slug` 링크 형식. (Phase B 교훈: 제목·장비명 하드코딩 금지)
 - [ ] **Step 5: 기계 검증** — `npm test`·`tsc`·`vite build`. → **Step 6: 사람 눈**(에디토리얼 홈 톤·위계·반응형, 네비 이동) → **Step 7: 커밋**
 
 ---
