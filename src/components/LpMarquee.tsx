@@ -9,7 +9,7 @@ export function LpMarquee() {
   if (covers.length === 0) return null;
   const loop = [...covers, ...covers];
   return (
-    <Link to="/collection" className={styles.wrap} aria-label={`LP 컬렉션 ${getLps().length}장 보기`}>
+    <Link to="/collection" className={styles.wrap} aria-label={`View the collection · ${getLps().length} records`}>
       <div className={styles.track}>
         {loop.map((lp, i) => (
           <span key={`${lp.id}-${i}`} className={styles.item} aria-hidden={i >= covers.length}>

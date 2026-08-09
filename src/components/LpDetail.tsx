@@ -12,18 +12,18 @@ export function LpDetail({ lp, onClose }: { lp: Lp; onClose: () => void }) {
   }, [onClose]);
 
   const rows: [string, string | number | null][] = [
-    ["레이블", lp.label],
-    ["카탈로그", lp.catalogNo],
-    ["국가", lp.country],
-    ["포맷", lp.format],
-    ["속도", lp.speed ? `${lp.speed} RPM` : null],
-    ["장르", lp.genre],
+    ["Label", lp.label],
+    ["Catalog", lp.catalogNo],
+    ["Country", lp.country],
+    ["Format", lp.format],
+    ["Speed", lp.speed ? `${lp.speed} RPM` : null],
+    ["Genre", lp.genre],
   ];
 
   return (
     <div className={styles.backdrop} onClick={onClose} role="dialog" aria-modal="true" aria-label={`${lp.artist} — ${lp.title}`}>
       <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
-        <button type="button" className={styles.close} onClick={onClose} aria-label="닫기">✕</button>
+        <button type="button" className={styles.close} onClick={onClose} aria-label="Close">✕</button>
 
         <div className={styles.disc}>
           {/* 슬리브 뒤에서 빠져나오는 레코드 */}
@@ -54,7 +54,7 @@ export function LpDetail({ lp, onClose }: { lp: Lp; onClose: () => void }) {
           </dl>
           {lp.appleMusicUrl && (
             <a className={styles.apple} href={lp.appleMusicUrl} target="_blank" rel="noopener noreferrer">
-              Apple Music에서 듣기 →
+              Listen on Apple Music →
             </a>
           )}
         </div>

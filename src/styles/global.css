@@ -6,12 +6,13 @@
   /* 놋쇠 — 피아노 페달·경첩의 금속. 포인트는 이 하나만 쓴다 */
   --brass: #c9a86a;
 
-  /* 라틴 제목 = Instrument Serif(고대비 디스플레이), 한글은 Pretendard 로 폴백 */
-  --serif: "Instrument Serif", "Pretendard Variable", Pretendard, Georgia, serif;
+  /* 영어(디스플레이·제목) = League Mono 고정폭, 한글은 Pretendard 로 폴백 */
+  --serif: "League Mono", "Pretendard Variable", Pretendard, ui-monospace, monospace;
   /* 본문·한글 = Pretendard(프리미엄 한글 산세리프) */
   --sans: "Pretendard Variable", Pretendard, system-ui, -apple-system,
     "Apple SD Gothic Neo", sans-serif;
-  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+  /* 라벨·메타 = League Mono */
+  --mono: "League Mono", ui-monospace, "SF Mono", monospace;
 
   /* 기성 커브는 힘이 없다 */
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);

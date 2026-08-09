@@ -22,8 +22,8 @@ export function Work() {
   if (!work) {
     return (
       <main className={styles.page}>
-        <p>찾을 수 없는 작업입니다.</p>
-        <Link className={styles.back} to="/">← 처음으로</Link>
+        <p>Work not found.</p>
+        <Link className={styles.back} to="/">← Back</Link>
       </main>
     );
   }
@@ -33,7 +33,7 @@ export function Work() {
 
   return (
     <main className={styles.page}>
-      <Link className={styles.back} to="/">← 처음으로</Link>
+      <Link className={styles.back} to="/">← Back</Link>
 
       <p className={styles.overline}>
         Op. {String(index + 1).padStart(2, "0")} — {work.kind}
@@ -63,21 +63,21 @@ export function Work() {
         <img
           className={styles.cover}
           src={work.cover}
-          alt={`${work.title} 커버`}
+          alt={work.title}
         />
       )}
 
       <div className={styles.body}>{work.body}</div>
 
       {work.screens.length > 0 && (
-        <section className={styles.screens} aria-label={`${work.title} 화면`}>
-          <p className={styles.screensLabel}>Screens — 화면</p>
+        <section className={styles.screens} aria-label={` screens`}>
+          <p className={styles.screensLabel}>Screens</p>
           <div className={styles.screenGrid}>
             {work.screens.map((screen) => (
               <figure key={screen.src}>
                 <img
                   src={screen.src}
-                  alt={screen.caption || `${work.title} 화면`}
+                  alt={screen.caption || ` screen`}
                   loading="lazy"
                 />
                 {screen.caption && <figcaption>{screen.caption}</figcaption>}
@@ -87,7 +87,7 @@ export function Work() {
         </section>
       )}
 
-      <nav className={styles.pager} aria-label="다른 작업">
+      <nav className={styles.pager} aria-label="More work">
         {prev ? (
           <Link to={`/work/${prev.slug}`} className={styles.pagerLink}>
             ← {prev.title}

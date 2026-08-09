@@ -4,7 +4,7 @@ import styles from "./WorkCard.module.css";
 
 // 작업물 한 장 — 커버·제목·연도·종류. 클릭 시 상세로.
 export function WorkCard({ work }: { work: Work }) {
-  const kindLabel = work.kind === "music" ? "음악" : "앱";
+  const kindLabel = work.kind === "music" ? "Music" : "App";
   return (
     <Link to={`/work/${work.slug}`} className={styles.card}>
       <div className={styles.cover}>

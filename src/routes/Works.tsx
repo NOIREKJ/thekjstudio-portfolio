@@ -9,8 +9,8 @@ export function Works() {
 
   useEffect(() => {
     applyMeta({
-      title: "작업 — the KJ Studio",
-      description: "작곡가이자 개발자 김준의 음악과 앱 작업물.",
+      title: "Work — the KJ Studio",
+      description: "Music and apps by Joon Kim, composer and developer.",
     });
   }, []);
 
@@ -18,8 +18,8 @@ export function Works() {
     <main className={styles.page}>
       <header className={styles.head}>
         <p className={styles.label}>Work</p>
-        <h1 className={styles.title}>작업</h1>
-        <p className={styles.lede}>쓴 음악과 만든 앱. {works.length}개.</p>
+        <h1 className={styles.title}>Work</h1>
+        <p className={styles.lede}>Music written and apps built — {works.length} in total.</p>
       </header>
       <WorkGrid works={works} />
     </main>

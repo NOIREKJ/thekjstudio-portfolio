@@ -6,30 +6,30 @@ import styles from "./About.module.css";
 export function About() {
   useEffect(() => {
     applyMeta({
-      title: "소개 — the KJ Studio",
+      title: "About — the KJ Studio",
       description:
-        "서울에서 음악을 쓰고 앱을 만듭니다. 곡은 K_Joon_P라는 이름으로 냅니다.",
+        "Based in Seoul, I write music and build apps. Music released as K_Joon_P.",
       image: "/images/kimjoonmain.jpeg",
     });
   }, []);
 
   return (
     <main className={styles.page}>
-      <Link className={styles.back} to="/">← 처음으로</Link>
+      <Link className={styles.back} to="/">← Back</Link>
 
       <div className={styles.grid}>
         <div>
-          <p className={styles.overline}>About — 소개</p>
+          <p className={styles.overline}>About</p>
           <h1 className={styles.title}>Joon Kim</h1>
           <p className={styles.meta}>the KJ Studio · Seoul</p>
 
           <div className={styles.body}>
-            {`서울에서 음악을 쓰고 앱을 만듭니다.
+            {`Based in Seoul, I write music and build apps.
 
-두 가지를 따로 하는 것처럼 보이지만, 하는 일은 같습니다.
-누군가의 하루를 조금 덜 힘들게 만드는 것.
+They may look like two separate things, but the work is the same —
+making someone's day a little less hard.
 
-곡은 K_Joon_P라는 이름으로 냅니다.`}
+I release music under the name K_Joon_P.`}
           </div>
 
           <dl className={styles.facts}>
@@ -53,7 +53,7 @@ export function About() {
         <figure className={styles.figure}>
           <img
             src="/images/kimjoonmain.jpeg"
-            alt="Joon Kim의 프로필 사진"
+            alt="Joon Kim"
             loading="lazy"
           />
         </figure>

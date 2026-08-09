@@ -7,9 +7,9 @@ import { LpDetail } from "../components/LpDetail";
 import styles from "./Collection.module.css";
 
 const SORTS: { key: LpSort; label: string }[] = [
-  { key: "year-desc", label: "발매순" },
-  { key: "year-asc", label: "오래된순" },
-  { key: "artist", label: "아티스트순" },
+  { key: "year-desc", label: "Newest" },
+  { key: "year-asc", label: "Oldest" },
+  { key: "artist", label: "Artist" },
 ];
 
 export function Collection() {
@@ -20,7 +20,7 @@ export function Collection() {
   const [selected, setSelected] = useState<Lp | null>(null);
 
   useEffect(() => {
-    applyMeta({ title: "컬렉션 — the KJ Studio", description: "LP 컬렉션." });
+    applyMeta({ title: "Collection — the KJ Studio", description: "The vinyl collection." });
   }, []);
 
   const shown = useMemo(() => filterAndSortLps(lps, { genre, sort }), [lps, genre, sort]);
@@ -29,14 +29,14 @@ export function Collection() {
     <main className={styles.page}>
       <header className={styles.head}>
         <p className={styles.label}>Collection</p>
-        <h1 className={styles.title}>LP 컬렉션</h1>
-        <p className={styles.lede}>턴테이블에 올리는 음반 {lps.length}장.</p>
+        <h1 className={styles.title}>Collection</h1>
+        <p className={styles.lede}>{lps.length} records for the turntable.</p>
       </header>
 
       <div className={styles.controls}>
-        <div className={styles.genres} role="group" aria-label="장르 필터">
+        <div className={styles.genres} role="group" aria-label="Filter by genre">
           <button type="button" className={genre == null ? styles.chipOn : styles.chip} onClick={() => setGenre(null)}>
-            전체
+            All
           </button>
           {genres.map((g) => (
             <button key={g} type="button" className={genre === g ? styles.chipOn : styles.chip} onClick={() => setGenre(g)}>
@@ -44,7 +44,7 @@ export function Collection() {
             </button>
           ))}
         </div>
-        <div className={styles.sorts} role="group" aria-label="정렬">
+        <div className={styles.sorts} role="group" aria-label="Sort">
           {SORTS.map((s) => (
             <button key={s.key} type="button" className={sort === s.key ? styles.sortOn : styles.sort} onClick={() => setSort(s.key)}>
               {s.label}
