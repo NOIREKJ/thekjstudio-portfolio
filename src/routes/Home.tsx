@@ -16,7 +16,7 @@ export function Home() {
       title: "the KJ Studio — I write music, and build apps",
       description:
         "Work, studio gear, and vinyl collection of Joon Kim — composer and developer. Sound and software by the same hands.",
-      image: "/images/logo/kjstudio-studio.png",
+      image: "/images/logo/kjstudio-studio.jpg",
     });
   }, []);
 

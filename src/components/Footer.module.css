@@ -15,7 +15,7 @@
   z-index: 0;
   background-image:
     linear-gradient(180deg, rgb(16 15 19 / 0.55) 0%, rgb(16 15 19 / 0.8) 70%, var(--stage) 100%),
-    url("/images/logo/kjstudio-beach.png");
+    url("/images/logo/kjstudio-beach.jpg");
   background-size: cover;
   background-position: center 32%;
   opacity: 0.55;
