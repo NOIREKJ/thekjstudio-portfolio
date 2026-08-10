@@ -1,16 +1,19 @@
-.page {
+/* 전체폭 — 히어로·마퀴는 이 폭을 그대로 쓰고, 콘텐츠만 안쪽 컨테이너로 */
+.page { width: 100%; }
+
+.inner {
   max-width: 72rem;
   margin: 0 auto;
-  padding: 0 clamp(1.2rem, 5vw, 3.5rem) 6rem;
+  padding: 0 clamp(1.2rem, 5vw, 3.5rem);
 }
+.inner:last-child { padding-bottom: 6rem; }
 
 .pillars { margin-top: clamp(2rem, 6vh, 4rem); }
 
-/* 마퀴는 페이지 여백을 뚫고 화면 폭 전체로 흐른다 */
+/* 마퀴는 화면 폭 전체로 흐른다(100vw 대신 전체폭 부모를 그대로) */
 .marquee {
   margin-top: clamp(3.5rem, 10vh, 7rem);
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
+  width: 100%;
 }
 
 /* About 티저 — 사진 + 한 줄 소개 */

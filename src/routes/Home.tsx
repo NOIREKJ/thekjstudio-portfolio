@@ -24,37 +24,41 @@ export function Home() {
     <main className={styles.page}>
       <Hero />
 
-      <Reveal>
-        <section className={styles.pillars} aria-label={t.pillars.browse}>
-          <PillarIndex />
-        </section>
-      </Reveal>
+      <div className={styles.inner}>
+        <Reveal>
+          <section className={styles.pillars} aria-label={t.pillars.browse}>
+            <PillarIndex />
+          </section>
+        </Reveal>
 
-      <Reveal>
-        <section className={styles.about}>
-          <figure className={styles.aboutFig}>
-            <img src="/images/gallery/vertical-1-kj-piano.jpeg" alt="At the piano" loading="lazy" />
-          </figure>
-          <div className={styles.aboutText}>
-            <p className={styles.aboutTag}>{t.home.aboutTag}</p>
-            <p className={styles.aboutLine}>{t.home.aboutLine}</p>
-            <Link to="/about" className={styles.aboutCta}>{t.home.aboutCta}</Link>
-          </div>
-        </section>
-      </Reveal>
+        <Reveal>
+          <section className={styles.about}>
+            <figure className={styles.aboutFig}>
+              <img src="/images/gallery/vertical-1-kj-piano.jpeg" alt="At the piano" loading="lazy" />
+            </figure>
+            <div className={styles.aboutText}>
+              <p className={styles.aboutTag}>{t.home.aboutTag}</p>
+              <p className={styles.aboutLine}>{t.home.aboutLine}</p>
+              <Link to="/about" className={styles.aboutCta}>{t.home.aboutCta}</Link>
+            </div>
+          </section>
+        </Reveal>
+      </div>
 
       <section className={styles.marquee} aria-label={t.collection.preview}>
         <LpMarquee />
       </section>
 
-      <Reveal>
-        <section className={styles.contact} aria-labelledby="contact-h">
-          <p id="contact-h" className={styles.sectionLabel}>{t.nav.contact}</p>
-          <a className={styles.mail} href="mailto:contact@thekjstudio.com">
-            contact@thekjstudio.com
-          </a>
-        </section>
-      </Reveal>
+      <div className={styles.inner}>
+        <Reveal>
+          <section className={styles.contact} aria-labelledby="contact-h">
+            <p id="contact-h" className={styles.sectionLabel}>{t.nav.contact}</p>
+            <a className={styles.mail} href="mailto:contact@thekjstudio.com">
+              contact@thekjstudio.com
+            </a>
+          </section>
+        </Reveal>
+      </div>
     </main>
   );
 }

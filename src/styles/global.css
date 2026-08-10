@@ -34,8 +34,15 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* 가로 넘침 차단 — 100vw 전면 요소가 iOS 에서 스크롤바를 만드는 것 방지 */
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
+  overflow-x: hidden;
+  max-width: 100%;
   background:
     radial-gradient(1100px 640px at 50% -10%, #232230 0%, rgb(35 34 48 / 0) 62%),
     radial-gradient(800px 520px at 18% 88%, rgb(46 38 32 / 0.5) 0%, rgb(46 38 32 / 0) 65%),
