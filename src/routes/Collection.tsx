@@ -5,6 +5,7 @@ import { applyMeta } from "../lib/meta";
 import { useT } from "../i18n";
 import { LpGrid } from "../components/LpGrid";
 import { LpDetail } from "../components/LpDetail";
+import { Reveal } from "../components/Reveal";
 import styles from "./Collection.module.css";
 
 export function Collection() {
@@ -55,7 +56,9 @@ export function Collection() {
         </div>
       </div>
 
-      <LpGrid lps={shown} onOpen={setSelected} />
+      <Reveal>
+        <LpGrid lps={shown} onOpen={setSelected} />
+      </Reveal>
 
       {selected && <LpDetail lp={selected} onClose={() => setSelected(null)} />}
     </main>

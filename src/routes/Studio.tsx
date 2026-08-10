@@ -4,6 +4,7 @@ import { applyMeta } from "../lib/meta";
 import { useT } from "../i18n";
 import { RackDiagram } from "../components/RackDiagram";
 import { GearInventory } from "../components/GearInventory";
+import { Reveal } from "../components/Reveal";
 import styles from "./Studio.module.css";
 
 export function Studio() {
@@ -25,11 +26,13 @@ export function Studio() {
         <p className={styles.lede}>{t.studio.lede}</p>
       </header>
 
-      <figure className={styles.photo}>
-        <img src="/images/gallery/horizontal-4-kj-room.jpg" alt={t.studio.photoAlt} loading="lazy" />
-      </figure>
+      <Reveal>
+        <figure className={styles.photo}>
+          <img src="/images/gallery/horizontal-4-kj-room.jpg" alt={t.studio.photoAlt} loading="lazy" />
+        </figure>
+      </Reveal>
 
-      <div className={styles.layout}>
+      <Reveal className={styles.layout}>
         <section className={styles.rackCol} aria-labelledby="rack-h">
           <p id="rack-h" className={styles.colLabel}>{t.studio.rack}</p>
           <RackDiagram gear={gear} />
@@ -39,7 +42,7 @@ export function Studio() {
           <p id="inv-h" className={styles.colLabel}>{t.studio.equipment(gear.length)}</p>
           <GearInventory gear={gear} />
         </section>
-      </div>
+      </Reveal>
     </main>
   );
 }

@@ -3,6 +3,7 @@ import { getWorks } from "../lib/works";
 import { applyMeta } from "../lib/meta";
 import { useT } from "../i18n";
 import { WorkGrid } from "../components/WorkGrid";
+import { Reveal } from "../components/Reveal";
 import styles from "./Works.module.css";
 
 export function Works() {
@@ -23,7 +24,9 @@ export function Works() {
         <h1 className={styles.title}>{t.work.title}</h1>
         <p className={styles.lede}>{t.work.lede(works.length)}</p>
       </header>
-      <WorkGrid works={works} />
+      <Reveal>
+        <WorkGrid works={works} />
+      </Reveal>
     </main>
   );
 }
