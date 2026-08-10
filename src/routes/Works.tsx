@@ -19,14 +19,24 @@ export function Works() {
 
   return (
     <main className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.label}>{t.work.label}</p>
-        <h1 className={styles.title}>{t.work.title}</h1>
-        <p className={styles.lede}>{t.work.lede(works.length)}</p>
+      {/* 홈처럼 — 라이브 연주 사진을 전면 히어로로 */}
+      <header className={styles.hero}>
+        <div className={styles.heroBg}>
+          <img src="/images/gallery/horizontal-2-kj-blueshirt.jpeg" alt="Joon Kim on the keys" />
+          <div className={styles.heroScrim} />
+        </div>
+        <div className={styles.heroInner}>
+          <p className={styles.label}>{t.work.label}</p>
+          <h1 className={styles.title}>{t.work.title}</h1>
+          <p className={styles.lede}>{t.work.lede(works.length)}</p>
+        </div>
       </header>
-      <Reveal>
-        <WorkGrid works={works} />
-      </Reveal>
+
+      <div className={styles.body}>
+        <Reveal>
+          <WorkGrid works={works} />
+        </Reveal>
+      </div>
     </main>
   );
 }

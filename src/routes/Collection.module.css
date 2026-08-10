@@ -1,10 +1,44 @@
-.page {
-  max-width: 72rem;
-  margin: 0 auto;
-  padding: clamp(3rem, 12vh, 7rem) clamp(1.2rem, 5vw, 3.5rem) 6rem;
+.page { width: 100%; }
+
+/* 홈처럼 — 흐르는 LP 커버 배경 히어로(짧게, 그리드가 안 묻히게) */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: clamp(18rem, 46vh, 27rem);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
 }
 
-.head { max-width: 40rem; margin-bottom: clamp(2rem, 5vh, 3rem); }
+.heroBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+}
+
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, var(--stage) 0%, rgb(16 15 19 / 0.7) 34%, rgb(16 15 19 / 0.35) 100%);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.2rem, 5vw, 3.5rem) clamp(2rem, 6vh, 3.5rem);
+}
+
+.body {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vh, 4rem) clamp(1.2rem, 5vw, 3.5rem) 6rem;
+}
 
 .label {
   margin: 0 0 1rem;
