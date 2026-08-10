@@ -15,7 +15,6 @@
   border-bottom: 1px solid rgb(255 255 255 / 0.06);
 }
 
-/* 스크롤 엣지 — 고정 선 대신, 스크롤해야 나타나는 그림자 */
 @supports (animation-timeline: scroll()) {
   .header {
     border-bottom-color: transparent;
@@ -23,7 +22,6 @@
     animation-timeline: scroll();
     animation-range: 0 90px;
   }
-
   @keyframes headerEdge {
     to {
       border-bottom-color: rgb(255 255 255 / 0.07);
@@ -32,7 +30,6 @@
   }
 }
 
-/* 투명도를 줄인 사용자에겐 유리 대신 벽을 */
 @media (prefers-reduced-transparency: reduce) {
   .header {
     background: #131215;
@@ -47,11 +44,17 @@
   font-weight: 900;
   font-size: 17px;
   letter-spacing: -0.01em;
+  white-space: nowrap;
   text-decoration: none;
   transition: color 150ms ease;
 }
-
 .mark:hover { color: var(--brass); }
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
 
 .nav {
   display: flex;
@@ -66,15 +69,10 @@
   text-decoration: none;
   transition: color 150ms ease;
 }
-
 .nav a:hover { color: var(--ink); }
+.nav a[aria-current="page"] { color: var(--brass); }
 
-/* 현재 페이지 — 놋쇠 점 하나로 충분하다 */
-.nav a[aria-current="page"] {
-  color: var(--brass);
-}
-
-/* 언어 토글 KO / EN */
+/* 언어 토글 */
 .lang {
   display: inline-flex;
   align-items: center;
@@ -92,7 +90,57 @@
 .slash { opacity: 0.4; }
 .lang:hover { color: var(--ink); }
 
-@media (max-width: 560px) {
+/* 햄버거 — 데스크탑에선 숨김 */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.burger span {
+  display: block;
+  height: 1.5px;
+  width: 20px;
+  background: var(--ink);
+  transition: transform 0.25s var(--ease-out-strong), opacity 0.2s;
+}
+.burgerOpen span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.burgerOpen span:nth-child(2) { opacity: 0; }
+.burgerOpen span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+/* ── 모바일 ── */
+@media (max-width: 640px) {
   .header { padding: 0 18px; }
-  .nav { gap: 18px; }
+  .mark { font-size: 15px; }
+  .right { gap: 14px; }
+  .burger { display: flex; }
+
+  .nav {
+    position: absolute;
+    top: 58px;
+    left: 0;
+    right: 0;
+    display: none;
+    flex-direction: column;
+    gap: 0;
+    padding: 6px 18px 18px;
+    background: rgb(19 18 21 / 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgb(255 255 255 / 0.08);
+    box-shadow: 0 20px 40px rgb(0 0 0 / 0.5);
+  }
+  .navOpen { display: flex; }
+  .nav a {
+    padding: 14px 2px;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid rgb(255 255 255 / 0.05);
+  }
 }
