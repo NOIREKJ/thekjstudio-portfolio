@@ -38,6 +38,7 @@ const STR = {
     },
     workcard: { music: "Music", app: "App" },
     workdetail: { back: "← Back", screens: "Screens", notFound: "Work not found.", more: "More work" },
+    footer: { note: "© 2026 the KJ Studio — sound and software by Joon Kim." },
     about: {
       overline: "About", back: "← Back", base: "Base", alias: "Alias", mail: "Mail",
       body: `Based in Seoul, I write music and build apps.
@@ -82,6 +83,7 @@ I release music under the name K_Joon_P.`,
     },
     workcard: { music: "음악", app: "앱" },
     workdetail: { back: "← 처음으로", screens: "화면", notFound: "찾을 수 없는 작업입니다.", more: "다른 작업" },
+    footer: { note: "© 2026 the KJ Studio — 김준의 소리와 소프트웨어." },
     about: {
       overline: "About", back: "← 처음으로", base: "Base", alias: "Alias", mail: "Mail",
       body: `서울에서 음악을 쓰고 앱을 만듭니다.

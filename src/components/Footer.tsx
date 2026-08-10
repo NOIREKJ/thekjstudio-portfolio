@@ -1,3 +1,4 @@
+import { useT } from "../i18n";
 import styles from "./Footer.module.css";
 
 const LINKS = [
@@ -9,8 +10,11 @@ const LINKS = [
 ];
 
 export function Footer() {
+  const t = useT();
   return (
     <footer className={styles.footer}>
+      {/* 은은한 로고 배경 — 어둡게 깔려 브랜드가 잔잔히 비친다 */}
+      <div className={styles.brand} aria-hidden="true" />
       <div className={styles.inner}>
         <ul className={styles.links}>
           {LINKS.map((link) => (
@@ -24,9 +28,7 @@ export function Footer() {
             <a href="mailto:contact@thekjstudio.com">Email ↗</a>
           </li>
         </ul>
-        <p className={styles.note}>
-          © 2026 the KJ Studio — 이 사이트는 악기입니다. 마음껏 연주하세요.
-        </p>
+        <p className={styles.note}>{t.footer.note}</p>
       </div>
     </footer>
   );

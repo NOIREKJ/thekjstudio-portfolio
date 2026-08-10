@@ -20,29 +20,32 @@ export function Studio() {
 
   return (
     <main className={styles.page}>
-      <header className={styles.head}>
-        <p className={styles.label}>{t.studio.label}</p>
-        <h1 className={styles.title}>{t.studio.title}</h1>
-        <p className={styles.lede}>{t.studio.lede}</p>
+      {/* 홈처럼 — 실제 데스크 사진을 전면 히어로로, 제목을 그 위에 */}
+      <header className={styles.hero}>
+        <div className={styles.heroBg}>
+          <img src="/images/gallery/horizontal-4-kj-room.jpg" alt={t.studio.photoAlt} />
+          <div className={styles.heroScrim} />
+        </div>
+        <div className={styles.heroInner}>
+          <p className={styles.label}>{t.studio.label}</p>
+          <h1 className={styles.title}>{t.studio.title}</h1>
+          <p className={styles.lede}>{t.studio.lede}</p>
+        </div>
       </header>
 
-      <Reveal>
-        <figure className={styles.photo}>
-          <img src="/images/gallery/horizontal-4-kj-room.jpg" alt={t.studio.photoAlt} loading="lazy" />
-        </figure>
-      </Reveal>
+      <div className={styles.body}>
+        <Reveal className={styles.layout}>
+          <section className={styles.rackCol} aria-labelledby="rack-h">
+            <p id="rack-h" className={styles.colLabel}>{t.studio.rack}</p>
+            <RackDiagram gear={gear} />
+          </section>
 
-      <Reveal className={styles.layout}>
-        <section className={styles.rackCol} aria-labelledby="rack-h">
-          <p id="rack-h" className={styles.colLabel}>{t.studio.rack}</p>
-          <RackDiagram gear={gear} />
-        </section>
-
-        <section className={styles.invCol} aria-labelledby="inv-h">
-          <p id="inv-h" className={styles.colLabel}>{t.studio.equipment(gear.length)}</p>
-          <GearInventory gear={gear} />
-        </section>
-      </Reveal>
+          <section className={styles.invCol} aria-labelledby="inv-h">
+            <p id="inv-h" className={styles.colLabel}>{t.studio.equipment(gear.length)}</p>
+            <GearInventory gear={gear} />
+          </section>
+        </Reveal>
+      </div>
     </main>
   );
 }

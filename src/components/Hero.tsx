@@ -1,17 +1,22 @@
 import { useT } from "../i18n";
 import styles from "./Hero.module.css";
 
-// 홈 히어로 — the KJ Studio 로고(밝은 버전)가 얹힌 브랜드 씬. 로고 안에 태그라인이
-// 있어 화면 텍스트는 없고, 접근성·SEO 용 제목만 시각적으로 숨긴다.
+// 홈 히어로 — 포트레이트를 전면 배경으로 깔고 그 위에 정체성 텍스트(시네마틱).
 export function Hero() {
   const t = useT();
   return (
     <header className={styles.hero}>
       <div className={styles.bg}>
-        <img src="/images/logo/kjstudio-studio.png" alt="the KJ Studio — Music and Develop Studio" />
+        <img src="/images/kimjoonmain.jpeg" alt="Joon Kim at the keys" />
         <div className={styles.scrim} />
       </div>
-      <h1 className={styles.srOnly}>the KJ Studio — {t.hero.l1} {t.hero.l2}</h1>
+      <div className={styles.inner}>
+        <p className={styles.eyebrow}>the KJ Studio</p>
+        <h1 className={styles.headline}>
+          {t.hero.l1}<br />{t.hero.l2}<span className={styles.dot}>.</span>
+        </h1>
+        <p className={styles.sub}>{t.hero.sub}</p>
+      </div>
     </header>
   );
 }

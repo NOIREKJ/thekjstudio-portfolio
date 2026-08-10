@@ -1,19 +1,41 @@
 .footer {
+  position: relative;
   margin-top: 140px;
+  min-height: 260px;
+  display: flex;
+  align-items: flex-end;
   border-top: 1px solid rgb(255 255 255 / 0.06);
+  overflow: hidden;
+}
+
+/* 은은한 로고 씬 — 어둡게 깔려 브랜드가 잔잔히 비친다 */
+.brand {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-image:
+    linear-gradient(180deg, rgb(16 15 19 / 0.55) 0%, rgb(16 15 19 / 0.8) 70%, var(--stage) 100%),
+    url("/images/logo/kjstudio-beach.png");
+  background-size: cover;
+  background-position: center 32%;
+  opacity: 0.55;
+  pointer-events: none;
 }
 
 .inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
   max-width: 680px;
   margin: 0 auto;
-  padding: 44px 28px 56px;
+  padding: 44px 28px 40px;
 }
 
 .links {
   display: flex;
   flex-wrap: wrap;
   gap: 10px 26px;
-  margin: 0 0 26px;
+  margin: 0 0 22px;
   padding: 0;
   list-style: none;
 }
@@ -34,10 +56,10 @@
   font-family: var(--mono);
   font-size: 10.5px;
   letter-spacing: 0.04em;
-  color: #5c584f;
+  color: #8a857b;
 }
 
 @media (max-width: 560px) {
   .footer { margin-top: 96px; }
-  .inner { padding: 36px 20px 48px; }
+  .inner { padding: 36px 20px 32px; }
 }
