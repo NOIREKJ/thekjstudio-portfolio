@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { Link } from "react-router";
 import { applyMeta } from "../lib/meta";
 import { useT } from "../i18n";
+import { Reveal } from "../components/Reveal";
 import styles from "./About.module.css";
 
 export function About() {
@@ -17,15 +17,22 @@ export function About() {
 
   return (
     <main className={styles.page}>
-      <Link className={styles.back} to="/">{t.about.back}</Link>
-
-      <div className={styles.grid}>
-        <div>
+      {/* 홈처럼 — 라이브 포트레이트를 전면 히어로로 */}
+      <header className={styles.hero}>
+        <div className={styles.heroBg}>
+          <img src="/images/gallery/horizontal-1-kj-blueshirt.jpeg" alt="Joon Kim performing" />
+          <div className={styles.heroScrim} />
+        </div>
+        <div className={styles.heroInner}>
           <p className={styles.overline}>{t.about.overline}</p>
           <h1 className={styles.title}>Joon Kim</h1>
           <p className={styles.meta}>the KJ Studio · Seoul</p>
+        </div>
+      </header>
 
-          <div className={styles.body}>{t.about.body}</div>
+      <div className={styles.body}>
+        <Reveal>
+          <div className={styles.bio}>{t.about.body}</div>
 
           <dl className={styles.facts}>
             <div className={styles.fact}>
@@ -38,20 +45,10 @@ export function About() {
             </div>
             <div className={styles.fact}>
               <dt>{t.about.mail}</dt>
-              <dd>
-                <a href="mailto:contact@thekjstudio.com">contact@thekjstudio.com</a>
-              </dd>
+              <dd><a href="mailto:contact@thekjstudio.com">contact@thekjstudio.com</a></dd>
             </div>
           </dl>
-        </div>
-
-        <figure className={styles.figure}>
-          <img
-            src="/images/kimjoonmain.jpeg"
-            alt="Joon Kim"
-            loading="lazy"
-          />
-        </figure>
+        </Reveal>
       </div>
     </main>
   );

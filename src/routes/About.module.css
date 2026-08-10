@@ -1,137 +1,112 @@
-.page {
-  max-width: 880px;
+.page { width: 100%; }
+
+/* 홈처럼 — 전면 포트레이트 히어로 */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: clamp(22rem, 64vh, 40rem);
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+}
+
+.heroBg { position: absolute; inset: 0; z-index: 0; }
+.heroBg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 42% 32%;
+  filter: grayscale(0.1) contrast(1.02);
+}
+
+.heroScrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, var(--stage) 0%, rgb(16 15 19 / 0.55) 26%, rgb(16 15 19 / 0) 62%),
+    linear-gradient(90deg, rgb(16 15 19 / 0.72) 0%, rgb(16 15 19 / 0) 55%);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 72rem;
   margin: 0 auto;
-  padding: 108px 28px 140px;
-}
-
-.back {
-  display: inline-block;
-  margin-bottom: 64px;
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  color: var(--ink-soft);
-  text-decoration: none;
-  border-bottom: 1px solid #35343c;
-  padding-bottom: 3px;
-  transition: color 150ms ease, border-color 150ms ease;
-}
-
-.back:hover {
-  color: var(--brass);
-  border-color: var(--brass);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 300px;
-  gap: 64px;
-  align-items: start;
+  padding: 0 clamp(1.2rem, 5vw, 3.5rem) clamp(2rem, 6vh, 3.5rem);
 }
 
 .overline {
-  margin: 0 0 16px;
+  margin: 0 0 0.9rem;
   font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.28em;
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--brass);
+  color: var(--ink-soft);
 }
 
 .title {
-  margin: 0 0 10px;
-  font-size: clamp(34px, 5vw, 46px);
-  font-weight: 900;
-  font-style: italic;
+  margin: 0 0 0.6rem;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2rem, 5.5vw, 3.6rem);
+  line-height: 1;
   letter-spacing: -0.02em;
+  color: var(--ink);
 }
 
 .meta {
-  margin: 0 0 44px;
+  margin: 0;
   font-family: var(--mono);
-  font-size: 11.5px;
-  letter-spacing: 0.14em;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
   color: var(--ink-soft);
 }
 
+/* 본문 */
 .body {
-  font-size: 17px;
-  line-height: 2.0;
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 8vh, 5rem) clamp(1.2rem, 5vw, 3.5rem) 6rem;
+}
+
+.bio {
   white-space: pre-line;
-  word-break: keep-all;
+  font-family: var(--sans);
+  font-size: clamp(1.05rem, 2.4vw, 1.25rem);
+  line-height: 1.7;
+  color: var(--ink);
 }
 
 .facts {
-  margin: 56px 0 0;
-  padding-top: 28px;
-  border-top: 1px solid rgb(255 255 255 / 0.07);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+  margin: clamp(2.5rem, 6vh, 4rem) 0 0;
+  display: grid;
+  gap: 0;
 }
 
 .fact {
-  display: flex;
-  align-items: baseline;
-  gap: 18px;
+  display: grid;
+  grid-template-columns: 6rem 1fr;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
 }
 
 .fact dt {
-  min-width: 44px;
   font-family: var(--mono);
-  font-size: 9.5px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-soft);
+  align-self: center;
 }
 
 .fact dd {
   margin: 0;
-  font-family: var(--mono);
-  font-size: 12.5px;
-  letter-spacing: 0.03em;
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--ink);
 }
 
-.fact dd a {
-  text-decoration: none;
-  border-bottom: 1px solid #35343c;
-  padding-bottom: 2px;
-  transition: color 150ms ease, border-color 150ms ease;
-}
-
-.fact dd a:hover {
-  color: var(--brass);
-  border-color: var(--brass);
-}
-
-.figure {
-  margin: 0;
-  position: sticky;
-  top: 96px;
-}
-
-.figure img {
-  display: block;
-  width: 100%;
-  border-radius: 6px;
-  filter: saturate(0.88) contrast(1.02);
-  box-shadow: 0 18px 44px rgb(0 0 0 / 0.5);
-}
-
-@media (max-width: 760px) {
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 48px;
-  }
-  .figure {
-    position: static;
-    max-width: 340px;
-  }
-}
-
-@media (max-width: 560px) {
-  .page { padding: 84px 20px 110px; }
-  .body { font-size: 16px; }
-}
+.fact a { color: inherit; text-decoration: none; }
+.fact a:hover { color: var(--brass); }
