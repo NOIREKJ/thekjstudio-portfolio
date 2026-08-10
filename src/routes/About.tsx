@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import { Link } from "react-router";
 import { applyMeta } from "../lib/meta";
+import { useT } from "../i18n";
 import styles from "./About.module.css";
 
 export function About() {
+  const t = useT();
   useEffect(() => {
     applyMeta({
       title: "About — the KJ Studio",
@@ -15,34 +17,27 @@ export function About() {
 
   return (
     <main className={styles.page}>
-      <Link className={styles.back} to="/">← Back</Link>
+      <Link className={styles.back} to="/">{t.about.back}</Link>
 
       <div className={styles.grid}>
         <div>
-          <p className={styles.overline}>About</p>
+          <p className={styles.overline}>{t.about.overline}</p>
           <h1 className={styles.title}>Joon Kim</h1>
           <p className={styles.meta}>the KJ Studio · Seoul</p>
 
-          <div className={styles.body}>
-            {`Based in Seoul, I write music and build apps.
-
-They may look like two separate things, but the work is the same —
-making someone's day a little less hard.
-
-I release music under the name K_Joon_P.`}
-          </div>
+          <div className={styles.body}>{t.about.body}</div>
 
           <dl className={styles.facts}>
             <div className={styles.fact}>
-              <dt>Base</dt>
+              <dt>{t.about.base}</dt>
               <dd>Seoul, KR</dd>
             </div>
             <div className={styles.fact}>
-              <dt>Alias</dt>
+              <dt>{t.about.alias}</dt>
               <dd>K_Joon_P</dd>
             </div>
             <div className={styles.fact}>
-              <dt>Mail</dt>
+              <dt>{t.about.mail}</dt>
               <dd>
                 <a href="mailto:contact@thekjstudio.com">contact@thekjstudio.com</a>
               </dd>

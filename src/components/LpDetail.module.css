@@ -184,12 +184,24 @@
   color: var(--ink);
 }
 
-.apple {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 0.84rem;
-  letter-spacing: 0.04em;
-  color: var(--brass);
-  text-decoration: none;
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
-.apple:hover { text-decoration: underline; text-underline-offset: 4px; }
+.link {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid rgb(255 255 255 / 0.14);
+  border-radius: 999px;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.link:hover {
+  color: #131215;
+  background: var(--brass);
+  border-color: var(--brass);
+}

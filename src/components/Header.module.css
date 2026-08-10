@@ -74,6 +74,24 @@
   color: var(--brass);
 }
 
+/* 언어 토글 KO / EN */
+.lang {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+}
+.lang .on { color: var(--brass); }
+.slash { opacity: 0.4; }
+.lang:hover { color: var(--ink); }
+
 @media (max-width: 560px) {
   .header { padding: 0 18px; }
   .nav { gap: 18px; }

@@ -1,3 +1,19 @@
+/* 한글 = Ydestreet(이드스트릿) */
+@font-face {
+  font-family: "Ydestreet";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/ydestreet-light.otf") format("opentype");
+}
+@font-face {
+  font-family: "Ydestreet";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/ydestreet-bold.otf") format("opentype");
+}
+
 :root {
   /* 무대 — 조명이 하나 켜진 어두운 홀 */
   --stage: #101014;
@@ -6,13 +22,11 @@
   /* 놋쇠 — 피아노 페달·경첩의 금속. 포인트는 이 하나만 쓴다 */
   --brass: #c9a86a;
 
-  /* 영어(디스플레이·제목) = League Mono 고정폭, 한글은 Pretendard 로 폴백 */
-  --serif: "League Mono", "Pretendard Variable", Pretendard, ui-monospace, monospace;
-  /* 본문·한글 = Pretendard(프리미엄 한글 산세리프) */
-  --sans: "Pretendard Variable", Pretendard, system-ui, -apple-system,
-    "Apple SD Gothic Neo", sans-serif;
-  /* 라벨·메타 = League Mono */
-  --mono: "League Mono", ui-monospace, "SF Mono", monospace;
+  /* 영어 = League Mono(고정폭), 한글 = Ydestreet. 라틴 폰트가 먼저라
+     영문은 League Mono, 한글 글자는 Ydestreet 로 자동 폴백된다 */
+  --serif: "League Mono", "Ydestreet", ui-monospace, monospace;
+  --sans: "League Mono", "Ydestreet", "Pretendard", system-ui, -apple-system, sans-serif;
+  --mono: "League Mono", "Ydestreet", ui-monospace, "SF Mono", monospace;
 
   /* 기성 커브는 힘이 없다 */
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);

@@ -2,10 +2,12 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router";
 import { getWorks } from "../lib/works";
 import { applyMeta } from "../lib/meta";
+import { useT } from "../i18n";
 import styles from "./Work.module.css";
 
 export function Work() {
   const { slug } = useParams();
+  const t = useT();
   const works = getWorks();
   const index = works.findIndex((w) => w.slug === slug);
   const work = index >= 0 ? works[index] : undefined;
@@ -22,8 +24,8 @@ export function Work() {
   if (!work) {
     return (
       <main className={styles.page}>
-        <p>Work not found.</p>
-        <Link className={styles.back} to="/">← Back</Link>
+        <p>{t.workdetail.notFound}</p>
+        <Link className={styles.back} to="/">{t.workdetail.back}</Link>
       </main>
     );
   }
@@ -33,7 +35,7 @@ export function Work() {
 
   return (
     <main className={styles.page}>
-      <Link className={styles.back} to="/">← Back</Link>
+      <Link className={styles.back} to="/">{t.workdetail.back}</Link>
 
       <p className={styles.overline}>
         Op. {String(index + 1).padStart(2, "0")} — {work.kind}
@@ -70,14 +72,14 @@ export function Work() {
       <div className={styles.body}>{work.body}</div>
 
       {work.screens.length > 0 && (
-        <section className={styles.screens} aria-label={` screens`}>
-          <p className={styles.screensLabel}>Screens</p>
+        <section className={styles.screens} aria-label={`${work.title} ${t.workdetail.screens}`}>
+          <p className={styles.screensLabel}>{t.workdetail.screens}</p>
           <div className={styles.screenGrid}>
             {work.screens.map((screen) => (
               <figure key={screen.src}>
                 <img
                   src={screen.src}
-                  alt={screen.caption || ` screen`}
+                  alt={screen.caption || work.title}
                   loading="lazy"
                 />
                 {screen.caption && <figcaption>{screen.caption}</figcaption>}
@@ -87,7 +89,7 @@ export function Work() {
         </section>
       )}
 
-      <nav className={styles.pager} aria-label="More work">
+      <nav className={styles.pager} aria-label={t.workdetail.more}>
         {prev ? (
           <Link to={`/work/${prev.slug}`} className={styles.pagerLink}>
             ← {prev.title}

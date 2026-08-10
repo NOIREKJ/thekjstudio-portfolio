@@ -1,7 +1,9 @@
+import { useT } from "../i18n";
 import styles from "./Hero.module.css";
 
 // 홈 히어로 — 포트레이트를 전면 배경으로 깔고 그 위에 정체성 텍스트(시네마틱).
 export function Hero() {
+  const t = useT();
   return (
     <header className={styles.hero}>
       <div className={styles.bg}>
@@ -11,11 +13,9 @@ export function Hero() {
       <div className={styles.inner}>
         <p className={styles.eyebrow}>the KJ Studio</p>
         <h1 className={styles.headline}>
-          I write music,<br />and build apps<span className={styles.dot}>.</span>
+          {t.hero.l1}<br />{t.hero.l2}<span className={styles.dot}>.</span>
         </h1>
-        <p className={styles.sub}>
-          Composer and developer — sound and software, made by the same hands.
-        </p>
+        <p className={styles.sub}>{t.hero.sub}</p>
       </div>
     </header>
   );

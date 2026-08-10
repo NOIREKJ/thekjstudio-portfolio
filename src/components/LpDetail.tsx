@@ -1,29 +1,39 @@
 import { useEffect } from "react";
 import type { Lp } from "../lib/lp";
+import { useT } from "../i18n";
 import styles from "./LpDetail.module.css";
 
-// 안전 필드만(가격·시리얼 없음). Apple Music 은 새 창 + noopener.
+// 안전 필드만(가격·시리얼 없음). 스트리밍 링크는 새 창 + noopener.
 // 레퍼런스(Mac Miller 'Swimming')처럼 커버 슬리브에서 바이닐이 빠져나온다 — 다크 버전.
 export function LpDetail({ lp, onClose }: { lp: Lp; onClose: () => void }) {
+  const t = useT();
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
+  // 데이터엔 Apple Music URL 만 있어 Spotify·YouTube 는 '아티스트 앨범' 검색 링크로 연다.
+  const q = encodeURIComponent(`${lp.artist} ${lp.title}`);
+  const links = [
+    lp.appleMusicUrl ? { label: t.lp.apple, url: lp.appleMusicUrl } : null,
+    { label: t.lp.spotify, url: `https://open.spotify.com/search/${q}` },
+    { label: t.lp.youtube, url: `https://music.youtube.com/search?q=${q}` },
+  ].filter((x): x is { label: string; url: string } => x != null);
+
   const rows: [string, string | number | null][] = [
-    ["Label", lp.label],
-    ["Catalog", lp.catalogNo],
-    ["Country", lp.country],
-    ["Format", lp.format],
-    ["Speed", lp.speed ? `${lp.speed} RPM` : null],
-    ["Genre", lp.genre],
+    [t.lp.Label, lp.label],
+    [t.lp.Catalog, lp.catalogNo],
+    [t.lp.Country, lp.country],
+    [t.lp.Format, lp.format],
+    [t.lp.Speed, lp.speed ? `${lp.speed} RPM` : null],
+    [t.lp.Genre, lp.genre],
   ];
 
   return (
     <div className={styles.backdrop} onClick={onClose} role="dialog" aria-modal="true" aria-label={`${lp.artist} — ${lp.title}`}>
       <div className={styles.panel} onClick={(e) => e.stopPropagation()}>
-        <button type="button" className={styles.close} onClick={onClose} aria-label="Close">✕</button>
+        <button type="button" className={styles.close} onClick={onClose} aria-label={t.lp.close}>✕</button>
 
         <div className={styles.disc}>
           {/* 슬리브 뒤에서 빠져나오는 레코드 */}
@@ -52,11 +62,13 @@ export function LpDetail({ lp, onClose }: { lp: Lp; onClose: () => void }) {
               </div>
             ))}
           </dl>
-          {lp.appleMusicUrl && (
-            <a className={styles.apple} href={lp.appleMusicUrl} target="_blank" rel="noopener noreferrer">
-              Listen on Apple Music →
-            </a>
-          )}
+          <div className={styles.links}>
+            {links.map((link) => (
+              <a key={link.label} className={styles.link} href={link.url} target="_blank" rel="noopener noreferrer">
+                {link.label} ↗
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </div>

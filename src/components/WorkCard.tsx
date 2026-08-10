@@ -1,10 +1,12 @@
 import { Link } from "react-router";
 import type { Work } from "../lib/works";
+import { useT } from "../i18n";
 import styles from "./WorkCard.module.css";
 
 // 작업물 한 장 — 커버·제목·연도·종류. 클릭 시 상세로.
 export function WorkCard({ work }: { work: Work }) {
-  const kindLabel = work.kind === "music" ? "Music" : "App";
+  const t = useT();
+  const kindLabel = work.kind === "music" ? t.workcard.music : t.workcard.app;
   return (
     <Link to={`/work/${work.slug}`} className={styles.card}>
       <div className={styles.cover}>

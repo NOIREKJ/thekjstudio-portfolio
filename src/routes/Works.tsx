@@ -1,11 +1,13 @@
 import { useEffect, useMemo } from "react";
 import { getWorks } from "../lib/works";
 import { applyMeta } from "../lib/meta";
+import { useT } from "../i18n";
 import { WorkGrid } from "../components/WorkGrid";
 import styles from "./Works.module.css";
 
 export function Works() {
   const works = useMemo(() => getWorks(), []);
+  const t = useT();
 
   useEffect(() => {
     applyMeta({
@@ -17,9 +19,9 @@ export function Works() {
   return (
     <main className={styles.page}>
       <header className={styles.head}>
-        <p className={styles.label}>Work</p>
-        <h1 className={styles.title}>Work</h1>
-        <p className={styles.lede}>Music written and apps built — {works.length} in total.</p>
+        <p className={styles.label}>{t.work.label}</p>
+        <h1 className={styles.title}>{t.work.title}</h1>
+        <p className={styles.lede}>{t.work.lede(works.length)}</p>
       </header>
       <WorkGrid works={works} />
     </main>
