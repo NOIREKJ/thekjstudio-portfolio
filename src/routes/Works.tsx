@@ -8,6 +8,8 @@ import styles from "./Works.module.css";
 
 export function Works() {
   const works = useMemo(() => getWorks(), []);
+  const music = useMemo(() => works.filter((w) => w.kind === "music"), [works]);
+  const apps = useMemo(() => works.filter((w) => w.kind === "app"), [works]);
   const t = useT();
 
   useEffect(() => {
@@ -33,9 +35,22 @@ export function Works() {
       </header>
 
       <div className={styles.body}>
-        <Reveal>
-          <WorkGrid works={works} />
-        </Reveal>
+        {apps.length > 0 && (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>{t.work.apps}</h2>
+            <Reveal>
+              <WorkGrid works={apps} />
+            </Reveal>
+          </section>
+        )}
+        {music.length > 0 && (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitle}>{t.work.music}</h2>
+            <Reveal>
+              <WorkGrid works={music} />
+            </Reveal>
+          </section>
+        )}
       </div>
     </main>
   );

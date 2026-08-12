@@ -69,3 +69,19 @@
   margin: 0 auto;
   padding: clamp(2.5rem, 8vh, 5rem) clamp(1.2rem, 5vw, 3.5rem) 6rem;
 }
+
+.section + .section {
+  margin-top: clamp(3rem, 8vh, 5rem);
+}
+
+.sectionTitle {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted, #8a8a8a);
+  margin: 0 0 1.5rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}

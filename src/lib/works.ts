@@ -1,4 +1,3 @@
-import { noteToFrequency } from "./note";
 import type { AppContent, SongContent } from "./content-types";
 import songsJson from "../content/songs.json";
 import appsJson from "../content/apps.json";
@@ -12,13 +11,14 @@ export type Work = {
   slug: string;
   title: string;
   kind: WorkKind;
-  note: string;
   sound?: string;
   year: number;
   cover?: string;
   screens: Screen[];
   listen: ListenLink[];
   body: string;
+  bodyEn?: string;
+  sortOrder: number;
 };
 
 const orUndefined = (value: string | null): string | undefined =>
@@ -30,19 +30,19 @@ export function buildWorks(songs: SongContent[], apps: AppContent[]): Work[] {
       slug: s.slug,
       title: s.title,
       kind: "music" as const,
-      note: s.note ?? "",
       sound: orUndefined(s.sound),
       year: s.year,
       cover: orUndefined(s.cover),
       screens: [],
       listen: s.listen,
       body: s.body,
+      bodyEn: orUndefined(s.bodyEn),
+      sortOrder: s.sortOrder,
     })),
     ...apps.map((a) => ({
       slug: a.slug,
       title: a.title,
       kind: "app" as const,
-      note: a.note ?? "",
       sound: undefined,
       year: a.year,
       cover: orUndefined(a.cover),
@@ -50,15 +50,13 @@ export function buildWorks(songs: SongContent[], apps: AppContent[]): Work[] {
       // 앱의 바깥 링크는 곡의 '듣기'와 자리가 같다. 화면 코드가 하나만 알면 되게 합친다.
       listen: a.links,
       body: a.body,
+      bodyEn: orUndefined(a.bodyEn),
+      sortOrder: a.sortOrder,
     })),
   ];
 
-  // 음 높이 오름차순. 왼쪽이 낮은음, 오른쪽이 높은음 — 악기의 순서다.
-  // 연도순으로 두면 음악(2024)과 앱(2026)이 좌우로 갈라져 버린다.
-  // 두 세계는 섞여 있어야 하므로, 섞이도록 음을 배정하고 음 높이로 정렬한다.
-  return works
-    .filter((w) => w.note !== "")
-    .sort((a, b) => noteToFrequency(a.note) - noteToFrequency(b.note));
+  // 편집 의도대로 sort_order 오름차순. 같으면 최신 연도가 먼저.
+  return works.sort((a, b) => a.sortOrder - b.sortOrder || b.year - a.year);
 }
 
 let cached: Work[] | null = null;

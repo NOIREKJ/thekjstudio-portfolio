@@ -15,6 +15,7 @@ export type SongContent = {
   sound: string | null;
   cover: string | null;
   body: string;
+  bodyEn: string | null;
   listen: ListenLink[];
   featured: boolean;
   sortOrder: number;
@@ -28,6 +29,7 @@ export type AppContent = {
   note: string | null;
   cover: string | null;
   body: string;
+  bodyEn: string | null;
   screens: Screen[];
   links: ListenLink[];
   featured: boolean;

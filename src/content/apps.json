@@ -7,6 +7,7 @@
     "note": "C4",
     "cover": "/images/projects/noire/horizontal-1-noire.png",
     "body": "자산, 시간, 루틴 — 중요한 것들을 한자리에 두는 개인 비서 앱입니다.\n\n흩어져 있는 것들은 관리 대상이 아니라 불안의 재료가 됩니다. NOIRE는 그것들을 하나의 조용한 공간에 모읍니다.\n\n미니멀한 다크 인터페이스를 골랐습니다. 도구는 사라지고 중요한 것만 남게 하기 위해서입니다.\n\n현재 개발 중입니다.",
+    "bodyEn": "A personal assistant app that keeps what matters — assets, time, routines — in one place.\n\nScattered things aren't merely unmanaged; they become fuel for anxiety. NOIRE gathers them into one quiet space.\n\nA minimal dark interface, chosen so the tool disappears and only what matters remains.\n\nCurrently in development.",
     "screens": [],
     "links": [],
     "featured": true,
@@ -20,6 +21,7 @@
     "note": "E4",
     "cover": "/images/projects/hanil-pay/hanilpay.png",
     "body": "현금이나 카드 없이, 스마트폰 하나로 교회 안 카페와 매점을 이용하는 한일교회 전용 간편결제 서비스입니다.\n\n성도 쪽은 단순합니다. 로그인하고, 결제하고, 끝. 사용처는 지도에서 확인하고, 내역은 앱에서 바로 봅니다.\n\n보이지 않는 쪽이 이 프로젝트의 절반입니다. 회원과 충전을 관리하고, 가맹점을 등록하고, 매출을 정산하는 관리자 시스템까지 — 결제 인프라 전체를 직접 만들었습니다.\n\n지갑을 뒤적이는 시간이 사라지면 남는 것은 교제입니다. 그걸 위해 만들었습니다.",
+    "bodyEn": "A cashless payment service built for Hanil Church — pay at the church café and store with nothing but your phone.\n\nFor members it's simple: log in, pay, done. Find where to use it on a map, check your history right in the app.\n\nThe invisible half is the other half of this project. Managing members and top-ups, registering merchants, settling sales — I built the entire payment infrastructure myself.\n\nWhen fumbling for a wallet disappears, what's left is fellowship. That's what it's for.",
     "screens": [
       {
         "src": "/images/projects/hanil-pay/home-screen_1.png",
@@ -66,6 +68,7 @@
     "note": "A4",
     "cover": "/images/projects/hanil-church/main-icon.png",
     "body": "예배, 소통, 신앙 관리를 하나로 모은 한일교회 통합 iOS 네이티브 앱입니다.\n\n실시간 예배 스트리밍과 VOD, 스마트 교인 요람, 교회 캘린더와 행정, 마이페이지 — 흩어져 있던 것들이 한 앱 안에서 유기적으로 연결됩니다.\n\n이름은 '코이노니아(교제)'에서 왔습니다. 기능이 많아질수록 화면은 단순해져야 한다고 믿고, 남녀노소 누구나 헤매지 않도록 절제해서 설계했습니다.\n\n한일페이와 이어져 결제까지 한 흐름으로 연결됩니다.",
+    "bodyEn": "A unified native iOS app for Hanil Church, bringing worship, communication, and faith life together.\n\nLive worship streaming and VOD, a smart member directory, church calendar and administration, my page — what used to be scattered now connects organically inside one app.\n\nThe name comes from koinonia — fellowship. I believe the more features grow, the simpler the screen must become, so it's designed with restraint; no one, young or old, should get lost.\n\nIt links with HANIL Pay, carrying through to payment in a single flow.",
     "screens": [
       {
         "src": "/images/projects/hanil-church/home-screen1.png",
@@ -91,5 +94,19 @@
     "links": [],
     "featured": true,
     "sortOrder": 30
+  },
+  {
+    "id": "34ffdeb0-967e-4d87-b5c0-4e8464ca46b6",
+    "slug": "ledger",
+    "title": "Ledger",
+    "year": 2026,
+    "note": "C5",
+    "cover": "/images/projects/ledger/cover.jpg",
+    "body": "가족의 투자를 한 화면에 모아 보는 iOS·macOS 앱입니다.\n\n각자의 증권 계좌는 각자의 것이지만, \"지금 우리 집 자산이 얼마고 얼마를 벌었나\"에 답해주는 화면은 어디에도 없었습니다. Ledger는 흩어져 있던 것들을 하나의 조용한 대시보드로 모읍니다.\n\n돈을 다루는 앱이라, 화려함보다 정확함을 택했습니다. 틀린 숫자가 맞는 것처럼 보이지 않게 — 모르는 건 비워두고, 추정한 건 추정이라 적습니다. 사고파는 기능은 아예 없이, 오직 보는 것에 집중합니다.",
+    "bodyEn": "An iOS and macOS app that brings a family's investments together on one screen.\n\nEach person's brokerage account is their own, but no screen ever answered \"how much does our household hold, and how much have we made?\" Ledger gathers what was scattered into one quiet dashboard.\n\nBecause it handles money, I chose accuracy over flourish — so a wrong number never looks right. What isn't known is left blank; what's estimated is labeled as such. It can't buy or sell at all. It only shows.",
+    "screens": [],
+    "links": [],
+    "featured": true,
+    "sortOrder": 40
   }
 ]

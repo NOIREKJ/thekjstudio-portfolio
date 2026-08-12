@@ -20,7 +20,11 @@ const STR = {
       aboutLine: "Two things that look separate — music and apps — but the work is the same.",
       aboutCta: "About →",
     },
-    work: { label: "Work", title: "Work", lede: (n: number) => `Music written and apps built — ${n} in total.` },
+    work: {
+      label: "Work", title: "Work",
+      lede: (n: number) => `Music written and apps built — ${n} in total.`,
+      music: "Music", apps: "Apps",
+    },
     studio: {
       label: "Studio", title: "Studio",
       lede: "The tools I make sound with — outboard and sound modules in the rack, and everything else.",
@@ -65,7 +69,11 @@ I release music under the name K_Joon_P.`,
       aboutLine: "따로인 듯 보이는 두 가지, 음악과 앱 — 하지만 하는 일은 같습니다.",
       aboutCta: "소개 →",
     },
-    work: { label: "Work", title: "작업", lede: (n: number) => `쓴 음악과 만든 앱 — 모두 ${n}개.` },
+    work: {
+      label: "Work", title: "작업",
+      lede: (n: number) => `쓴 음악과 만든 앱 — 모두 ${n}개.`,
+      music: "음악", apps: "앱",
+    },
     studio: {
       label: "Studio", title: "스튜디오",
       lede: "소리를 만드는 도구들 — 랙에 걸린 아웃보드와 음원 모듈, 그리고 나머지 전부.",

@@ -13,16 +13,15 @@
   갱신했다고 믿는데 실제로는 옛 JSON 이 배포된" 상태가 신호 없이 만들어진다.
   (판별은 content/fetch.ts 의 shouldFallback 참고.)
 
-  조회는 성공했는데 내용이 잘못된 경우 — 건반 규칙(validateFeatured) 위반,
-  songs+apps 합산 0건 — 도 마찬가지로 데이터/설정 결함이므로 폴백하지 않고
-  항상 빌드를 깬다.
+  조회는 성공했는데 내용이 잘못된 경우 — songs+apps 합산 0건 — 도 마찬가지로
+  데이터/설정 결함이므로 폴백하지 않고 항상 빌드를 깬다.
 */
 import { mkdirSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { credentials, fetchView, shouldFallback, HttpError, type Row } from "./content/fetch";
 import { mapApp, mapCredit, mapGear, mapLp, mapPerformance, mapSong } from "./content/map";
-import { assertContentNotEmpty, validateFeatured } from "./content/validate";
+import { assertContentNotEmpty } from "./content/validate";
 
 const OUT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "../src/content");
 
@@ -105,12 +104,6 @@ async function main(): Promise<void> {
     songs: (baked.songs as unknown[]).length,
     apps: (baked.apps as unknown[]).length,
   });
-
-  // 건반 규칙은 굽기 전에 검사한다. 조용히 불협화음이 나는 것보다 빌드가 깨지는 편이 낫다.
-  validateFeatured([
-    ...(baked.songs as { slug: string; note: string | null; featured: boolean }[]),
-    ...(baked.apps as { slug: string; note: string | null; featured: boolean }[]),
-  ]);
 
   for (const source of SOURCES) {
     writeFileSync(

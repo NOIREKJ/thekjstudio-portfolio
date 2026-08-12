@@ -3,13 +3,13 @@ import { mapApp, mapCredit, mapGear, mapLp, mapPerformance, mapSong } from "./ma
 test("snake_case 컬럼을 화면이 쓰는 이름으로 옮긴다", () => {
   const song = mapSong({
     id: "s1", slug: "consolation", title: "위로", year: 2024, note: "D4",
-    sound_path: null, cover_path: "/images/a.png", body: "본문",
+    sound_path: null, cover_path: "/images/a.png", body: "본문", body_en: "Body",
     listen: [{ label: "Spotify", url: "https://sp.example/a" }],
     featured: true, sort_order: 10,
   });
   expect(song).toEqual({
     id: "s1", slug: "consolation", title: "위로", year: 2024, note: "D4",
-    sound: null, cover: "/images/a.png", body: "본문",
+    sound: null, cover: "/images/a.png", body: "본문", bodyEn: "Body",
     listen: [{ label: "Spotify", url: "https://sp.example/a" }],
     featured: true, sortOrder: 10,
   });

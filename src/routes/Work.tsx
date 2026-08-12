@@ -2,24 +2,28 @@ import { useEffect } from "react";
 import { Link, useParams } from "react-router";
 import { getWorks } from "../lib/works";
 import { applyMeta } from "../lib/meta";
-import { useT } from "../i18n";
+import { useLang, useT } from "../i18n";
 import styles from "./Work.module.css";
 
 export function Work() {
   const { slug } = useParams();
+  const { lang } = useLang();
   const t = useT();
   const works = getWorks();
   const index = works.findIndex((w) => w.slug === slug);
   const work = index >= 0 ? works[index] : undefined;
 
+  // 곡·앱 설명은 한국어가 원본이고 영어 번역이 있으면 언어에 맞춰 고른다.
+  const body = work ? (lang === "en" && work.bodyEn ? work.bodyEn : work.body) : "";
+
   useEffect(() => {
     if (!work) return;
     applyMeta({
       title: `${work.title} — the KJ Studio`,
-      description: work.body.split("\n\n")[0] ?? "",
+      description: body.split("\n\n")[0] ?? "",
       image: work.cover,
     });
-  }, [work]);
+  }, [work, body]);
 
   if (!work) {
     return (
@@ -41,9 +45,7 @@ export function Work() {
         Op. {String(index + 1).padStart(2, "0")} — {work.kind}
       </p>
       <h1 className={styles.title}>{work.title}</h1>
-      <p className={styles.meta}>
-        ♪ {work.note} · {work.year}
-      </p>
+      <p className={styles.meta}>{work.year}</p>
 
       {work.listen.length > 0 && (
         <div className={styles.listen}>
@@ -69,7 +71,7 @@ export function Work() {
         />
       )}
 
-      <div className={styles.body}>{work.body}</div>
+      <div className={styles.body}>{body}</div>
 
       {work.screens.length > 0 && (
         <section className={styles.screens} aria-label={`${work.title} ${t.workdetail.screens}`}>
