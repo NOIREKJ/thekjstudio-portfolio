@@ -7,9 +7,25 @@
   overflow: hidden;
 }
 
-.bg { position: absolute; inset: 0; z-index: 0; }
+.bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+/* 넓은 화면 대비: 같은 사진을 흐리게 확대해 여백을 채운다 —
+   선명한 원본은 아래에서 max-width 로 묶어 원본 해상도 근처에서만 렌더한다.
+   블러가 업스케일 뭉개짐을 가리므로 풀블리드 느낌은 유지된다. */
+.bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url(/images/kimjoonmain.jpeg) center / cover no-repeat;
+  filter: blur(32px) brightness(0.5) saturate(0.92);
+  transform: scale(1.16);
+}
 .bg img {
+  position: relative;
+  z-index: 1;
+  display: block;
   width: 100%;
+  max-width: 90rem;
+  margin: 0 auto;
   height: 100%;
   object-fit: cover;
   object-position: 72% 26%;

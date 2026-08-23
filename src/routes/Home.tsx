@@ -34,7 +34,7 @@ export function Home() {
         <Reveal>
           <section className={styles.about}>
             <figure className={styles.aboutFig}>
-              <img src="/images/gallery/vertical-1-kj-piano.jpeg" alt="At the piano" loading="lazy" />
+              <img src="/images/gallery/vertical-4-kj-piano.jpeg" alt="At the piano" loading="lazy" />
             </figure>
             <div className={styles.aboutText}>
               <p className={styles.aboutTag}>{t.home.aboutTag}</p>

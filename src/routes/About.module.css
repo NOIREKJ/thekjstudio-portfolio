@@ -10,9 +10,24 @@
   overflow: hidden;
 }
 
-.heroBg { position: absolute; inset: 0; z-index: 0; }
+.heroBg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+/* 넓은 화면에서 원본 해상도 이상으로 늘어나며 뭉개지지 않게 —
+   흐린 배경으로 여백을 채우고, 선명한 원본은 max-width 로 묶는다. */
+.heroBg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url(/images/gallery/horizontal-1-kj-blueshirt.jpeg) center / cover no-repeat;
+  filter: blur(32px) brightness(0.5) saturate(0.92);
+  transform: scale(1.16);
+}
 .heroBg img {
+  position: relative;
+  z-index: 1;
+  display: block;
   width: 100%;
+  max-width: 90rem;
+  margin: 0 auto;
   height: 100%;
   object-fit: cover;
   object-position: 42% 32%;
