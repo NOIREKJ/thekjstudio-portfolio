@@ -7,38 +7,30 @@
   overflow: hidden;
 }
 
-.bg { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-/* 넓은 화면 대비: 같은 사진을 흐리게 확대해 여백을 채운다 —
-   선명한 원본은 아래에서 max-width 로 묶어 원본 해상도 근처에서만 렌더한다.
-   블러가 업스케일 뭉개짐을 가리므로 풀블리드 느낌은 유지된다. */
-.bg::before {
-  content: "";
+/* 작업물 커버가 흐르는 '벽' — 세 줄을 살짝 기울여 겹친다.
+   rotate 로 생기는 모서리 빈틈은 scale 로 덮는다. */
+.wall {
   position: absolute;
   inset: 0;
-  background: url(/images/kimjoonmain.jpeg) center / cover no-repeat;
-  filter: blur(32px) brightness(0.5) saturate(0.92);
-  transform: scale(1.16);
-}
-.bg img {
-  position: relative;
-  z-index: 1;
-  display: block;
-  width: 100%;
-  max-width: 150rem;
-  margin: 0 auto;
-  height: 100%;
-  object-fit: cover;
-  object-position: 72% 26%;
-  filter: grayscale(0.12) contrast(1.03);
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: clamp(0.6rem, 1.6vh, 1rem);
+  transform: rotate(-4deg) scale(1.12);
+  transform-origin: center;
+  opacity: 0.85;
 }
 
-/* 텍스트 가독을 위한 스크림 — 왼쪽·아래를 어둡게, 오른쪽 인물은 살린다 */
+/* 텍스트 가독을 위한 스크림 — 왼쪽·아래를 어둡게, 오른쪽은 벽을 살린다 */
 .scrim {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgb(16 15 19 / 0.96) 0%, rgb(16 15 19 / 0.7) 40%, rgb(16 15 19 / 0.2) 72%, rgb(16 15 19 / 0) 100%),
-    linear-gradient(0deg, rgb(16 15 19 / 0.85) 0%, rgb(16 15 19 / 0) 42%);
+    /* 왼쪽을 어둡게 — 헤드라인 가독 */
+    linear-gradient(90deg, rgb(16 15 19 / 0.94) 0%, rgb(16 15 19 / 0.78) 34%, rgb(16 15 19 / 0.35) 66%, rgb(16 15 19 / 0.2) 100%),
+    /* 위·아래로 페이드 — 벽이 배경으로 스며든다 */
+    linear-gradient(0deg, var(--stage, #100f13) 0%, rgb(16 15 19 / 0) 26%, rgb(16 15 19 / 0) 74%, var(--stage, #100f13) 100%);
 }
 
 .inner {
