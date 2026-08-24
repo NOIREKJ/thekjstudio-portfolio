@@ -102,6 +102,7 @@
 /* 폼 */
 .form { margin-top: clamp(2.5rem, 7vh, 4rem); display: flex; flex-direction: column; gap: 1.1rem; }
 .typeRow { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chipWrap { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .chip {
   background: #17161c;
   border: 1px solid rgb(255 255 255 / 0.1);
