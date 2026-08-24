@@ -124,3 +124,5 @@
 .fieldLabel { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em; color: var(--ink-soft); }
 .fieldHelp { font-family: var(--sans); font-size: 0.75rem; color: var(--ink-soft); opacity: 0.75; }
 .formActions { display: flex; gap: 0.6rem; align-items: center; margin-top: 0.5rem; }
+
+.topActions { display: flex; gap: 0.5rem; flex-shrink: 0; }

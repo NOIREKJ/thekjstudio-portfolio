@@ -36,21 +36,18 @@ export function Admin() {
 
 function Login() {
   const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
+  const [password, setPassword] = useState("");
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
-  const send = async (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!supabase || !email) return;
+    if (!supabase || !email || !password) return;
     setBusy(true); setErr(null);
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-      options: { emailRedirectTo: `${window.location.origin}/admin` },
-    });
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     setBusy(false);
+    // 성공 시 onAuthStateChange 가 세션을 갱신해 대시보드로 넘어간다.
     if (error) setErr(error.message);
-    else setSent(true);
   };
 
   return (
@@ -58,27 +55,30 @@ function Login() {
       <div className={styles.loginCard}>
         <p className={styles.brand}>the KJ Studio</p>
         <h1 className={styles.loginTitle}>Admin</h1>
-        {sent ? (
-          <p className={styles.notice}>
-            {email} 로 로그인 링크를 보냈습니다. 메일함을 확인하세요.
-          </p>
-        ) : (
-          <form onSubmit={send} className={styles.loginForm}>
-            <input
-              className={styles.input}
-              type="email"
-              placeholder="이메일"
-              value={email}
-              onChange={(ev) => setEmail(ev.target.value)}
-              autoComplete="email"
-              required
-            />
-            <button className={styles.btnPrimary} type="submit" disabled={busy}>
-              {busy ? "보내는 중…" : "로그인 링크 받기"}
-            </button>
-            {err && <p className={styles.error}>{err}</p>}
-          </form>
-        )}
+        <form onSubmit={submit} className={styles.loginForm}>
+          <input
+            className={styles.input}
+            type="email"
+            placeholder="이메일"
+            value={email}
+            onChange={(ev) => setEmail(ev.target.value)}
+            autoComplete="username"
+            required
+          />
+          <input
+            className={styles.input}
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={(ev) => setPassword(ev.target.value)}
+            autoComplete="current-password"
+            required
+          />
+          <button className={styles.btnPrimary} type="submit" disabled={busy}>
+            {busy ? "로그인 중…" : "로그인"}
+          </button>
+          {err && <p className={styles.error}>{err}</p>}
+        </form>
       </div>
     </main>
   );
@@ -97,6 +97,14 @@ function Dashboard({ email, userId }: { email: string; userId: string }) {
     });
   }, []);
 
+  const changePassword = async () => {
+    if (!supabase) return;
+    const next = window.prompt("새 비밀번호 (최소 6자):");
+    if (!next) return;
+    const { error } = await supabase.auth.updateUser({ password: next });
+    window.alert(error ? `실패: ${error.message}` : "비밀번호를 변경했습니다.");
+  };
+
   return (
     <main className={styles.page}>
       <header className={styles.top}>
@@ -104,7 +112,10 @@ function Dashboard({ email, userId }: { email: string; userId: string }) {
           <p className={styles.brand}>the KJ Studio — Admin</p>
           <p className={styles.who}>{email}</p>
         </div>
-        <button className={styles.btnGhost} onClick={() => supabase?.auth.signOut()}>로그아웃</button>
+        <div className={styles.topActions}>
+          <button className={styles.btnGhost} onClick={changePassword}>비밀번호 변경</button>
+          <button className={styles.btnGhost} onClick={() => supabase?.auth.signOut()}>로그아웃</button>
+        </div>
       </header>
 
       <nav className={styles.tabs}>
