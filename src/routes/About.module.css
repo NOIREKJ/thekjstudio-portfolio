@@ -125,3 +125,110 @@
 
 .fact a { color: inherit; text-decoration: none; }
 .fact a:hover { color: var(--brass); }
+
+/* ── 추가 섹션: 들어보기 · 크레딧 · 공연 ── */
+.section {
+  margin-top: clamp(2.8rem, 7vh, 4.5rem);
+}
+
+.sectionTitle {
+  margin: 0 0 1.3rem;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgb(255 255 255 / 0.1);
+}
+
+/* 크레딧 */
+.credits { list-style: none; margin: 0; padding: 0; }
+.credit { border-bottom: 1px solid rgb(255 255 255 / 0.06); }
+.creditLink {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "work year" "artist arrow" "roles arrow";
+  gap: 0.1rem 1rem;
+  align-items: baseline;
+  padding: 1rem 0;
+  color: var(--ink);
+  text-decoration: none;
+}
+a.creditLink:hover .creditWork { color: var(--brass); }
+.creditWork {
+  grid-area: work;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  line-height: 1.2;
+  transition: color 0.25s ease;
+}
+.creditArtist {
+  grid-area: artist;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+.creditRoles {
+  grid-area: roles;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  opacity: 0.8;
+}
+.creditYear {
+  grid-area: year;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--ink-soft);
+}
+.creditArrow {
+  grid-area: arrow;
+  align-self: center;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+/* 공연 */
+.live { list-style: none; margin: 0; padding: 0; }
+.show {
+  display: grid;
+  grid-template-columns: 3.2rem 1fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
+}
+.poster {
+  width: 3.2rem;
+  aspect-ratio: 3 / 4;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #17161c;
+  border: 1px solid rgb(255 255 255 / 0.08);
+}
+.poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.showBody { min-width: 0; }
+.showTitle {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 1rem;
+  color: var(--ink);
+  line-height: 1.3;
+}
+.showVenue {
+  margin: 0.15rem 0 0;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+}
+.showMeta {
+  margin: 0.15rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  opacity: 0.85;
+}

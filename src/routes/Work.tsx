@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router";
 import { getWorks } from "../lib/works";
 import { applyMeta } from "../lib/meta";
 import { useLang, useT } from "../i18n";
+import { SoundCloudPlayer } from "../components/SoundCloudPlayer";
 import styles from "./Work.module.css";
 
 export function Work() {
@@ -73,17 +74,26 @@ export function Work() {
 
       <div className={styles.body}>{body}</div>
 
+      {work.kind === "music" && (
+        <section className={styles.player} aria-label={`${work.title} ${t.workdetail.play}`}>
+          <p className={styles.screensLabel}>{t.workdetail.play}</p>
+          <SoundCloudPlayer title={`${work.title} — SoundCloud`} />
+        </section>
+      )}
+
       {work.screens.length > 0 && (
         <section className={styles.screens} aria-label={`${work.title} ${t.workdetail.screens}`}>
           <p className={styles.screensLabel}>{t.workdetail.screens}</p>
           <div className={styles.screenGrid}>
             {work.screens.map((screen) => (
-              <figure key={screen.src}>
-                <img
-                  src={screen.src}
-                  alt={screen.caption || work.title}
-                  loading="lazy"
-                />
+              <figure key={screen.src} className={styles.phoneFig}>
+                <div className={styles.phone}>
+                  <img
+                    src={screen.src}
+                    alt={screen.caption || work.title}
+                    loading="lazy"
+                  />
+                </div>
                 {screen.caption && <figcaption>{screen.caption}</figcaption>}
               </figure>
             ))}

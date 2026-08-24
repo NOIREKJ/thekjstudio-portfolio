@@ -1,0 +1,13 @@
+.wrap {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  background: #17161c;
+}
+
+.frame {
+  display: block;
+  width: 100%;
+  height: 320px;
+  border: 0;
+}

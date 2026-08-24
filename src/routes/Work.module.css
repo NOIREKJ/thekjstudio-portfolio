@@ -166,3 +166,36 @@
   .screenGrid { grid-template-columns: repeat(2, 1fr); }
   .pager { margin-top: 72px; }
 }
+
+/* 곡 인라인 재생 */
+.player { margin-top: 72px; }
+
+/* 앱 스크린샷 — 폰 목업 프레임 */
+.phoneFig { margin: 0; }
+.phone {
+  position: relative;
+  border-radius: 26px;
+  padding: 7px;
+  background: linear-gradient(160deg, #26252b 0%, #0c0c0f 100%);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.08),
+    0 18px 40px rgb(0 0 0 / 0.5);
+}
+.phone::before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 34%;
+  height: 5px;
+  border-radius: 3px;
+  background: rgb(0 0 0 / 0.55);
+  z-index: 2;
+}
+.phone img {
+  display: block;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: none;
+}

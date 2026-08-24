@@ -41,10 +41,11 @@ const STR = {
       apple: "Apple Music", spotify: "Spotify", youtube: "YouTube", close: "Close", listen: "Listen on",
     },
     workcard: { music: "Music", app: "App" },
-    workdetail: { back: "← Back", screens: "Screens", notFound: "Work not found.", more: "More work" },
+    workdetail: { back: "← Back", screens: "Screens", notFound: "Work not found.", more: "More work", play: "Listen" },
     footer: { note: "© 2026 the KJ Studio — sound and software by Joon Kim." },
     about: {
       overline: "About", back: "← Back", base: "Base", alias: "Alias", mail: "Mail",
+      listen: "Listen", credits: "Selected Credits", live: "Live", role: "Role",
       body: `Based in Seoul, I write music and build apps.
 
 They may look like two separate things, but the work is the same —
@@ -90,10 +91,11 @@ I release music under the name K_Joon_P.`,
       apple: "Apple Music", spotify: "Spotify", youtube: "YouTube", close: "닫기", listen: "듣기",
     },
     workcard: { music: "음악", app: "앱" },
-    workdetail: { back: "← 처음으로", screens: "화면", notFound: "찾을 수 없는 작업입니다.", more: "다른 작업" },
+    workdetail: { back: "← 처음으로", screens: "화면", notFound: "찾을 수 없는 작업입니다.", more: "다른 작업", play: "들어보기" },
     footer: { note: "© 2026 the KJ Studio — 김준의 소리와 소프트웨어." },
     about: {
       overline: "About", back: "← 처음으로", base: "Base", alias: "Alias", mail: "Mail",
+      listen: "들어보기", credits: "참여 크레딧", live: "공연", role: "역할",
       body: `서울에서 음악을 쓰고 앱을 만듭니다.
 
 두 가지를 따로 하는 것처럼 보이지만, 하는 일은 같습니다.

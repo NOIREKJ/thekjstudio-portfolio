@@ -2,11 +2,12 @@ import { useT } from "../i18n";
 import styles from "./Footer.module.css";
 
 const LINKS = [
-  { name: "GitHub", href: "https://github.com/NOIREKJ" },
+  { name: "Instagram", href: "https://instagram.com/k_joon_p" },
   { name: "YouTube", href: "https://www.youtube.com/@K_Joon_P" },
   { name: "Spotify", href: "https://open.spotify.com/user/31waehtdbctb5mqpag7pmrmnmhte" },
   { name: "Apple Music", href: "https://music.apple.com/profile/K_Joon_P" },
-  { name: "SoundCloud", href: "https://on.soundcloud.com/5UnKPuPovp5dgfz96" },
+  { name: "SoundCloud", href: "https://soundcloud.com/user-151964545" },
+  { name: "GitHub", href: "https://github.com/NOIREKJ" },
 ];
 
 export function Footer() {
