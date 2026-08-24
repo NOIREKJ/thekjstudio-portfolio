@@ -66,6 +66,14 @@ export function Contact() {
             >
               <span className={styles.offerTitle}>{t.contact.lesson.title}</span>
               <span className={styles.offerDesc}>{t.contact.lesson.desc}</span>
+              <span className={styles.tracks}>
+                {t.contact.lesson.tracks.map((tr) => (
+                  <span key={tr.name} className={styles.track}>
+                    <span className={styles.trackName}>{tr.name}</span>
+                    <span className={styles.trackDesc}>{tr.desc}</span>
+                  </span>
+                ))}
+              </span>
               <span className={styles.points}>
                 {t.contact.lesson.points.map((p) => <span key={p} className={styles.point}>{p}</span>)}
               </span>

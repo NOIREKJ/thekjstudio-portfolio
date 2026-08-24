@@ -42,6 +42,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 1rem;
+  align-items: start;
 }
 @media (min-width: 720px) {
   .offers { grid-template-columns: 1fr 1fr; }
@@ -59,6 +60,17 @@
   transition: border-color 0.25s ease, background 0.25s ease;
 }
 .offer:hover { border-color: rgb(255 255 255 / 0.18); }
+
+.tracks { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.3rem; }
+.track {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-left: 0.8rem;
+  border-left: 2px solid rgb(201 154 75 / 0.4);
+}
+.trackName { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.04em; color: var(--ink); }
+.trackDesc { font-family: var(--sans); font-size: 0.88rem; line-height: 1.5; color: var(--ink-soft); }
 .offerActive { border-color: var(--brass); background: rgb(201 154 75 / 0.08); }
 .offerTitle { font-family: var(--serif); font-size: 1.4rem; color: var(--ink); }
 .offerDesc { font-family: var(--sans); font-size: 0.95rem; line-height: 1.55; color: var(--ink-soft); }

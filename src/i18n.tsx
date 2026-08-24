@@ -49,7 +49,11 @@ const STR = {
       commission: { title: "Commission", desc: "Composing, arranging, mixing, session keys — music for film, artists, worship, or anything that needs a score." },
       lesson: {
         title: "Lessons",
-        desc: "Composition and piano, in person. Beginners and hobbyists welcome — we start from where you are.",
+        desc: "Piano and composition — together or on their own. Whether you've never read a note or just want to write your own songs, we start from where you are: less a fixed syllabus, more building the basics out of music you actually like.",
+        tracks: [
+          { name: "Piano", desc: "From posture and hand shape to playing the songs you love — classical or pop, your call." },
+          { name: "Composition", desc: "How chords and harmony move, and how to grow a melody into a finished song. No gear needed to begin — keys and ears are enough." },
+        ],
         points: ["Composition · Piano", "In person", "Beginner · Hobby"],
       },
       pricing: "Pricing on request.",
@@ -117,7 +121,11 @@ I release music under the name K_Joon_P.`,
       commission: { title: "작업 의뢰", desc: "작곡·편곡·믹싱·세션 건반 — 영상, 아티스트, 예배, 곡이 필요한 어떤 자리든." },
       lesson: {
         title: "레슨",
-        desc: "작곡과 피아노, 오프라인 레슨. 입문·취미 모두 환영 — 지금 있는 자리에서 시작합니다.",
+        desc: "피아노와 작곡을 함께, 또는 따로. 악보가 처음이어도, 취미로 내 곡을 만들어보고 싶어도 — 지금 있는 자리에서 시작합니다. 정해진 진도를 밀기보다, 좋아하는 음악에서 출발해 필요한 기초를 하나씩 채웁니다.",
+        tracks: [
+          { name: "피아노", desc: "자세와 손 모양 같은 기본부터, 좋아하는 곡을 직접 칠 수 있을 때까지. 클래식이든 가요든." },
+          { name: "작곡", desc: "코드와 화성이 움직이는 원리, 멜로디를 붙여 한 곡을 완성하는 과정. 장비 없이 건반과 귀만으로 시작해도 됩니다." },
+        ],
         points: ["작곡 · 피아노", "오프라인", "입문 · 취미"],
       },
       pricing: "가격은 문의 주시면 안내드립니다.",
