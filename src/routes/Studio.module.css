@@ -17,7 +17,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: url(/images/gallery/horizontal-4-kj-room.jpg) center / cover no-repeat;
+  background: url(/images/gallery/studio-console.jpg) center / cover no-repeat;
   filter: blur(32px) brightness(0.5) saturate(0.92);
   transform: scale(1.16);
 }
@@ -30,15 +30,16 @@
   margin: 0 auto;
   height: 100%;
   object-fit: cover;
-  object-position: center 42%;
+  object-position: center 55%;
+  filter: brightness(0.9) contrast(1.03);
 }
 
 .heroScrim {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(0deg, var(--stage) 0%, rgb(16 15 19 / 0.55) 26%, rgb(16 15 19 / 0) 62%),
-    linear-gradient(90deg, rgb(16 15 19 / 0.7) 0%, rgb(16 15 19 / 0) 55%);
+    linear-gradient(0deg, var(--stage) 0%, rgb(16 15 19 / 0.6) 28%, rgb(16 15 19 / 0) 64%),
+    linear-gradient(90deg, rgb(16 15 19 / 0.92) 0%, rgb(16 15 19 / 0.7) 30%, rgb(16 15 19 / 0.15) 62%, rgb(16 15 19 / 0) 100%);
 }
 
 .heroInner {

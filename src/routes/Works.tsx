@@ -24,7 +24,7 @@ export function Works() {
       {/* 홈처럼 — 라이브 연주 사진을 전면 히어로로 */}
       <header className={styles.hero}>
         <div className={styles.heroBg}>
-          <img src="/images/gallery/horizontal-2-kj-blueshirt.jpeg" alt="Joon Kim on the keys" />
+          <img src="/images/gallery/work-mic.jpg" alt="Studio microphone" />
           <div className={styles.heroScrim} />
         </div>
         <div className={styles.heroInner}>

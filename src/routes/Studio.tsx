@@ -23,7 +23,7 @@ export function Studio() {
       {/* 홈처럼 — 실제 데스크 사진을 전면 히어로로, 제목을 그 위에 */}
       <header className={styles.hero}>
         <div className={styles.heroBg}>
-          <img src="/images/gallery/horizontal-4-kj-room.jpg" alt={t.studio.photoAlt} />
+          <img src="/images/gallery/studio-console.jpg" alt={t.studio.photoAlt} />
           <div className={styles.heroScrim} />
         </div>
         <div className={styles.heroInner}>
