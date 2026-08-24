@@ -53,9 +53,9 @@ export function Home() {
         <Reveal>
           <section className={styles.contact} aria-labelledby="contact-h">
             <p id="contact-h" className={styles.sectionLabel}>{t.nav.contact}</p>
-            <a className={styles.mail} href="mailto:contact@thekjstudio.com">
-              contact@thekjstudio.com
-            </a>
+            <Link className={styles.mail} to="/contact">
+              {t.contact.title} →
+            </Link>
           </section>
         </Reveal>
       </div>

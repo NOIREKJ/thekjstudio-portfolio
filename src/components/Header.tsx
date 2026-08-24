@@ -30,7 +30,7 @@ export function Header() {
               {it.label}
             </Link>
           ))}
-          <a href="mailto:contact@thekjstudio.com">{t.nav.contact}</a>
+          <Link to="/contact" aria-current={pathname === "/contact" ? "page" : undefined}>{t.nav.contact}</Link>
         </nav>
 
         <button

@@ -8,6 +8,7 @@ import { Studio } from "./routes/Studio";
 import { Collection } from "./routes/Collection";
 import { Work } from "./routes/Work";
 import { About } from "./routes/About";
+import { Contact } from "./routes/Contact";
 
 // 어드민은 지연 로딩 — supabase-js 를 공개 사이트 번들에서 분리하고
 // /admin 에서만 불러온다. 헤더/푸터 없이 독립 레이아웃으로 뜬다.
@@ -34,6 +35,7 @@ export default function App() {
         <Route path="/collection" element={<Collection />} />
         <Route path="/work/:slug" element={<Work />} />
         <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />

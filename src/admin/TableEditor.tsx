@@ -50,10 +50,11 @@ export function TableEditor({
   const load = useCallback(async () => {
     if (!supabase) return;
     setLoading(true);
+    const ord = table.orderBy ?? { col: "sort_order", ascending: true };
     const { data, error } = await supabase
       .from(table.key)
       .select("*")
-      .order("sort_order", { ascending: true });
+      .order(ord.col, { ascending: ord.ascending });
     setLoading(false);
     if (error) { setMsg(error.message); return; }
     setRows((data as Row[]) ?? []);
@@ -79,11 +80,11 @@ export function TableEditor({
     setBusy(true); setMsg(null);
     let res;
     if (editingId === "new") {
-      res = await supabase.from(table.key).insert({
-        ...payload,
-        user_id: userId,
-        ...(householdId ? { household_id: householdId } : {}),
-      });
+      const ownerFields =
+        table.ownerScoped === false
+          ? {}
+          : { user_id: userId, ...(householdId ? { household_id: householdId } : {}) };
+      res = await supabase.from(table.key).insert({ ...payload, ...ownerFields });
     } else {
       res = await supabase.from(table.key).update(payload).eq("id", editingId);
     }
@@ -107,6 +108,7 @@ export function TableEditor({
   };
 
   const editing = editingId !== null;
+  const badge = table.badge ?? { col: "visibility", onValue: "public", onLabel: "공개", offLabel: "비공개" };
 
   return (
     <section className={styles.editor}>
@@ -131,17 +133,20 @@ export function TableEditor({
         <p className={styles.notice}>불러오는 중…</p>
       ) : (
         <ul className={styles.rows}>
-          {rows.map((r) => (
-            <li key={r.id as string} className={styles.rowItem}>
-              <button className={styles.rowBtn} onClick={() => startEdit(r)}>
-                <span className={styles.rowTitle}>{String(r[table.titleCol] ?? "(제목 없음)")}</span>
-                {table.subtitleCol && <span className={styles.rowSub}>{String(r[table.subtitleCol] ?? "")}</span>}
-                <span className={`${styles.badge} ${r.visibility === "public" ? styles.badgeOn : styles.badgeOff}`}>
-                  {r.visibility === "public" ? "공개" : "비공개"}
-                </span>
-              </button>
-            </li>
-          ))}
+          {rows.map((r) => {
+            const on = r[badge.col] === badge.onValue;
+            return (
+              <li key={r.id as string} className={styles.rowItem}>
+                <button className={styles.rowBtn} onClick={() => startEdit(r)}>
+                  <span className={styles.rowTitle}>{String(r[table.titleCol] ?? "(제목 없음)")}</span>
+                  {table.subtitleCol && <span className={styles.rowSub}>{String(r[table.subtitleCol] ?? "")}</span>}
+                  <span className={`${styles.badge} ${on ? styles.badgeOn : styles.badgeOff}`}>
+                    {on ? badge.onLabel : badge.offLabel}
+                  </span>
+                </button>
+              </li>
+            );
+          })}
           {rows.length === 0 && <p className={styles.notice}>아직 없습니다.</p>}
         </ul>
       )}

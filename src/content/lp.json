@@ -195,6 +195,21 @@
     "sortOrder": 0
   },
   {
+    "id": "8bd659ef-7e4f-45e1-b0b1-72a539617427",
+    "artist": "잔나비",
+    "title": "사운드 오브 뮤직 pt.1",
+    "label": "Peponi Music",
+    "catalogNo": "L200003514",
+    "releaseYear": 2026,
+    "country": "South Korea",
+    "genre": "Electronic, Rock, K-pop, Baroque Pop, Art Rock",
+    "format": "12\"",
+    "speed": "45",
+    "cover": "https://eiiifadgwbxfutallmsq.supabase.co/storage/v1/object/public/studiorack_photo/CB0E47B9-655C-4A8B-908C-2B967180A670.jpg",
+    "appleMusicUrl": null,
+    "sortOrder": 0
+  },
+  {
     "id": "9e52dd6a-1a64-43a3-9d75-ced33ca77991",
     "artist": "Charlie Puth",
     "title": "Nine Track Mind",
@@ -222,6 +237,21 @@
     "speed": "33",
     "cover": "https://eiiifadgwbxfutallmsq.supabase.co/storage/v1/object/public/studiorack_photo/F28801D0-7F2A-4CD7-A275-A37A85E301E5.jpg",
     "appleMusicUrl": "https://music.apple.com/kr/album/full-circle/1868437787?uo=4",
+    "sortOrder": 0
+  },
+  {
+    "id": "9f3e8b3b-e176-45b5-b577-753a72bb3655",
+    "artist": "잔나비",
+    "title": "사운드 오브 뮤직 pt.2 : Life",
+    "label": "Peponi Music",
+    "catalogNo": "L200003628",
+    "releaseYear": 2026,
+    "country": "South Korea",
+    "genre": "Electronic, Rock, Pop, K-pop, Art Rock, Baroque Pop, Indie Pop, Indie Rock",
+    "format": "12\"",
+    "speed": "33",
+    "cover": "https://eiiifadgwbxfutallmsq.supabase.co/storage/v1/object/public/studiorack_photo/14FB6585-4220-4249-890F-DD78A1AB101F.jpg",
+    "appleMusicUrl": null,
     "sortOrder": 0
   },
   {

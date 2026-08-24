@@ -25,6 +25,9 @@ export type TableConfig = {
   titleCol: string; // 목록에서 각 행을 대표할 컬럼
   subtitleCol?: string;
   fields: Field[];
+  ownerScoped?: boolean; // false 면 INSERT 시 user_id/household_id 를 붙이지 않음 (기본 true)
+  badge?: { col: string; onValue: unknown; onLabel: string; offLabel: string }; // 기본은 visibility
+  orderBy?: { col: string; ascending: boolean }; // 기본은 sort_order 오름차순
 };
 
 const commonTail: Field[] = [
@@ -132,6 +135,22 @@ export const TABLES: TableConfig[] = [
       { col: "rack_u", label: "랙 U", type: "number" },
       { col: "rack_mounted", label: "랙 마운트", type: "boolean" },
       ...commonTail,
+    ],
+  },
+  {
+    key: "inquiries",
+    label: "문의",
+    titleCol: "contact",
+    subtitleCol: "type",
+    ownerScoped: false,
+    badge: { col: "handled", onValue: true, onLabel: "처리완료", offLabel: "미처리" },
+    orderBy: { col: "created_at", ascending: false },
+    fields: [
+      { col: "type", label: "유형", type: "text", help: "commission · lesson · other" },
+      { col: "name", label: "이름", type: "text" },
+      { col: "contact", label: "연락처", type: "text" },
+      { col: "message", label: "내용", type: "textarea" },
+      { col: "handled", label: "처리완료", type: "boolean" },
     ],
   },
 ];

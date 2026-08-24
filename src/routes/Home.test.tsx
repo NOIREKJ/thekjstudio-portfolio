@@ -27,8 +27,8 @@ test("세 기둥(작업·스튜디오·컬렉션)으로 가는 링크가 있다"
 
 test("연락 경로가 있다", () => {
   renderHome();
-  const mail = screen.getAllByRole("link").find((a) =>
-    (a.getAttribute("href") ?? "").startsWith("mailto:"),
+  const contact = screen.getAllByRole("link").find((a) =>
+    (a.getAttribute("href") ?? "") === "/contact",
   );
-  expect(mail).toBeTruthy();
+  expect(contact).toBeTruthy();
 });

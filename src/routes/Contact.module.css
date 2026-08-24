@@ -1,0 +1,124 @@
+.page { width: 100%; }
+
+.head {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 12vh, 7rem) clamp(1.2rem, 5vw, 3.5rem) 0;
+}
+.label {
+  margin: 0 0 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.title {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.intro {
+  margin: 1.4rem 0 0;
+  max-width: 34rem;
+  font-family: var(--sans);
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.body {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: clamp(2.5rem, 8vh, 4.5rem) clamp(1.2rem, 5vw, 3.5rem) 6rem;
+}
+
+/* 제공 카드 */
+.offers {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+@media (min-width: 720px) {
+  .offers { grid-template-columns: 1fr 1fr; }
+}
+.offer {
+  text-align: left;
+  background: #17161c;
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 12px;
+  padding: 1.4rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.offer:hover { border-color: rgb(255 255 255 / 0.18); }
+.offerActive { border-color: var(--brass); background: rgb(201 154 75 / 0.08); }
+.offerTitle { font-family: var(--serif); font-size: 1.4rem; color: var(--ink); }
+.offerDesc { font-family: var(--sans); font-size: 0.95rem; line-height: 1.55; color: var(--ink-soft); }
+.points { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
+.point {
+  font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 999px; padding: 0.2rem 0.6rem;
+}
+.pricing {
+  margin: 1.1rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+/* 폼 */
+.form { margin-top: clamp(2.5rem, 7vh, 4rem); display: flex; flex-direction: column; gap: 1.1rem; }
+.typeRow { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chip {
+  background: #17161c;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  color: var(--ink-soft);
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.chipOn { background: var(--brass); color: #16130c; border-color: var(--brass); }
+
+.field { display: flex; flex-direction: column; gap: 0.4rem; }
+.fLabel { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
+.input, .textarea {
+  width: 100%;
+  background: #17161c;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  border-radius: 8px;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 0.98rem;
+  padding: 0.7rem 0.8rem;
+}
+.textarea { line-height: 1.55; resize: vertical; }
+.input:focus, .textarea:focus { outline: none; border-color: var(--brass); }
+
+.actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 0.3rem; }
+.submit {
+  background: var(--brass, #c99a4b);
+  color: #16130c;
+  border: 0;
+  border-radius: 8px;
+  padding: 0.75rem 1.6rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+.submit:disabled { opacity: 0.6; cursor: default; }
+.ok { margin: 0; font-family: var(--sans); font-size: 0.9rem; color: #8ec98e; }
+.err { margin: 0; font-family: var(--sans); font-size: 0.9rem; color: #e77; }
