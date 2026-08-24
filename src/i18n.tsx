@@ -46,7 +46,11 @@ const STR = {
     contact: {
       label: "Inquiries", title: "Work & Lessons",
       intro: "Music for where you need it, and lessons for where you're starting. Tell me what you have in mind.",
-      commission: { title: "Commission", desc: "Composing, arranging, mixing, session keys — music for film, artists, worship, or anything that needs a score." },
+      commission: {
+        title: "Commission",
+        desc: "Composing, arranging, mixing, session keys — music for film, artists, worship, or anything that needs a score.",
+        cta: "Even a rough idea is enough — send a reference or a line about the mood, and I'll shape it into sound. Tell me what you're making below.",
+      },
       lesson: {
         title: "Lessons",
         desc: "Piano and composition — together or on their own. Whether you've never read a note or just want to write your own songs, we start from where you are: less a fixed syllabus, more building the basics out of music you actually like.",
@@ -119,7 +123,11 @@ I release music under the name K_Joon_P.`,
     contact: {
       label: "문의", title: "의뢰 · 레슨",
       intro: "필요한 자리에 맞는 음악, 그리고 시작하는 사람을 위한 레슨. 생각하신 걸 편하게 남겨주세요.",
-      commission: { title: "작업 의뢰", desc: "작곡·편곡·믹싱·세션 건반 — 영상, 아티스트, 예배, 곡이 필요한 어떤 자리든." },
+      commission: {
+        title: "작업 의뢰",
+        desc: "작곡·편곡·믹싱·세션 건반 — 영상, 아티스트, 예배, 곡이 필요한 어떤 자리든.",
+        cta: "머릿속에 어렴풋한 느낌만 있어도 좋아요 — 레퍼런스든 한 줄 설명이든 들려주시면 거기서부터 곡으로 옮겨드립니다. 편하게 문의 주세요.",
+      },
       lesson: {
         title: "레슨",
         desc: "피아노와 작곡을 함께, 또는 따로. 악보가 처음이어도, 취미로 내 곡을 만들어보고 싶어도 — 지금 있는 자리에서 시작합니다. 정해진 진도를 밀기보다, 좋아하는 음악에서 출발해 필요한 기초를 하나씩 채웁니다.",
