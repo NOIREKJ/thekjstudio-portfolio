@@ -9,13 +9,14 @@
   "scripts": {
     "dev": "vite",
     "content": "node --env-file-if-exists=.env --import tsx scripts/fetch-content.ts",
-    "build": "node --env-file-if-exists=.env --import tsx scripts/fetch-content.ts && vitest run && tsc --noEmit && vite build",
+    "build": "node --env-file-if-exists=.env --import tsx scripts/fetch-content.ts && node --import tsx scripts/gen-sitemap.ts && vitest run && tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.3",
+    "@vercel/analytics": "^2.0.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router": "^8.2.0"

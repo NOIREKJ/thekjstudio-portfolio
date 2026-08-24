@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { applyMeta } from "../lib/meta";
 import { useT } from "../i18n";
 import { Reveal } from "../components/Reveal";
@@ -15,6 +15,8 @@ export function Contact() {
   const [contact, setContact] = useState("");
   const [note, setNote] = useState("");
   const [status, setStatus] = useState<Status>("idle");
+  const [hp, setHp] = useState(""); // 허니팟 — 사람은 못 보는 필드. 채워지면 봇.
+  const mountedAt = useRef(Date.now());
 
   // 작업 의뢰용
   const [services, setServices] = useState<string[]>([]);
@@ -67,6 +69,11 @@ export function Contact() {
     e.preventDefault();
     const message = composeMessage();
     if (!message.trim() || !contact.trim()) return;
+    // 스팸 차단: 허니팟이 채워졌거나(봇), 페이지 뜬 지 3초도 안 돼 제출되면(봇) 조용히 무시.
+    if (hp || Date.now() - mountedAt.current < 3000) {
+      setStatus("ok");
+      return;
+    }
     setStatus("sending");
     try {
       const { supabase } = await import("../lib/supabase");
@@ -130,6 +137,17 @@ export function Contact() {
 
         <Reveal>
           <form className={styles.form} onSubmit={submit}>
+            {/* 허니팟 — 화면·스크린리더에서 숨김. 봇만 채운다. */}
+            <input
+              type="text"
+              className={styles.hp}
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              value={hp}
+              onChange={(e) => setHp(e.target.value)}
+              placeholder="Company"
+            />
             <div className={styles.typeRow} role="radiogroup" aria-label={f.type}>
               {([["commission", f.commission], ["lesson", f.lesson], ["other", f.other]] as const).map(([v, lbl]) => (
                 <button key={v} type="button" role="radio" aria-checked={type === v}

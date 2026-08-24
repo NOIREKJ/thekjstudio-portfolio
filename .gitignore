@@ -4,3 +4,4 @@ dist
 *.local
 .superpowers/
 .env
+public/sitemap.xml

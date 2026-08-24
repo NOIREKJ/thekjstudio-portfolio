@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router";
 import { getWorks } from "../lib/works";
 import { applyMeta } from "../lib/meta";
 import { useLang, useT } from "../i18n";
-import { SoundCloudPlayer } from "../components/SoundCloudPlayer";
+import { TrackEmbed } from "../components/TrackEmbed";
 import styles from "./Work.module.css";
 
 export function Work() {
@@ -77,7 +77,7 @@ export function Work() {
       {work.kind === "music" && (
         <section className={styles.player} aria-label={`${work.title} ${t.workdetail.play}`}>
           <p className={styles.screensLabel}>{t.workdetail.play}</p>
-          <SoundCloudPlayer title={`${work.title} — SoundCloud`} />
+          <TrackEmbed links={work.listen} title={`${work.title} — the KJ Studio`} />
         </section>
       )}
 
