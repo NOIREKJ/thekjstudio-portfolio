@@ -55,6 +55,7 @@ const STR = {
           { name: "Composition", desc: "How chords and harmony move, and how to grow a melody into a finished song. No gear needed to begin — keys and ears are enough." },
         ],
         points: ["Composition · Piano", "In person", "Beginner · Hobby"],
+        cta: "Never read a note, or haven't touched keys in years? That's fine — we'll start with the song you've always wanted to play. Leave a message below and we'll plan it together.",
       },
       pricing: "Pricing on request.",
       form: {
@@ -127,6 +128,7 @@ I release music under the name K_Joon_P.`,
           { name: "작곡", desc: "코드와 화성이 움직이는 원리, 멜로디를 붙여 한 곡을 완성하는 과정. 장비 없이 건반과 귀만으로 시작해도 됩니다." },
         ],
         points: ["작곡 · 피아노", "오프라인", "입문 · 취미"],
+        cta: "악보가 처음이어도, 손이 오래 굳었어도 괜찮아요 — 배우고 싶던 그 곡부터 함께 시작해요. 아래에 편하게 남겨주시면 같이 계획을 잡아드릴게요.",
       },
       pricing: "가격은 문의 주시면 안내드립니다.",
       form: {

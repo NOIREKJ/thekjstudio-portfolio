@@ -77,6 +77,7 @@ export function Contact() {
               <span className={styles.points}>
                 {t.contact.lesson.points.map((p) => <span key={p} className={styles.point}>{p}</span>)}
               </span>
+              <span className={styles.lessonCta}>{t.contact.lesson.cta}</span>
             </button>
           </div>
           <p className={styles.pricing}>{t.contact.pricing}</p>

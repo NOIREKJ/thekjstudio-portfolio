@@ -81,6 +81,16 @@
   border: 1px solid rgb(255 255 255 / 0.12);
   border-radius: 999px; padding: 0.2rem 0.6rem;
 }
+.lessonCta {
+  margin-top: 0.5rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgb(255 255 255 / 0.08);
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--brass, #c99a4b);
+}
+
 .pricing {
   margin: 1.1rem 0 0;
   font-family: var(--mono);
