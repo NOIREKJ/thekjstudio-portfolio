@@ -103,7 +103,7 @@ export const TABLES: TableConfig[] = [
     ],
   },
   {
-    key: "studiorack_records",
+    key: "rv_records",
     label: "LP",
     titleCol: "title",
     subtitleCol: "artist",
@@ -123,7 +123,7 @@ export const TABLES: TableConfig[] = [
     ],
   },
   {
-    key: "studiorack_items",
+    key: "rv_items",
     label: "장비",
     titleCol: "name",
     subtitleCol: "category",
