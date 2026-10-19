@@ -18,6 +18,7 @@ export type Work = {
   listen: ListenLink[];
   body: string;
   bodyEn?: string;
+  featured: boolean;
   sortOrder: number;
 };
 
@@ -37,6 +38,7 @@ export function buildWorks(songs: SongContent[], apps: AppContent[]): Work[] {
       listen: s.listen,
       body: s.body,
       bodyEn: orUndefined(s.bodyEn),
+      featured: s.featured,
       sortOrder: s.sortOrder,
     })),
     ...apps.map((a) => ({
@@ -51,6 +53,7 @@ export function buildWorks(songs: SongContent[], apps: AppContent[]): Work[] {
       listen: a.links,
       body: a.body,
       bodyEn: orUndefined(a.bodyEn),
+      featured: a.featured,
       sortOrder: a.sortOrder,
     })),
   ];
@@ -75,4 +78,23 @@ export function getWorks(): Work[] {
 
 export function getWork(slug: string): Work | undefined {
   return getWorks().find((w) => w.slug === slug);
+}
+
+/*
+  홈에 내보낼 대표작. featured 는 DB 의 편집 의도고 /admin 에서 켜고 끈다.
+
+  상한을 두는 이유: 홈의 이 자리는 작업을 '맛보는' 자리이고 목록은 /work 가
+  쥔다. 대표작을 전부 켜두면 홈이 /work 를 그대로 복제해 버려서, 스크롤을
+  늘리고도 새로 보여주는 게 없다. 그래서 켠 개수가 넘치면 앞에서 자른다 —
+  편집 의도(sort_order)가 무엇이 먼저인지 이미 말해주고 있다.
+
+  하나도 안 켜져 있으면 빈 배열을 돌려주고, 홈은 이 구역을 아예 그리지
+  않는다. 제목만 남고 내용이 없는 섹션보다 없는 편이 낫다.
+*/
+export function selectFeatured(works: Work[], limit = 6): Work[] {
+  return works.filter((w) => w.featured).slice(0, limit);
+}
+
+export function getFeaturedWorks(limit = 6): Work[] {
+  return selectFeatured(getWorks(), limit);
 }

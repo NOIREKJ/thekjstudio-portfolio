@@ -57,7 +57,7 @@
       }
     ],
     "links": [],
-    "featured": true,
+    "featured": false,
     "sortOrder": 20
   },
   {
@@ -106,7 +106,7 @@
     "bodyEn": "Church finance approvals, taken out of paper and spreadsheets. An iOS app and a web console, built to work as a pair.\n\nSplitting approval in two is the core of the design. A pre-approval comes before the money is spent, so going over budget blocks the submission outright. A settlement is the receipt for money already spent, so it is never blocked — only flagged. Block a settlement and the person who fronted the cash eats it. Treat both as one kind of \"approval\" and one of them is guaranteed to behave wrongly.\n\nSo the same expense is never counted twice: an approved pre-approval reserves against the budget, and when the settlement arrives the reservation is released and becomes real spending.\n\nBuilt for a congregation of about a thousand. Every list sits on search and pagination, and the finance data backs itself up to a spreadsheet daily.",
     "screens": [],
     "links": [],
-    "featured": true,
+    "featured": false,
     "sortOrder": 35
   },
   {
@@ -120,7 +120,7 @@
     "bodyEn": "An admin console that turns the church's digital products on and off from one place. Not an app — the floor those apps stand on.\n\nKOINON, HANIL Pay, and PassBill share accounts and data. That left questions like \"which modules does this church use?\" and \"what role does this person hold?\" scattered across three products. This platform is where those answers moved.\n\nModules, plans, and roles are v1. A church picks its own plan, and modules outside it lock. Roles are split into feature permissions, education, finance, and ministry, and colored so they read at a glance.\n\nHanil Church is the first. Platform data is reachable by developers only — the screens a church uses and the screens that run a church must never blur together.\n\nBuilt with Next.js and Supabase, deployed on Vercel.",
     "screens": [],
     "links": [],
-    "featured": true,
+    "featured": false,
     "sortOrder": 38
   },
   {
@@ -134,7 +134,7 @@
     "bodyEn": "An iOS and macOS app that brings a family's investments together on one screen.\n\nEach person's brokerage account is their own, but no screen ever answered \"how much does our household hold, and how much have we made?\" Ledger gathers what was scattered into one quiet dashboard.\n\nBecause it handles money, I chose accuracy over flourish — so a wrong number never looks right. What isn't known is left blank; what's estimated is labeled as such. It can't buy or sell at all. It only shows.",
     "screens": [],
     "links": [],
-    "featured": true,
+    "featured": false,
     "sortOrder": 40
   },
   {
@@ -148,7 +148,7 @@
     "bodyEn": "A household ledger, and an answer to \"which card should I put this on?\" — on iOS.\n\nThere is no shortage of budgeting apps, but nearly all of them assume one person. Money assumes one home. Accounts and the ledger stay personal; cards, subscriptions, and things are shared — and every record decides for itself what is shown and what is not.\n\nCard rewards are the heart of it. Enter each card's rates, caps, and spending thresholds, and from then on an amount and a merchant are enough: it works out which card costs you least.\n\nBecause several people edit the same data, permission is enforced in the database rather than in the interface. One rule throughout — if you can see it you can fix it; deleting it and changing who sees it belong to whoever entered it.\n\nIt is not going to the App Store. It was built for the family, delivered over TestFlight.",
     "screens": [],
     "links": [],
-    "featured": true,
+    "featured": false,
     "sortOrder": 50
   }
 ]

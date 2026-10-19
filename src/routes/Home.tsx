@@ -1,15 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Link } from "react-router";
 import { applyMeta } from "../lib/meta";
 import { useT } from "../i18n";
 import { Hero } from "../components/Hero";
 import { PillarIndex } from "../components/PillarIndex";
 import { LpMarquee } from "../components/LpMarquee";
+import { WorkGrid } from "../components/WorkGrid";
 import { Reveal } from "../components/Reveal";
+import { getFeaturedWorks } from "../lib/works";
 import styles from "./Home.module.css";
 
 export function Home() {
   const t = useT();
+  const featured = useMemo(() => getFeaturedWorks(), []);
 
   useEffect(() => {
     applyMeta({
@@ -30,6 +33,23 @@ export function Home() {
             <PillarIndex />
           </section>
         </Reveal>
+
+        {featured.length > 0 && (
+          <Reveal>
+            <section className={styles.featured} aria-labelledby="featured-h">
+              <div className={styles.featuredHead}>
+                <div>
+                  <p id="featured-h" className={`${styles.sectionLabel} ${styles.featuredTag}`}>
+                    {t.home.featuredTag}
+                  </p>
+                  <p className={styles.featuredLine}>{t.home.featuredLine}</p>
+                </div>
+                <Link to="/work" className={styles.featuredCta}>{t.home.featuredCta}</Link>
+              </div>
+              <WorkGrid works={featured} />
+            </section>
+          </Reveal>
+        )}
 
         <Reveal>
           <section className={styles.about}>

@@ -44,3 +44,20 @@ test("이미지가 없으면 og:image를 만들지 않는다", () => {
   applyMeta({ title: "T", description: "D" });
   expect(document.head.querySelector('meta[property="og:image"]')).toBeNull();
 });
+
+/*
+  SPA 라 head 가 라우트 사이에 살아남는다. 커버 있는 작업물에서 커버 없는
+  작업물로 옮겨가면 앞 페이지의 이미지가 남아 있었다 — twitter:card 는
+  summary 로 내려가는데 twitter:image 는 큰 이미지를 가리키는 짝 안 맞는
+  상태가 됐다.
+*/
+test("이미지 없는 라우트로 옮겨가면 앞 페이지의 이미지를 지운다", () => {
+  applyMeta({ title: "커버 있음", description: "D", image: "/a.png", origin: "https://x.example" });
+  applyMeta({ title: "커버 없음", description: "D" });
+
+  expect(document.head.querySelector('meta[property="og:image"]')).toBeNull();
+  expect(document.head.querySelector('meta[name="twitter:image"]')).toBeNull();
+  expect(
+    document.head.querySelector('meta[name="twitter:card"]')?.getAttribute("content"),
+  ).toBe("summary");
+});

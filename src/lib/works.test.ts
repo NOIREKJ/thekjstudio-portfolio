@@ -1,4 +1,4 @@
-import { buildWorks } from "./works";
+import { buildWorks, selectFeatured } from "./works";
 import type { AppContent, SongContent } from "./content-types";
 
 const song = (over: Partial<SongContent> = {}): SongContent => ({
@@ -78,6 +78,39 @@ test("앱은 listen 대신 links 를 쓴다", () => {
     app({ links: [{ label: "App Store", url: "https://as.example/a" }] }),
   ]);
   expect(works[0].listen).toEqual([{ label: "App Store", url: "https://as.example/a" }]);
+});
+
+test("featured 를 그대로 싣는다 — 홈이 대표작을 고르는 근거다", () => {
+  const works = buildWorks(
+    [song({ slug: "on", featured: true })],
+    [app({ slug: "off", featured: false })],
+  );
+  expect(works.find((w) => w.slug === "on")!.featured).toBe(true);
+  expect(works.find((w) => w.slug === "off")!.featured).toBe(false);
+});
+
+test("대표작은 featured 만 고르고 편집 순서를 지킨다", () => {
+  const works = buildWorks(
+    [song({ slug: "second", featured: true, sortOrder: 20 })],
+    [
+      app({ slug: "first", featured: true, sortOrder: 10 }),
+      app({ slug: "hidden", featured: false, sortOrder: 15 }),
+    ],
+  );
+  expect(selectFeatured(works).map((w) => w.slug)).toEqual(["first", "second"]);
+});
+
+test("대표작이 상한을 넘으면 앞에서 자른다 — 홈이 /work 를 복제하지 않게", () => {
+  const many = Array.from({ length: 9 }, (_, i) =>
+    app({ slug: `a${i}`, featured: true, sortOrder: i }),
+  );
+  expect(selectFeatured(buildWorks([], many), 4).map((w) => w.slug))
+    .toEqual(["a0", "a1", "a2", "a3"]);
+});
+
+test("하나도 안 켜져 있으면 빈 배열 — 홈은 그 구역을 아예 그리지 않는다", () => {
+  const works = buildWorks([song({ featured: false })], [app({ featured: false })]);
+  expect(selectFeatured(works)).toEqual([]);
 });
 
 test("영어 본문이 있으면 bodyEn 으로 싣고, 없으면 undefined", () => {

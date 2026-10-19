@@ -16,6 +16,47 @@
   width: 100%;
 }
 
+/*
+  대표작 — 히어로의 마퀴는 커버가 흐르는 '벽'이라 aria-hidden 에 링크도 없다.
+  여기가 홈에서 작업물을 실제로 눌러 들어갈 수 있는 유일한 자리다.
+*/
+.featured { margin-top: clamp(3.5rem, 10vh, 7rem); }
+
+.featuredHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: 2rem;
+}
+
+/*
+  라벨은 .sectionLabel 과 같은 모양이지만 간격이 다르다. 저쪽은 제목 없이
+  혼자 서는 라벨이라 아래로 1.4rem 을 밀어두는데, 여기선 바로 아래 제목이
+  붙으므로 그 여백을 쓰면 둘이 떨어져 한 쌍으로 안 읽힌다. 간격은 제목이 쥔다.
+*/
+.featuredTag { margin-bottom: 0; }
+
+.featuredLine {
+  margin: 0.5rem 0 0;
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  line-height: 1.35;
+  color: var(--ink);
+}
+
+/* CTA 는 제목과 같은 줄의 반대쪽 — 목록의 끝이 아니라 입구에 둔다 */
+.featuredCta {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  color: var(--brass);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.featuredCta:hover { text-decoration: underline; text-underline-offset: 4px; }
+
 /* About 티저 — 사진 + 한 줄 소개 */
 .about {
   display: grid;
