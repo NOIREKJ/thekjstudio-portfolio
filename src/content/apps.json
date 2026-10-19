@@ -96,6 +96,34 @@
     "sortOrder": 30
   },
   {
+    "id": "c094b14f-3897-4300-9440-ad892752b08a",
+    "slug": "passbill",
+    "title": "PassBill",
+    "year": 2026,
+    "note": null,
+    "cover": null,
+    "body": "교회의 재정 결재를 종이와 엑셀에서 꺼내온 앱입니다. iOS 앱과 웹 관리 화면이 한 쌍으로 움직입니다.\n\n결재를 둘로 나눈 것이 설계의 핵심입니다. 품의는 돈을 쓰기 전의 결재라서 예산을 넘으면 제출 자체를 막습니다. 정산은 돈을 쓴 뒤의 증빙이라 막지 않고 경고만 붙입니다 — 이미 나간 돈의 정산을 막으면 기안한 사람이 사비로 떠안게 되기 때문입니다. 둘을 같은 '결재'로 묶으면 반드시 한쪽이 잘못 동작합니다.\n\n같은 지출이 두 번 세어지지 않도록, 품의가 승인되면 예산에서 예약으로 잡아두고 정산이 올라오면 예약을 풀어 실제 지출로 옮깁니다.\n\n교인 1,000명 규모를 기준으로 만들었습니다. 모든 목록은 검색과 페이지네이션 위에 있고, 재정 데이터는 매일 엑셀로 자동 백업됩니다.",
+    "bodyEn": "Church finance approvals, taken out of paper and spreadsheets. An iOS app and a web console, built to work as a pair.\n\nSplitting approval in two is the core of the design. A pre-approval comes before the money is spent, so going over budget blocks the submission outright. A settlement is the receipt for money already spent, so it is never blocked — only flagged. Block a settlement and the person who fronted the cash eats it. Treat both as one kind of \"approval\" and one of them is guaranteed to behave wrongly.\n\nSo the same expense is never counted twice: an approved pre-approval reserves against the budget, and when the settlement arrives the reservation is released and becomes real spending.\n\nBuilt for a congregation of about a thousand. Every list sits on search and pagination, and the finance data backs itself up to a spreadsheet daily.",
+    "screens": [],
+    "links": [],
+    "featured": true,
+    "sortOrder": 35
+  },
+  {
+    "id": "ff0a3f4b-66be-4abc-8ad4-6dd7d6de9ed9",
+    "slug": "church-platform",
+    "title": "Church Platform",
+    "year": 2026,
+    "note": null,
+    "cover": null,
+    "body": "교회의 디지털 제품들을 한자리에서 켜고 끄는 관리 콘솔입니다. 앱이 아니라, 그 앱들이 올라서 있는 바닥입니다.\n\nKOINON, 한일페이, PassBill 은 계정과 데이터를 공유합니다. 그래서 \"이 교회는 어느 모듈을 쓰는가\", \"이 사람은 어떤 역할인가\" 같은 질문의 답이 세 제품에 흩어져 있었습니다. 그 답을 한 곳으로 모은 것이 이 플랫폼입니다.\n\n모듈·요금제·역할이 v1 입니다. 교회가 직접 요금제를 고르고, 플랜 밖의 모듈은 잠깁니다. 역할은 기능 권한·교육·재정·사역으로 나누어 색으로 구분합니다.\n\n한일교회가 1호입니다. 플랫폼 데이터는 전부 개발자만 닿을 수 있게 막아두었습니다 — 교회가 쓰는 화면과 교회를 운영하는 화면은 섞이면 안 됩니다.\n\nNext.js 와 Supabase 로 만들고 Vercel 에 올립니다.",
+    "bodyEn": "An admin console that turns the church's digital products on and off from one place. Not an app — the floor those apps stand on.\n\nKOINON, HANIL Pay, and PassBill share accounts and data. That left questions like \"which modules does this church use?\" and \"what role does this person hold?\" scattered across three products. This platform is where those answers moved.\n\nModules, plans, and roles are v1. A church picks its own plan, and modules outside it lock. Roles are split into feature permissions, education, finance, and ministry, and colored so they read at a glance.\n\nHanil Church is the first. Platform data is reachable by developers only — the screens a church uses and the screens that run a church must never blur together.\n\nBuilt with Next.js and Supabase, deployed on Vercel.",
+    "screens": [],
+    "links": [],
+    "featured": true,
+    "sortOrder": 38
+  },
+  {
     "id": "34ffdeb0-967e-4d87-b5c0-4e8464ca46b6",
     "slug": "ledger",
     "title": "Ledger",
@@ -108,5 +136,19 @@
     "links": [],
     "featured": true,
     "sortOrder": 40
+  },
+  {
+    "id": "059beabd-fc47-4702-92cc-d4eac7b5535b",
+    "slug": "money",
+    "title": "Money",
+    "year": 2026,
+    "note": null,
+    "cover": null,
+    "body": "가족이 함께 쓰는 가계부이면서, \"이건 어느 카드로 낼까\"에 답해주는 iOS 앱입니다.\n\n가계부 앱은 많지만 대부분 혼자 쓰는 것을 전제합니다. Money 는 한 집을 전제로 만들었습니다. 통장과 가계부는 각자의 것, 카드와 구독과 물건은 함께 보는 것 — 무엇을 보여주고 무엇을 감출지 기록마다 따로 정합니다.\n\n카드 혜택 계산이 이 앱의 중심입니다. 카드별 적립률과 한도, 전월 실적 조건을 넣어두면 금액과 가게만 입력해도 어느 카드로 내는 게 가장 싼지 계산해 줍니다.\n\n여러 사람이 같은 데이터를 고치는 앱이라 권한을 화면이 아니라 데이터베이스에서 막았습니다. 규칙은 하나입니다 — 보이면 고칠 수 있고, 지우는 것과 공유 범위는 등록한 사람만.\n\n스토어에 올리지 않습니다. 가족만 TestFlight 로 쓰도록 만들었습니다.",
+    "bodyEn": "A household ledger, and an answer to \"which card should I put this on?\" — on iOS.\n\nThere is no shortage of budgeting apps, but nearly all of them assume one person. Money assumes one home. Accounts and the ledger stay personal; cards, subscriptions, and things are shared — and every record decides for itself what is shown and what is not.\n\nCard rewards are the heart of it. Enter each card's rates, caps, and spending thresholds, and from then on an amount and a merchant are enough: it works out which card costs you least.\n\nBecause several people edit the same data, permission is enforced in the database rather than in the interface. One rule throughout — if you can see it you can fix it; deleting it and changing who sees it belong to whoever entered it.\n\nIt is not going to the App Store. It was built for the family, delivered over TestFlight.",
+    "screens": [],
+    "links": [],
+    "featured": true,
+    "sortOrder": 50
   }
 ]
