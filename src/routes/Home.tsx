@@ -46,7 +46,7 @@ export function Home() {
                 </div>
                 <Link to="/work" className={styles.featuredCta}>{t.home.featuredCta}</Link>
               </div>
-              <WorkGrid works={featured} />
+              <WorkGrid works={featured} className={styles.featuredGrid} />
             </section>
           </Reveal>
         )}

@@ -57,6 +57,19 @@
 }
 .featuredCta:hover { text-decoration: underline; text-underline-offset: 4px; }
 
+/*
+  대표작은 넓은 화면에서 4열로 둔다. WorkGrid 의 기본은 /work 목록에 맞춘
+  3열이고, 거기에 대표작 4장을 넣으면 마지막 한 장이 혼자 다음 줄로 떨어진다.
+  좁은 구간(40~64rem)은 기본 2열 그대로가 4장을 두 줄로 깔끔히 나눈다.
+
+  선택자를 `.featured .featuredGrid` 로 두 겹 쓰는 이유: WorkGrid.module.css
+  의 `.grid` 와 한 겹씩이면 특이도가 같아 어느 스타일시트가 나중에 붙느냐로
+  승패가 갈린다. 그건 번들러의 임포트 순서에 기대는 것이라 믿을 수 없다.
+*/
+@media (min-width: 64rem) {
+  .featured .featuredGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
 /* About 티저 — 사진 + 한 줄 소개 */
 .about {
   display: grid;
