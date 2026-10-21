@@ -1,5 +1,13 @@
+/*
+  제목 길이가 제각각이라 한 줄짜리와 두 줄짜리가 한 행에 섞인다. block 으로
+  두면 연도 줄이 카드마다 다른 높이에 떠서 행이 들쭉날쭉 읽힌다. 세로 플렉스로
+  늘려두고 연도를 바닥에 붙여(.meta 의 margin-top: auto) 기준선을 맞춘다.
+  그리드 아이템은 기본이 stretch 라 height: 100% 가 행의 높이를 받는다.
+*/
 .card {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   min-width: 0;
   text-decoration: none;
   color: inherit;
@@ -38,7 +46,7 @@
 }
 
 .title {
-  margin: 1rem 0 0.3rem;
+  margin: 1rem 0 0;
   font-family: var(--serif);
   font-weight: 400;
   font-size: 1.3rem;
@@ -51,6 +59,8 @@
 
 .meta {
   margin: 0;
+  margin-top: auto;
+  padding-top: 0.3rem;
   font-family: var(--mono);
   font-size: 0.78rem;
   letter-spacing: 0.08em;
