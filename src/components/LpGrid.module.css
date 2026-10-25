@@ -1,3 +1,13 @@
+/*
+  LP 커버는 전부 정사각이라 메이슨리를 깔아도 지금 격자와 같은 그림이
+  나온다 — 메이슨리는 비율이 제각각일 때 생기는 문법이다. 대신 '셀 크기를
+  섞는' 쪽으로 간다. 첫 장만 2x2 로 키우고 나머지는 그대로 흐른다.
+
+  하필 첫 장인 이유는 타일이 딱 맞기 때문이다. 4열에서 2x2 한 덩이는
+  남은 두 칸 × 두 줄(=4장)과 맞물려 구멍이 생기지 않는다. 중간에 큰
+  칸을 끼우면 구멍이 나고, 그걸 grid-auto-flow: dense 로 메우면 화면
+  순서가 정렬 순서와 어긋난다 — 정렬 단추를 둔 화면에서 그건 거짓말이다.
+*/
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -10,4 +20,11 @@
 
 @media (min-width: 60rem) {
   .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem 1.6rem; }
+
+  /* 2열에서는 키우면 한 장이 화면 절반을 먹어 목록이 안 읽힌다 —
+     충분히 넓어진 4열부터만 키운다 */
+  .grid > :first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
 }

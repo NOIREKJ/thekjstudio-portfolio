@@ -41,6 +41,7 @@
 .featuredLine {
   margin: 0.5rem 0 0;
   font-family: var(--serif);
+  font-weight: var(--display-weight);
   font-size: clamp(1.3rem, 3vw, 1.9rem);
   line-height: 1.35;
   color: var(--ink);
@@ -106,6 +107,7 @@
   margin: 0 0 1.4rem;
   max-width: 30rem;
   font-family: var(--serif);
+  font-weight: var(--display-weight);
   font-size: clamp(1.3rem, 3vw, 1.9rem);
   line-height: 1.35;
   color: var(--ink);
@@ -132,6 +134,7 @@
 
 .mail {
   font-family: var(--serif);
+  font-weight: var(--display-weight);
   font-size: clamp(1.6rem, 5vw, 2.6rem);
   color: var(--ink);
   text-decoration: none;

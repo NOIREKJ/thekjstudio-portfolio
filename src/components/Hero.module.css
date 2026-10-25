@@ -26,20 +26,32 @@
 .scrim {
   position: absolute;
   inset: 0;
+  /*
+    예전엔 rgb(16 15 19) 을 그대로 적어 넣었다. 배경 토큰이 #0b0b0c 로
+    바뀌자 스크림 끝과 페이지 바닥이 어긋나 가로줄이 보였다. 이제
+    color-mix 로 --ground 에서 투명도를 만들어 쓴다 — 배경색을 다시
+    바꿔도 이음매가 생기지 않는다.
+  */
   background:
-    /* 왼쪽을 어둡게 — 헤드라인 가독 */
-    linear-gradient(90deg, rgb(16 15 19 / 0.94) 0%, rgb(16 15 19 / 0.78) 34%, rgb(16 15 19 / 0.35) 66%, rgb(16 15 19 / 0.2) 100%),
-    /* 위·아래로 페이드 — 벽이 배경으로 스며든다 */
-    linear-gradient(0deg, var(--stage, #100f13) 0%, rgb(16 15 19 / 0) 26%, rgb(16 15 19 / 0) 74%, var(--stage, #100f13) 100%);
+    linear-gradient(90deg,
+      color-mix(in srgb, var(--ground) 95%, transparent) 0%,
+      color-mix(in srgb, var(--ground) 80%, transparent) 34%,
+      color-mix(in srgb, var(--ground) 38%, transparent) 66%,
+      color-mix(in srgb, var(--ground) 22%, transparent) 100%),
+    linear-gradient(0deg,
+      var(--ground) 0%,
+      color-mix(in srgb, var(--ground) 0%, transparent) 26%,
+      color-mix(in srgb, var(--ground) 0%, transparent) 74%,
+      var(--ground) 100%);
 }
 
 .inner {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 72rem;
+  max-width: var(--page);
   margin: 0 auto;
-  padding: 0 clamp(1.2rem, 5vw, 3.5rem);
+  padding: 0 var(--gutter);
 }
 
 .eyebrow {
@@ -53,21 +65,26 @@
 
 .headline {
   margin: 0;
-  font-family: var(--serif);
-  font-weight: 400;
-  font-size: clamp(2.1rem, 6.2vw, 4.4rem);
-  line-height: 0.98;
-  letter-spacing: -0.02em;
+  font-family: var(--display);
+  font-weight: var(--display-weight);
+  /* 디스플레이 서체를 들였으니 크기로도 말하게 한다 */
+  font-size: clamp(2.6rem, 8.4vw, 6.4rem);
+  line-height: 0.94;
+  /* 커질수록 글자 사이가 벌어져 보인다 — 더 좁힌다 */
+  letter-spacing: -0.035em;
   color: var(--ink);
 }
 
-.dot { color: var(--brass); }
+/* 포인트색을 없앴다. 강조는 색이 아니라 명도로 한다 */
+.dot { color: var(--ink-max); }
 
 .sub {
   margin: 1.8rem 0 0;
-  max-width: 30rem;
+  /* 30rem 에선 「…다룹니다.」의 마지막 한 글자가 혼자 다음 줄로 떨어졌다 */
+  max-width: 34rem;
   font-family: var(--sans);
-  font-size: clamp(1rem, 2.2vw, 1.2rem);
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  text-wrap: pretty;
   line-height: 1.55;
   color: var(--ink-soft);
 }

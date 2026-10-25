@@ -1,0 +1,127 @@
+.wrap { position: relative; }
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--rule);
+}
+
+/*
+  줄의 뼈대. 번호는 고정폭이라 자릿수가 늘어도 제목이 밀리지 않고,
+  제목이 남는 폭을 전부 가져간다. 종류·연도는 오른쪽에 고정폭으로
+  세워 세로로 읽히게 한다 — 카탈로그는 열이 맞아야 목록으로 읽힌다.
+*/
+.row {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0 1.2rem;
+  padding: clamp(0.9rem, 2.2vw, 1.5rem) 0;
+  border-bottom: 1px solid var(--rule-soft);
+  text-decoration: none;
+  color: var(--ink-soft);
+  transition: color 0.35s var(--ease-out-strong);
+}
+
+.row:hover, .row:focus-visible { color: var(--ink-max); }
+
+.no {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.title {
+  font-family: var(--display);
+  font-weight: var(--display-weight);
+  font-size: clamp(1.5rem, 3.4vw, 2.5rem);
+  line-height: 1.1;
+  /* 큰 글자는 자간을 좁혀야 한다 — 커질수록 글자 사이가 벌어져 보인다 */
+  letter-spacing: -0.02em;
+  /*
+    🔴 한국어는 어절 안에서 줄을 바꾸면 안 된다. 기본값으로 두면
+    「KOINON (코이논)」이 「코이 / 논」으로 잘린다 — 라틴 기준의 줄바꿈
+    규칙이 한글에는 글자 단위로 적용되기 때문이다.
+  */
+  word-break: keep-all;
+  /* 그래도 넘칠 때는 두 줄을 고르게 나눈다 */
+  text-wrap: balance;
+  color: var(--ink);
+  transition: color 0.35s var(--ease-out-strong);
+}
+
+.row:hover .title, .row:focus-visible .title { color: var(--ink-max); }
+
+.kind, .year {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+/* 좁은 화면에선 종류를 접는다 — 연도만으로도 줄이 구분된다 */
+.kind { display: none; }
+
+@media (min-width: 48rem) {
+  .row { grid-template-columns: 3rem minmax(0, 1fr) 5rem 4rem; }
+  .kind { display: inline; }
+}
+
+/*
+  넓은 화면에서는 목록을 왼쪽으로 몰고 오른쪽을 비운다 — 그 빈 자리가
+  미리보기의 자리다.
+
+  처음엔 줄 안에 19rem 짜리 빈 칸을 끼워 자리를 만들었는데, 그 폭이
+  제목에서 나가는 바람에 「한일페이 (HANIL Pay)」가 두 줄로 터졌다.
+  줄 전체를 좁히면 제목·종류·연도의 간격은 그대로 유지된다.
+*/
+@media (hover: hover) and (min-width: 64rem) {
+  /* 62% 에선 제목이 두 줄로 터졌다. 미리보기 한 장이 설 만큼만 내준다 */
+  .list { max-width: 70%; }
+}
+
+/*
+  미리보기는 포인터가 있는 기기에서만. 손가락 기기에서 자리만 차지하면
+  줄 목록이 밀린다.
+*/
+.preview { display: none; }
+
+@media (hover: hover) and (min-width: 64rem) {
+  /*
+    미리보기는 호버한 줄의 높이로 따라간다. 화면 가운데 고정이면 02 번
+    줄에 올렸는데 그림은 05 번 옆에 떠서, 둘이 한 쌍으로 안 읽힌다.
+    위치는 줄에서 직접 받아 CSS 변수로 넘긴다.
+  */
+  .preview {
+    display: block;
+    position: absolute;
+    top: var(--preview-y, 50%);
+    right: 0;
+    translate: 0 -50%;
+    width: min(18rem, 26%);
+    transition: top 0.45s var(--ease-out-strong);
+    aspect-ratio: 4 / 3;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: 3px;
+    z-index: 3;
+  }
+
+  .preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    /* 떠오르는 느낌 — 즉시 나타나면 붙어 있는 것처럼 보인다 */
+    animation: rise 0.45s var(--ease-out-strong) both;
+  }
+}
+
+@keyframes rise {
+  from { opacity: 0; scale: 0.96; }
+  to { opacity: 1; scale: 1; }
+}

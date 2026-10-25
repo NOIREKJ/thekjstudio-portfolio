@@ -5,14 +5,20 @@ import { useT } from "../i18n";
 import { Hero } from "../components/Hero";
 import { PillarIndex } from "../components/PillarIndex";
 import { LpMarquee } from "../components/LpMarquee";
-import { WorkGrid } from "../components/WorkGrid";
+import { CatalogueIndex } from "../components/CatalogueIndex";
 import { Reveal } from "../components/Reveal";
-import { getFeaturedWorks } from "../lib/works";
+import { getWorks } from "../lib/works";
 import styles from "./Home.module.css";
 
 export function Home() {
   const t = useT();
-  const featured = useMemo(() => getFeaturedWorks(), []);
+  /*
+    인덱스는 전부 싣는다. 대표작을 골라 몇 개만 보여주던 것은 카드 격자라
+    자리가 비쌌기 때문이다. 줄은 싸다 — 아홉 줄이 카드 넉 장보다 짧고,
+    고른다는 행위 자체가 나머지를 덜 중요해 보이게 만든다. 카탈로그는
+    전부 실어야 카탈로그다.
+  */
+  const works = useMemo(() => getWorks(), []);
 
   useEffect(() => {
     applyMeta({
@@ -34,7 +40,7 @@ export function Home() {
           </section>
         </Reveal>
 
-        {featured.length > 0 && (
+        {works.length > 0 && (
           <Reveal>
             <section className={styles.featured} aria-labelledby="featured-h">
               <div className={styles.featuredHead}>
@@ -46,7 +52,7 @@ export function Home() {
                 </div>
                 <Link to="/work" className={styles.featuredCta}>{t.home.featuredCta}</Link>
               </div>
-              <WorkGrid works={featured} className={styles.featuredGrid} />
+              <CatalogueIndex works={works} />
             </section>
           </Reveal>
         )}

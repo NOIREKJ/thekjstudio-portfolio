@@ -1,4 +1,4 @@
-/* 한글 = Ydestreet(이드스트릿) */
+/* 한글 = Ydestreet(이드스트릿). Bold 는 한글 디스플레이로도 쓴다 */
 @font-face {
   font-family: "Ydestreet";
   font-style: normal;
@@ -15,51 +15,93 @@
 }
 
 :root {
-  /* 무대 — 조명이 하나 켜진 어두운 홀 */
-  --stage: #101014;
-  --ink: #ece9e2;
-  --ink-soft: #8f8a81;
-  /* 놋쇠 — 피아노 페달·경첩의 금속. 포인트는 이 하나만 쓴다 */
-  --brass: #c9a86a;
+  /*
+    크롬은 무채색으로 내린다. 화면의 색은 전부 작업물에서만 나온다 —
+    LP 커버와 앱 아이콘이 유일한 채도다. 예전 배경은 보라·갈색 라디얼을
+    두 겹 깔아 커버의 색을 흐려놓고 있었다.
 
-  /* 영어 = League Mono(고정폭), 한글 = Ydestreet. 라틴 폰트가 먼저라
-     영문은 League Mono, 한글 글자는 Ydestreet 로 자동 폴백된다 */
-  --serif: "League Mono", "Ydestreet", ui-monospace, monospace;
-  --sans: "League Mono", "Ydestreet", "Pretendard", system-ui, -apple-system, sans-serif;
+    단계가 네 칸인 이유: 바닥 / 올라온 면(카드·입력) / 선 / 글자.
+    중간값을 그때그때 지어내면 면과 선의 위계가 무너진다.
+  */
+  --ground: #0b0b0c;
+  --raised: #141416;
+  --rule: #26262a;
+  --rule-soft: #1a1a1d;
+
+  --ink: #f2f1ee;
+  --ink-soft: #85837e;
+  --ink-faint: #565552;
+
+  /*
+    포인트색이 없다. 강조는 색이 아니라 명도와 크기로 한다.
+    예외는 선택 영역 하나 — 그건 운영체제 쪽 약속이라 보여야 한다.
+  */
+  --ink-max: #ffffff;
+
+  /*
+    세 목소리. 예전엔 serif·sans·mono 가 전부 League Mono 라
+    크기만 다르고 성격이 같았고, 그래서 평평하게 읽혔다.
+
+    --display 는 큰 글자 전용이다. 라틴은 Instrument Serif,
+    한글은 Ydestreet Bold 로 자동 폴백된다 — 라틴 폰트를 앞에 두는
+    이 방식은 이 사이트가 원래 쓰던 수법 그대로다.
+  */
+  --display: "Fraunces Variable", "Ydestreet", Georgia, serif;
+  /*
+    🔴 이중언어 제목에서 가장 먼저 깨지는 게 이 무게다. 「위로
+    (Consolation)」처럼 한 줄에 두 글자체가 섞이는데, 라틴 쪽이 고대비
+    서체(획의 굵기 차가 큰 것)면 한글만 뭉쳐 보인다. 처음 Instrument Serif
+    로 짰다가 실제로 그렇게 됐다 — Ydestreet 를 Light 로 내려도 모자랐다.
+    Fraunces 는 저대비에 가변축이 있어 한글 Light 옆에 세울 수 있다.
+  */
+  --display-weight: 300;
   --mono: "League Mono", "Ydestreet", ui-monospace, "SF Mono", monospace;
+  --sans: "Pretendard", "League Mono", system-ui, -apple-system, sans-serif;
 
-  /* 기성 커브는 힘이 없다 */
+  /* 이름이 남아 있던 옛 토큰 — 쓰는 곳이 남아 있어 새 값으로 잇는다 */
+  --stage: var(--ground);
+  --serif: var(--display);
+  --brass: var(--ink);
+
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+
+  /*
+    판면. 카탈로그는 여백이 일정해야 줄로 읽힌다 — 페이지마다
+    다른 값을 쓰면 인덱스가 목록이 아니라 뭉치로 보인다.
+  */
+  --page: 84rem;
+  --gutter: clamp(1.2rem, 5vw, 4rem);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 
-/* 가로 넘침 차단 — 100vw 전면 요소가 iOS 에서 스크롤바를 만드는 것 방지 */
-html {
-  overflow-x: hidden;
-}
+html { overflow-x: hidden; }
 
 body {
   margin: 0;
   overflow-x: hidden;
   max-width: 100%;
-  background:
-    radial-gradient(1100px 640px at 50% -10%, #232230 0%, rgb(35 34 48 / 0) 62%),
-    radial-gradient(800px 520px at 18% 88%, rgb(46 38 32 / 0.5) 0%, rgb(46 38 32 / 0) 65%),
-    var(--stage);
+  background: var(--ground);
   color: var(--ink);
   font-family: var(--sans);
+  font-size: 100%;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* 필름 그레인 — 균일한 검정은 화면처럼 보이고, 약간의 입자는 공간처럼 보인다 */
+/*
+  그레인은 남기되 더 묽게. 예전 0.05 는 어두운 배경에서 커버 위로도
+  올라타 사진을 지저분하게 만들었다. 이제 색이 작업물에서만 나오므로
+  그 위에 입자를 얹으면 손해다.
+*/
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.05;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
 }
 
@@ -67,7 +109,13 @@ body::before {
 
 a { color: inherit; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 
-::selection { background: var(--brass); color: #131215; }
+::selection { background: var(--ink); color: var(--ground); }
+
+/* 키보드 초점은 보여야 한다 — 포인트색이 없으니 흰 선으로 */
+:focus-visible {
+  outline: 2px solid var(--ink-max);
+  outline-offset: 3px;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
