@@ -1,0 +1,43 @@
+# 노션 트래커 → Supabase arrangements 동기화.
+#
+# 15분인 이유: GitHub cron 의 최소 간격은 5분이지만 실제로는 한참 밀린다.
+# 5분으로 적어 두면 "5분마다 돈다"고 믿게 되는데 사실이 아니다. 급할 때는
+# Actions 탭에서 손으로 돌린다(workflow_dispatch).
+name: sync-arrangements
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+    inputs:
+      all:
+        description: "바뀌지 않은 페이지도 다시 처리"
+        type: boolean
+        default: false
+
+# 앞 실행이 아직 돌고 있으면 겹치지 않게. 취소하지 않고 기다린다 —
+# 쓰다 만 상태로 잘리는 것보다 늦는 편이 낫다.
+concurrency:
+  group: sync-arrangements
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run sync:arrangements ${{ inputs.all && '-- --all' || '' }}
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_ARRANGEMENTS_DATABASE_ID: ${{ secrets.NOTION_ARRANGEMENTS_DATABASE_ID }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          # service_role 은 RLS 를 지나치므로 이 잡 밖으로 나가면 안 된다.
+          # 빌드·번들에는 절대 넣지 않는다(공개 저장소다).
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}

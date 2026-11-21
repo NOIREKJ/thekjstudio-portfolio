@@ -104,9 +104,48 @@ HTML 은 이스케이프한다. 지금 들어오는 건 사람이 쓴 텍스트�
 - [ ] 없는 slug 는 404 (빈 목록 폴백 금지)
 - [ ] ko/en 전환 시 새 문구가 양쪽 다 번역돼 있다
 
+## 동기화 (`scripts/sync-arrangements.ts`)
+
+노션이 원본, Supabase 가 사본. `npm run sync:arrangements`, 15분 cron
+(`.github/workflows/sync-arrangements.yml`) + 수동 실행.
+
+### 바뀐 페이지만 처리한다
+
+노션의 `last_edited_time` 이 DB 의 `synced_at` 보다 새 것일 때만 본문 블록과
+악보 파일을 받는다. 15분 cron 이라 이게 없으면 **매 15분마다 전 곡의 본문과
+악보를 다시 내려받는다** — 노션 rate limit(3req/s)에도, 받는 쪽에도 낭비다.
+전부 다시 돌리려면 `--all`.
+
+### 악보 파일 — 노션 URL 을 그대로 저장하면 안 된다
+
+노션 파일 속성이 돌려주는 URL 은 **서명 URL 이라 1시간이면 죽는다.** 그걸 DB 에
+넣으면 배포된 악보 버튼이 하루도 못 간다. 그래서 받은 즉시 내려받아 Supabase
+Storage 의 공개 버킷(`sheets`)으로 옮기고, 거기서 나온 공개 URL 을 저장한다.
+오브젝트 이름은 `<slug>.<확장자>` 라 같은 곡을 다시 올리면 덮어쓴다.
+
+외부 링크(구글 드라이브 등)는 만료가 없으므로 복사하지 않고 그대로 쓴다.
+
+### 필요한 시크릿 (GitHub Actions)
+
+| 이름 | 쓰임 |
+| --- | --- |
+| `NOTION_TOKEN` | 인테그레이션 시크릿. **Vite 번들(`VITE_*`)에 절대 금지** |
+| `NOTION_ARRANGEMENTS_DATABASE_ID` | `41a1d2419cb48091bfe5e60ca360b840` |
+| `SUPABASE_URL` | 기존과 같음 |
+| `SUPABASE_SERVICE_ROLE_KEY` | **동기화에서만.** 빌드·번들·브라우저 노출 금지 |
+| `VERCEL_DEPLOY_HOOK` | 재배포 트리거 (선택) |
+
+저장소가 public 이므로 전부 Actions Secrets 로 둔다. 로컬은 `.env`.
+
+### 지금 돌릴 수 없다
+
+Supabase 조직이 402(무료 플랜 Realtime 한도 초과, ~2026-12-10)라 PostgREST
+쓰기와 Storage 업로드가 모두 막혀 있다. 스크립트는 그 상태를 알아보고 무엇
+때문에 막혔는지 말하며 멈춘다(아무것도 쓰지 않는다). 쿼터가 풀리거나 플랜을
+올리면 그대로 돈다.
+
 ## 남은 것 (이 작업 범위 밖)
 
-- `scripts/sync-arrangements.ts` + GitHub Actions — 노션→Supabase 동기화.
-  노션 `악보 (PDF/MIDI)` 속성이 URL 이 아니라 선택 타입이라 `sheet_url` 을 채울 수 없다.
-  김준님이 노션에 URL 속성을 추가해야 한다(API 로는 속성 타입을 못 바꾼다).
 - Patreon 티어·Shop 세팅 — 사이트 코드는 금액을 모른다. 링크만 쓴다.
+- 곡별 유튜브 링크 — 노션에 `유튜브` 속성을 만들어 뒀다. 채우면 상세에 뜬다.
+  사이트가 가진 건 채널 링크뿐이라 곡별 영상은 사람이 넣어야 한다.

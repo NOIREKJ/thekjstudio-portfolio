@@ -12,7 +12,8 @@
     "build": "node --env-file-if-exists=.env --import tsx scripts/fetch-content.ts && node --import tsx scripts/gen-sitemap.ts && vitest run && tsc --noEmit && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "sync:arrangements": "node --env-file-if-exists=.env --import tsx scripts/sync-arrangements.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.112.3",
