@@ -19,8 +19,12 @@
 import { mkdirSync, existsSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { credentials, fetchView, shouldFallback, HttpError, type Row } from "./content/fetch";
-import { mapApp, mapCredit, mapGear, mapLp, mapPerformance, mapSong } from "./content/map";
+import {
+  credentials, fetchView, isQuotaBlocked, shouldFallback, HttpError, type Row,
+} from "./content/fetch";
+import {
+  mapApp, mapArrangement, mapCredit, mapGear, mapLp, mapPerformance, mapSong,
+} from "./content/map";
 import { assertContentNotEmpty } from "./content/validate";
 
 const OUT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), "../src/content");
@@ -34,6 +38,7 @@ const SOURCES: Source[] = [
   { view: "public_performances", file: "performances", map: mapPerformance },
   { view: "public_lp", file: "lp", map: mapLp },
   { view: "public_gear", file: "gear", map: mapGear },
+  { view: "public_arrangements", file: "arrangements", map: mapArrangement },
 ];
 
 async function main(): Promise<void> {
@@ -84,6 +89,17 @@ async function main(): Promise<void> {
     const songs = resolve(OUT_DIR, "songs.json");
     if (!existsSync(songs)) {
       throw error;
+    }
+    if (isQuotaBlocked(error)) {
+      // 402 는 조직 쿼터가 막힌 상태다. 폴백하되 조용히 넘어가면 안 된다 —
+      // 이 배포에는 새 콘텐츠가 하나도 들어가지 않았다는 뜻이기 때문이다.
+      console.warn(
+        "⚠ 쿼터: Supabase 가 402 로 막혀 있습니다. 조직의 무료 플랜 한도를 " +
+          "넘긴 상태이며, 이 빌드에는 새 콘텐츠가 반영되지 않았습니다 — " +
+          "커밋된 src/content/*.json 을 그대로 씁니다. 쿼터가 풀리면 다시 " +
+          `빌드해야 내용이 갱신됩니다. 원인: ${(error as Error).message}`,
+      );
+      return;
     }
     console.warn(
       `⚠ Supabase 조회에 실패했습니다 (${(error as Error).message}). ` +

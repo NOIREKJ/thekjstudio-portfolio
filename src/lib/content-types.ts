@@ -82,3 +82,35 @@ export type GearContent = {
   rackU: number | null;
   rackMounted: boolean;
 };
+
+/*
+  편곡 작업 단계. 노션의 한국어 옵션("🚀 완성·배포")을 그대로 쓰지 않고 코드로
+  정규화한다 — 화면 문구는 i18n 이 쥔다. DB 의 check 제약이 같은 목록을 들고
+  있으므로 여기 없는 값은 애초에 들어오지 못한다.
+*/
+export type ArrangementStatus =
+  | "idea"
+  | "arranging"
+  | "sheet"
+  | "recording"
+  | "done";
+
+export type ArrangementContent = {
+  id: string;
+  slug: string;
+  title: string;
+  originalArtist: string | null;
+  status: ArrangementStatus;
+  genre: string | null;
+  keyBpm: string | null;
+  note: string | null;
+  sheetUrl: string | null;
+  purchaseUrl: string | null;
+  youtubeUrl: string | null;
+  gearSetup: string | null;
+  songform: string | null;
+  behindStory: string | null;
+  body: string | null;
+  notionUrl: string | null;
+  sortOrder: number;
+};

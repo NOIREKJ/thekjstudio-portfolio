@@ -5,7 +5,7 @@ export type Lang = "ko" | "en";
 // UI 문자열 사전. 곡·앱 '설명 본문'(work.body)은 데이터라 여기 없다(한국어 유지).
 const STR = {
   en: {
-    nav: { work: "Work", studio: "Studio", collection: "Collection", about: "About", contact: "Contact" },
+    nav: { work: "Work", arrangements: "Live Arrangements", studio: "Studio", collection: "Collection", about: "About", contact: "Contact" },
     hero: {
       l1: "I write music,",
       l2: "and build apps",
@@ -45,6 +45,26 @@ const STR = {
     },
     workcard: { music: "Music", app: "App" },
     workdetail: { back: "← Back", screens: "Screens", notFound: "Work not found.", more: "More work", play: "Listen" },
+    arrangements: {
+      label: "Live Arrangements", title: "Live Arrangements",
+      lede: (n: number) => `Arrangements written for the stage — ${n} tracked here.`,
+      all: "All", wip: "In progress", done: "Released",
+      filterAria: "Filter by stage",
+      empty: "Nothing here yet — arrangements are on the way.",
+      emptyFilter: "Nothing at this stage right now.",
+      status: {
+        idea: "Idea", arranging: "Arranging", sheet: "Sheet music",
+        recording: "Recording", done: "Released",
+      },
+    },
+    arrangementdetail: {
+      back: "← All arrangements", keyBpm: "Key / BPM", note: "Note",
+      noteSection: "Arrangement note", gear: "Setup & gear", songform: "Song form",
+      youtube: "Watch", behind: "Behind the work",
+      sheetCta: "View score", buyCta: "Buy · Membership",
+      noSheets: "Scores go up once the arrangement is finished.",
+      notFound: "Arrangement not found.", more: "More arrangements",
+    },
     footer: { note: "© 2026 the KJ Studio — sound and software by Joon Kim." },
     contact: {
       label: "Inquiries", title: "Work & Lessons",
@@ -97,7 +117,7 @@ I release music under the name K_Joon_P.`,
     },
   },
   ko: {
-    nav: { work: "작업", studio: "스튜디오", collection: "컬렉션", about: "소개", contact: "연락" },
+    nav: { work: "작업", arrangements: "라이브 편곡", studio: "스튜디오", collection: "컬렉션", about: "소개", contact: "연락" },
     hero: {
       l1: "음악을 쓰고,",
       l2: "앱을 만듭니다",
@@ -137,6 +157,26 @@ I release music under the name K_Joon_P.`,
     },
     workcard: { music: "음악", app: "앱" },
     workdetail: { back: "← 처음으로", screens: "화면", notFound: "찾을 수 없는 작업입니다.", more: "다른 작업", play: "들어보기" },
+    arrangements: {
+      label: "라이브 편곡", title: "라이브 편곡",
+      lede: (n: number) => `무대에서 쓰려고 쓴 편곡 ${n}곡을 여기서 추적합니다.`,
+      all: "전체", wip: "작업중", done: "완성",
+      filterAria: "작업 단계로 걸러보기",
+      empty: "아직 올린 편곡이 없습니다 — 준비 중입니다.",
+      emptyFilter: "이 단계에 있는 곡이 지금은 없습니다.",
+      status: {
+        idea: "아이디어", arranging: "편곡중", sheet: "악보제작",
+        recording: "녹음·촬영", done: "완성·배포",
+      },
+    },
+    arrangementdetail: {
+      back: "← 편곡 목록", keyBpm: "Key / BPM", note: "편곡 메모",
+      noteSection: "편곡 노트", gear: "편성 & 장비", songform: "송폼",
+      youtube: "영상", behind: "작업 비하인드",
+      sheetCta: "악보 보기", buyCta: "구매 · 멤버십",
+      noSheets: "악보는 편곡이 완성되면 올라갑니다.",
+      notFound: "찾을 수 없는 편곡입니다.", more: "다른 편곡",
+    },
     footer: { note: "© 2026 the KJ Studio — 김준의 소리와 소프트웨어." },
     contact: {
       label: "문의", title: "의뢰 · 레슨",

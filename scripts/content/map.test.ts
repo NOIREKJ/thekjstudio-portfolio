@@ -1,4 +1,6 @@
-import { mapApp, mapCredit, mapGear, mapLp, mapPerformance, mapSong } from "./map";
+import {
+  mapApp, mapArrangement, mapCredit, mapGear, mapLp, mapPerformance, mapSong,
+} from "./map";
 
 test("snake_case 컬럼을 화면이 쓰는 이름으로 옮긴다", () => {
   const song = mapSong({
@@ -108,4 +110,45 @@ test("공연: venue/date/poster_path/role/url 이 모두 null 이어도 null 이
   expect(Object.keys(performance).sort()).toEqual([
     "date", "id", "poster", "role", "sortOrder", "title", "url", "venue",
   ]);
+});
+
+test("편곡 행의 snake_case 컬럼을 화면 이름으로 옮긴다", () => {
+  const row = mapArrangement({
+    id: "a1", slug: "consolation-live", title: "위로", original_artist: "K_Joon_P",
+    status: "done", genre: "자작곡", key_bpm: "A♭ Major · 72 BPM",
+    arrangement_note: "한 줄 요약", sheet_url: "https://e.example/s.pdf",
+    purchase_url: "https://patreon.example/x", youtube_url: "https://youtu.be/abcdefg",
+    gear_setup: "Nord Stage", songform: "AABA", behind_story: "비하인드",
+    body_markdown: "## 노트", notion_url: "https://notion.example/p", sort_order: 7,
+  });
+  expect(row).toEqual({
+    id: "a1", slug: "consolation-live", title: "위로", originalArtist: "K_Joon_P",
+    status: "done", genre: "자작곡", keyBpm: "A♭ Major · 72 BPM",
+    note: "한 줄 요약", sheetUrl: "https://e.example/s.pdf",
+    purchaseUrl: "https://patreon.example/x", youtubeUrl: "https://youtu.be/abcdefg",
+    gearSetup: "Nord Stage", songform: "AABA", behindStory: "비하인드",
+    body: "## 노트", notionUrl: "https://notion.example/p", sortOrder: 7,
+  });
+});
+
+test("없는 값은 null 로 남긴다 — 빈 문자열로 바꾸면 화면이 빈 섹션을 그린다", () => {
+  const row = mapArrangement({ id: "a2", slug: "s", title: "t", status: "idea", sort_order: 0 });
+  expect(row.keyBpm).toBeNull();
+  expect(row.sheetUrl).toBeNull();
+  expect(row.body).toBeNull();
+  expect(row.genre).toBeNull();
+});
+
+/*
+  모르는 상태를 기본값으로 넘기면 그 곡이 엉뚱한 묶음에 들어가고 아무도 모른다.
+  노션에서 옵션 오타가 하나 생기면 조용히 사라지는 쪽이 아니라 빌드가 깨지는 쪽이어야 한다.
+*/
+test("모르는 작업 상태는 조용히 넘기지 않고 던진다", () => {
+  expect(() =>
+    mapArrangement({ id: "a3", slug: "s", title: "오타난 곡", status: "편곡중", sort_order: 0 }),
+  ).toThrow(/모르는 작업 상태/);
+});
+
+test("상태가 비어 있어도 던진다", () => {
+  expect(() => mapArrangement({ id: "a4", slug: "s", title: "t", sort_order: 0 })).toThrow();
 });

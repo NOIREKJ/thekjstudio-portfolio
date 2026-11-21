@@ -7,6 +7,8 @@ import { Works } from "./routes/Works";
 import { Studio } from "./routes/Studio";
 import { Collection } from "./routes/Collection";
 import { Work } from "./routes/Work";
+import { Arrangements } from "./routes/Arrangements";
+import { Arrangement } from "./routes/Arrangement";
 import { About } from "./routes/About";
 import { Contact } from "./routes/Contact";
 
@@ -34,6 +36,8 @@ export default function App() {
         <Route path="/studio" element={<Studio />} />
         <Route path="/collection" element={<Collection />} />
         <Route path="/work/:slug" element={<Work />} />
+        <Route path="/arrangements" element={<Arrangements />} />
+        <Route path="/arrangements/:slug" element={<Arrangement />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Home />} />

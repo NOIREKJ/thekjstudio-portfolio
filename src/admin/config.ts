@@ -26,6 +26,14 @@ export type TableConfig = {
   subtitleCol?: string;
   fields: Field[];
   ownerScoped?: boolean; // false 면 INSERT 시 user_id/household_id 를 붙이지 않음 (기본 true)
+  /*
+    원본이 이 어드민이 아닌 테이블. 추가·저장·삭제 버튼을 감춘다.
+
+    왜 막는가: 노션이 원본인 테이블을 여기서 고치면 다음 동기화가 그 값을
+    조용히 덮는다. "고쳤는데 되돌아갔다"가 가장 알아내기 어려운 고장이라,
+    편집 경로를 아예 열지 않는다.
+  */
+  readOnly?: boolean;
   badge?: { col: string; onValue: unknown; onLabel: string; offLabel: string }; // 기본은 visibility
   orderBy?: { col: string; ascending: boolean }; // 기본은 sort_order 오름차순
 };
@@ -134,6 +142,29 @@ export const TABLES: TableConfig[] = [
       { col: "placement", label: "배치", type: "text" },
       { col: "rack_u", label: "랙 U", type: "number" },
       { col: "rack_mounted", label: "랙 마운트", type: "boolean" },
+      ...commonTail,
+    ],
+  },
+  {
+    key: "arrangements",
+    label: "라이브 편곡",
+    titleCol: "title",
+    subtitleCol: "slug",
+    readOnly: true, // 원본은 노션 트래커다 — 아래 '노션 주소'로 가서 고친다
+    fields: [
+      { col: "notion_url", label: "노션 주소", type: "text", help: "여기서 고치지 말고 이 주소의 노션 페이지에서 고칩니다" },
+      { col: "slug", label: "슬러그", type: "text" },
+      { col: "title", label: "곡명", type: "text" },
+      { col: "original_artist", label: "원곡 / 아티스트", type: "text" },
+      { col: "status", label: "작업 상태", type: "text", help: "idea · arranging · sheet · recording · done" },
+      { col: "genre", label: "장르·구분", type: "text" },
+      { col: "key_bpm", label: "Key / BPM", type: "text" },
+      { col: "arrangement_note", label: "편곡 메모", type: "textarea" },
+      { col: "sheet_url", label: "악보 URL", type: "text" },
+      { col: "purchase_url", label: "Patreon / 판매 링크", type: "text" },
+      { col: "youtube_url", label: "유튜브", type: "text" },
+      { col: "owner_name", label: "누구 곡", type: "text", help: "친구들/<이름> 에서 온 값" },
+      { col: "source", label: "출처", type: "text", help: "notion = 트래커 원본 · ssd = SSD 스캔" },
       ...commonTail,
     ],
   },

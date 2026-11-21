@@ -1,6 +1,6 @@
 import type {
-  AppContent, CreditContent, GearContent, ListenLink, LpContent,
-  PerformanceContent, Screen, SongContent,
+  AppContent, ArrangementContent, ArrangementStatus, CreditContent, GearContent,
+  ListenLink, LpContent, PerformanceContent, Screen, SongContent,
 } from "../../src/lib/content-types";
 
 type Row = Record<string, unknown>;
@@ -112,5 +112,44 @@ export function mapGear(row: Row): GearContent {
     sortOrder: num(row.sort_order),
     rackU: nullableNum(row.rack_u),
     rackMounted: Boolean(row.rack_mounted),
+  };
+}
+
+const ARRANGEMENT_STATUSES: readonly ArrangementStatus[] = [
+  "idea", "arranging", "sheet", "recording", "done",
+];
+
+/*
+  편곡 행. DB 의 check 제약이 status 를 이미 좁혀 두었지만 여기서 한 번 더 본다 —
+  제약을 느슨하게 바꾸거나 뷰를 갈아끼울 때 조용히 이상한 값이 흘러드는 것보다
+  빌드가 깨지는 편이 낫다. 기본값으로 넘기지 않는 이유는, 그러면 그 곡이 화면에서
+  엉뚱한 묶음에 들어가고 아무도 모르기 때문이다.
+*/
+export function mapArrangement(row: Row): ArrangementContent {
+  const status = str(row.status) as ArrangementStatus;
+  if (!ARRANGEMENT_STATUSES.includes(status)) {
+    throw new Error(
+      `arrangements: 모르는 작업 상태 ${JSON.stringify(row.status)} ` +
+        `(곡 "${str(row.title)}"). 아는 값: ${ARRANGEMENT_STATUSES.join(", ")}`,
+    );
+  }
+  return {
+    id: str(row.id),
+    slug: str(row.slug),
+    title: str(row.title),
+    originalArtist: nullable(row.original_artist),
+    status,
+    genre: nullable(row.genre),
+    keyBpm: nullable(row.key_bpm),
+    note: nullable(row.arrangement_note),
+    sheetUrl: nullable(row.sheet_url),
+    purchaseUrl: nullable(row.purchase_url),
+    youtubeUrl: nullable(row.youtube_url),
+    gearSetup: nullable(row.gear_setup),
+    songform: nullable(row.songform),
+    behindStory: nullable(row.behind_story),
+    body: nullable(row.body_markdown),
+    notionUrl: nullable(row.notion_url),
+    sortOrder: num(row.sort_order),
   };
 }

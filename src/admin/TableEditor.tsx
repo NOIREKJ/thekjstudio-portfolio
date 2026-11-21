@@ -114,7 +114,9 @@ export function TableEditor({
     <section className={styles.editor}>
       <div className={styles.editorHead}>
         <h2 className={styles.editorTitle}>{table.label} <span className={styles.count}>{rows.length}</span></h2>
-        {!editing && <button className={styles.btnPrimary} onClick={startNew}>+ 새로 추가</button>}
+        {!editing && !table.readOnly && (
+          <button className={styles.btnPrimary} onClick={startNew}>+ 새로 추가</button>
+        )}
       </div>
 
       {msg && <p className={styles.msg}>{msg}</p>}
@@ -127,7 +129,11 @@ export function TableEditor({
           busy={busy}
           onSave={save}
           onCancel={() => setEditingId(null)}
-          onDelete={editingId !== "new" ? () => remove(editingId as string) : undefined}
+          onDelete={
+            !table.readOnly && editingId !== "new"
+              ? () => remove(editingId as string)
+              : undefined
+          }
         />
       ) : loading ? (
         <p className={styles.notice}>불러오는 중…</p>
@@ -210,9 +216,16 @@ function EditForm({
       ))}
 
       <div className={styles.formActions}>
-        <button type="submit" className={styles.btnPrimary} disabled={busy}>
-          {busy ? "저장 중…" : "저장"}
-        </button>
+        {/* 원본이 다른 곳인 테이블은 저장 경로를 열지 않는다 (config 의 readOnly) */}
+        {table.readOnly ? (
+          <span className={styles.fieldHelp}>
+            읽기 전용입니다 — 원본은 노션 트래커이고, 여기서 고친 값은 다음 동기화에 덮입니다.
+          </span>
+        ) : (
+          <button type="submit" className={styles.btnPrimary} disabled={busy}>
+            {busy ? "저장 중…" : "저장"}
+          </button>
+        )}
         <button type="button" className={styles.btnGhost} onClick={onCancel}>취소</button>
         {onDelete && (
           <button type="button" className={styles.btnDanger} onClick={onDelete} disabled={busy}>삭제</button>

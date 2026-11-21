@@ -29,15 +29,30 @@ export class HttpError extends Error {
 
   - 응답 자체가 없는 네트워크 오류(HttpError 가 아님) → 가용성 문제로 취급.
   - 5xx, 429 → Supabase 쪽 일시적 문제로 취급. 폴백한다.
+  - 402 → 쿼터 초과로 프로젝트 전체가 막힌 상태. 아래 설명 참고. 폴백한다.
   - 그 외 4xx(401 키 무효, 403 권한 없음, 404 뷰 없음 등) → 설정 결함.
     조용히 넘어가면 "콘텐츠를 갱신했다고 믿는데 실제로는 옛 JSON 이 배포된"
     상태가 신호 없이 만들어지므로 폴백하지 않는다.
+
+  402 를 폴백 쪽에 둔 이유 (2026-11-22):
+  Supabase 무료 플랜에서 조직의 Realtime 월 한도를 넘기면 그 조직의 프로젝트
+  전체가 402 로 막힌다 — 2026-11-18~12-10 에 실제로 그랬다. 이건 키 오타나
+  grant 유실 같은 설정 결함이 아니라 서비스가 일시적으로 거부하는 상태다.
+  설정 결함으로 두면 쿼터가 풀리는 날까지 사이트를 한 번도 다시 배포할 수
+  없다 — 콘텐츠와 무관한 오타 수정조차. 대신 호출 쪽에서 경고를 "쿼터"로
+  못 박아 조용히 지나가지 않게 한다. 조용한 폴백 금지 원칙은 신호 없이
+  넘어가는 것을 막자는 것이고, 큰 소리로 말하는 폴백은 그걸 거스르지 않는다.
 */
 export function shouldFallback(error: unknown): boolean {
   if (error instanceof HttpError) {
-    return error.status >= 500 || error.status === 429;
+    return error.status >= 500 || error.status === 429 || error.status === 402;
   }
   return true;
+}
+
+/** 쿼터 초과로 막힌 경우. 경고 문구를 가르기 위해 호출 쪽에서 쓴다. */
+export function isQuotaBlocked(error: unknown): boolean {
+  return error instanceof HttpError && error.status === 402;
 }
 
 export function credentials(): { url: string; key: string } | null {

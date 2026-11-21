@@ -14,6 +14,7 @@ export function Header() {
 
   const items = [
     { to: "/work", label: t.nav.work },
+    { to: "/arrangements", label: t.nav.arrangements },
     { to: "/studio", label: t.nav.studio },
     { to: "/collection", label: t.nav.collection },
     { to: "/about", label: t.nav.about },

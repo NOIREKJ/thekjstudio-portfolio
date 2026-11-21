@@ -18,11 +18,15 @@ function slugs(file: string): string[] {
   }
 }
 
-const staticPaths = ["/", "/work", "/studio", "/collection", "/about", "/contact"];
+const staticPaths = [
+  "/", "/work", "/arrangements", "/studio", "/collection", "/about", "/contact",
+];
 const workPaths = [...slugs("songs.json"), ...slugs("apps.json")].map((s) => `/work/${s}`);
+// 공개된 편곡만 들어온다 — arrangements.json 은 public_arrangements 뷰에서 구웠다.
+const arrangementPaths = slugs("arrangements.json").map((s) => `/arrangements/${s}`);
 const today = new Date().toISOString().slice(0, 10);
 
-const urls = [...staticPaths, ...workPaths]
+const urls = [...staticPaths, ...workPaths, ...arrangementPaths]
   .map((p) => `  <url><loc>${BASE}${p}</loc><lastmod>${today}</lastmod></url>`)
   .join("\n");
 
@@ -33,4 +37,6 @@ ${urls}
 `;
 
 writeFileSync(resolve(ROOT, "public/sitemap.xml"), xml, "utf8");
-console.log(`✓ sitemap.xml (${staticPaths.length + workPaths.length} URLs)`);
+console.log(
+  `✓ sitemap.xml (${staticPaths.length + workPaths.length + arrangementPaths.length} URLs)`,
+);
