@@ -177,6 +177,22 @@ const env = (k: string): string | undefined => {
   return v && v.trim() !== "" ? v.trim() : undefined;
 };
 
+/*
+  ⏱ 모든 바깥 호출에 시한을 건다.
+
+  라이브에서 504(FUNCTION_INVOCATION_TIMEOUT)로 죽었다. Supabase 가 402 로
+  제한된 동안 PostgREST 가 응답을 돌려주지 않아 fetch 가 매달렸고, 함수가
+  통째로 멈췄다. 한 경로가 느리다고 **나머지 경로와 응답까지 같이 죽으면
+  안 된다** — 이 시스템의 전제가 "하나라도 닿으면 성공" 이기 때문이다.
+
+  시한을 넘기면 그 경로만 실패로 처리되고 나머지는 계속 간다.
+*/
+const SINK_TIMEOUT_MS = 5000;
+
+async function fetchT(url: string, init: RequestInit = {}, ms = SINK_TIMEOUT_MS): Promise<Response> {
+  return fetch(url, { ...init, signal: AbortSignal.timeout(ms) });
+}
+
 type SinkResult = { sink: string; ok: boolean; detail?: string };
 
 async function toTelegram(q: CleanInquiry): Promise<SinkResult> {
@@ -184,7 +200,7 @@ async function toTelegram(q: CleanInquiry): Promise<SinkResult> {
   const chat = env("TELEGRAM_CHAT_ID");
   if (!token || !chat) return { sink: "telegram", ok: false, detail: "미설정" };
 
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+  const res = await fetchT(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -203,7 +219,7 @@ async function toMail(q: CleanInquiry, at: Date): Promise<SinkResult> {
   if (!key || !to || !from) return { sink: "mail", ok: false, detail: "미설정" };
 
   const { subject, text } = formatMail(q, at);
-  const res = await fetch("https://api.resend.com/emails", {
+  const res = await fetchT("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
     body: JSON.stringify({ from, to: [to], subject, text }),
@@ -216,7 +232,7 @@ async function toDatabase(q: CleanInquiry): Promise<SinkResult> {
   const key = env("SUPABASE_SERVICE_ROLE_KEY");
   if (!url || !key) return { sink: "db", ok: false, detail: "미설정" };
 
-  const res = await fetch(`${url.replace(/\/+$/, "")}/rest/v1/inquiries`, {
+  const res = await fetchT(`${url.replace(/\/+$/, "")}/rest/v1/inquiries`, {
     method: "POST",
     headers: {
       apikey: key,

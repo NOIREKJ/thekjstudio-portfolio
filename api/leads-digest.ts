@@ -141,6 +141,22 @@ const env = (k: string): string | undefined => {
   return v && v.trim() !== "" ? v.trim() : undefined;
 };
 
+/*
+  ⏱ 모든 바깥 호출에 시한을 건다.
+
+  라이브에서 504(FUNCTION_INVOCATION_TIMEOUT)로 죽었다. Supabase 가 402 로
+  제한된 동안 PostgREST 가 응답을 돌려주지 않아 fetch 가 매달렸고, 함수가
+  통째로 멈췄다. 한 경로가 느리다고 **나머지 경로와 응답까지 같이 죽으면
+  안 된다** — 이 시스템의 전제가 "하나라도 닿으면 성공" 이기 때문이다.
+
+  시한을 넘기면 그 경로만 실패로 처리되고 나머지는 계속 간다.
+*/
+const SINK_TIMEOUT_MS = 5000;
+
+async function fetchT(url: string, init: RequestInit = {}, ms = SINK_TIMEOUT_MS): Promise<Response> {
+  return fetch(url, { ...init, signal: AbortSignal.timeout(ms) });
+}
+
 const json = (body: unknown, status: number): Response =>
   new Response(JSON.stringify(body), {
     status,
@@ -154,7 +170,7 @@ async function rest(sb: Sb, path: string, init?: RequestInit & { prefer?: string
     apikey: sb.key, Authorization: `Bearer ${sb.key}`, "Content-Type": "application/json",
   };
   if (init?.prefer) headers.Prefer = init.prefer;
-  return fetch(`${sb.url}/rest/v1/${path}`, { ...init, headers });
+  return fetchT(`${sb.url}/rest/v1/${path}`, { ...init, headers });
 }
 
 async function rows<T>(sb: Sb, path: string): Promise<T[]> {
@@ -167,7 +183,7 @@ async function notify(text: string): Promise<boolean> {
   const token = env("TELEGRAM_BOT_TOKEN");
   const chat = env("TELEGRAM_CHAT_ID");
   if (!token || !chat) return false;
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+  const res = await fetchT(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ chat_id: chat, text, disable_web_page_preview: true }),
