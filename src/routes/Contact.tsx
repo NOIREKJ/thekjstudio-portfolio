@@ -76,12 +76,34 @@ export function Contact() {
     }
     setStatus("sending");
     try {
-      const { supabase } = await import("../lib/supabase");
-      if (!supabase) throw new Error("no client");
-      const { error } = await supabase
-        .from("inquiries")
-        .insert({ type, name: name.trim() || null, contact: contact.trim(), message });
-      if (error) throw error;
+      /*
+        예전에는 여기서 브라우저가 Supabase 에 직접 insert 했다. 그 경로는 세 가지가
+        망가져 있었다 — 허니팟이 클라이언트라 REST 직격에 무용했고, 문의가 들어와도
+        알릴 길이 없었고, Supabase 가 402 로 막히면 제출이 통째로 사라졌다.
+        이제 서버 함수가 텔레그램·메일·DB 세 곳으로 보내고, 하나라도 닿으면 성공이다.
+      */
+      const res = await fetch("/api/inquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          product: "music",
+          type,
+          name: name.trim() || null,
+          contact: contact.trim(),
+          message,
+          source: window.location.pathname,
+          // 서버가 다시 판정한다. 클라이언트 판정은 1차 체일 뿐이다.
+          hp,
+          elapsedMs: Date.now() - mountedAt.current,
+          // 나중에 거르고 셀 수 있게 항목을 따로도 보낸다(message 에도 들어 있다).
+          payload: type === "commission"
+            ? { services: services.join(", "), usage, reference, timeline }
+            : type === "lesson"
+              ? { subject, level, goal, when }
+              : {},
+        }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
       setStatus("ok");
       setName(""); setContact(""); setNote("");
       setServices([]); setUsage(""); setReference(""); setTimeline("");

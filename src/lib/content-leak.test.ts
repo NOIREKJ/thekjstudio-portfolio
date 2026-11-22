@@ -104,3 +104,31 @@ test("키 수집기가 중첩 구조까지 훑는다", () => {
   collectKeys([{ a: { b: [{ user_id: 1 }] } }], keys);
   expect(keys.has("user_id")).toBe(true);
 });
+
+/*
+  리드는 사이트에 구워지면 안 된다.
+
+  `inquiries` 에는 교회명·담당자 이름·전화번호가 들어간다. 그리고 빌드가 공개 뷰를
+  JSON 으로 구워 **저장소에 커밋**하므로, 한 번 들어가면 깃 이력에 영구히 남는다.
+  지우는 커밋을 올려도 이력에서는 사라지지 않는다.
+
+  편곡 작업에서 이미 같은 종류의 사고를 냈다(내부 기록을 공개 뷰 컬럼에 넣어
+  SSD 경로가 상세 페이지에 찍혔다). 그래서 값 검사 말고 **경로 자체**를 막는다.
+*/
+test("문의·리드는 빌드 소스에 들어 있지 않다", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { join } = await import("node:path");
+  // import.meta.url 은 vitest 변환을 거치면 file: 스킴이 아니라 못 쓴다.
+  const src = await readFile(join(process.cwd(), "scripts/fetch-content.ts"), "utf8");
+
+  // SOURCES 배열 안의 view 이름만 본다.
+  const views = [...src.matchAll(/view:\s*"([^"]+)"/g)].map((m) => m[1]);
+  expect(views.length).toBeGreaterThan(0); // 정규식이 죽으면 테스트가 통과해 버린다
+
+  const banned = views.filter((v) => /inquir|lead|contact/i.test(v));
+  expect(banned).toEqual([]);
+});
+
+test("구워진 콘텐츠 파일에 문의 파일이 없다", () => {
+  expect(Object.keys(BAKED).filter((f) => /inquir|lead/i.test(f))).toEqual([]);
+});

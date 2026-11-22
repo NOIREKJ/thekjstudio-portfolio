@@ -174,14 +174,26 @@ export const TABLES: TableConfig[] = [
     titleCol: "contact",
     subtitleCol: "type",
     ownerScoped: false,
-    badge: { col: "handled", onValue: true, onLabel: "처리완료", offLabel: "미처리" },
+    /*
+      뱃지는 '처리완료' 가 아니라 **손이 필요한 것**을 띄운다. 목록을 열었을 때
+      알아야 하는 건 끝난 게 무엇인지가 아니라 아직 답을 안 한 게 무엇인지다.
+    */
+    badge: { col: "stage", onValue: "new", onLabel: "미응답", offLabel: "진행 중" },
     orderBy: { col: "created_at", ascending: false },
     fields: [
+      { col: "product", label: "제품", type: "text", help: "koinon · music · other" },
       { col: "type", label: "유형", type: "text", help: "commission · lesson · other" },
       { col: "name", label: "이름", type: "text" },
       { col: "contact", label: "연락처", type: "text" },
       { col: "message", label: "내용", type: "textarea" },
-      { col: "handled", label: "처리완료", type: "boolean" },
+      {
+        col: "stage",
+        label: "단계",
+        type: "text",
+        help: "new · contacted · talking · won · lost — new 로 3일 넘기면 알림이 온다",
+      },
+      { col: "source", label: "유입", type: "text", help: "어느 화면에서 왔는지" },
+      { col: "payload", label: "항목", type: "json", help: "제품별 질문 답변" },
     ],
   },
 ];
