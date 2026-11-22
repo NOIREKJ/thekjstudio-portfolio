@@ -1,10 +1,13 @@
 import { render, screen } from "@testing-library/react";
 import { KoinonInquiry } from "./KoinonInquiry";
+import { MemoryRouter } from "react-router";
 import { LanguageProvider, STR } from "../i18n";
 
 // jsdom 의 navigator.language 는 en 이라 기본이 영어로 잡힌다. 한국어로 고정한다.
 beforeEach(() => localStorage.setItem("lang", "ko"));
-const show = () => render(<LanguageProvider><KoinonInquiry /></LanguageProvider>);
+// 동의 문구 옆 방침 링크가 <Link> 라 라우터 컨텍스트가 필요하다.
+const show = () =>
+  render(<MemoryRouter><LanguageProvider><KoinonInquiry /></LanguageProvider></MemoryRouter>);
 const ko = STR.ko.koinon;
 
 /*
@@ -67,7 +70,9 @@ test("동의 문구에 수집 항목과 보유 기간이 적혀 있다", () => {
   const consent = screen.getByRole("checkbox").closest("label")?.textContent ?? "";
   expect(consent).toContain("교회명");
   expect(consent).toContain("연락처");
-  expect(consent).toMatch(/보관|삭제/);
+  expect(consent).toMatch(/파기|삭제|보관/);
+  // 해외 사업자를 거친다는 사실도 밝혀야 한다(국외 이전).
+  expect(consent).toMatch(/해외|국외/);
 });
 
 test("예산을 묻지 않는다 — 가격을 말하지 않으면서 예산을 묻는 건 앞뒤가 안 맞는다", () => {

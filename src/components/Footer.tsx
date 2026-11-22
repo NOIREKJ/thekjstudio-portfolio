@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { useT } from "../i18n";
 import styles from "./Footer.module.css";
 
@@ -27,6 +28,9 @@ export function Footer() {
           ))}
           <li>
             <a href="mailto:contact@thekjstudio.com">Email ↗</a>
+          </li>
+          <li>
+            <Link to="/privacy">{t.footer.privacy}</Link>
           </li>
         </ul>
         <p className={styles.note}>{t.footer.note}</p>

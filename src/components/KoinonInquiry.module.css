@@ -93,3 +93,13 @@
 .submit:disabled { opacity: 0.6; cursor: default; }
 .ok { margin: 0; font-family: var(--sans); font-size: 0.9rem; color: #8ec98e; }
 .err { margin: 0; font-family: var(--sans); font-size: 0.9rem; color: #e77; }
+
+.consentLink {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--ink-faint);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: -0.5rem;
+}
+.consentLink:hover { color: var(--brass); }

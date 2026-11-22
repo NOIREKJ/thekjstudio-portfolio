@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router";
 import { useT } from "../i18n";
 import styles from "./KoinonInquiry.module.css";
 
@@ -162,8 +163,12 @@ export function KoinonInquiry() {
 
         <label className={styles.consent}>
           <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
-          <span>{k.f.consent}</span>
+          <span>
+            {k.f.consent}{" "}
+            {/* 체크박스 안에 링크를 두면 누를 때 체크가 토글된다 — 밖으로 뺀다. */}
+          </span>
         </label>
+        <Link className={styles.consentLink} to="/privacy">{k.f.consentLink} →</Link>
 
         <div className={styles.actions}>
           <button className={styles.submit} type="submit" disabled={!canSubmit}>

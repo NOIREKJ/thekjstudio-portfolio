@@ -20,6 +20,7 @@ function slugs(file: string): string[] {
 
 const staticPaths = [
   "/", "/work", "/arrangements", "/studio", "/collection", "/about", "/contact",
+  "/privacy",
 ];
 const workPaths = [...slugs("songs.json"), ...slugs("apps.json")].map((s) => `/work/${s}`);
 // 공개된 편곡만 들어온다 — arrangements.json 은 public_arrangements 뷰에서 구웠다.

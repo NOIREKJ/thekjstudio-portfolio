@@ -11,6 +11,7 @@ import { Arrangements } from "./routes/Arrangements";
 import { Arrangement } from "./routes/Arrangement";
 import { About } from "./routes/About";
 import { Contact } from "./routes/Contact";
+import { Privacy } from "./routes/Privacy";
 
 // 어드민은 지연 로딩 — supabase-js 를 공개 사이트 번들에서 분리하고
 // /admin 에서만 불러온다. 헤더/푸터 없이 독립 레이아웃으로 뜬다.
@@ -40,6 +41,7 @@ export default function App() {
         <Route path="/arrangements/:slug" element={<Arrangement />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/privacy" element={<Privacy />} />
         <Route path="*" element={<Home />} />
       </Routes>
       <Footer />

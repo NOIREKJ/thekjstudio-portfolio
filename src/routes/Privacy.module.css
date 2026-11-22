@@ -1,0 +1,40 @@
+.page {
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: clamp(4rem, 12vh, 7rem) var(--gutter, 1rem) clamp(5rem, 12vh, 8rem);
+}
+.label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin: 0 0 0.6rem;
+}
+.title {
+  font-family: var(--display, var(--serif));
+  font-weight: var(--display-weight, 600);
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  margin: 0 0 0.6rem;
+}
+.updated { font-family: var(--mono); font-size: 0.78rem; color: var(--ink-faint); margin: 0 0 2.5rem; }
+.note {
+  font-family: var(--sans); font-size: 0.88rem; line-height: 1.7;
+  color: var(--ink-soft); background: #17161c;
+  border: 1px solid rgb(255 255 255 / 0.1); border-radius: 8px;
+  padding: 0.9rem 1rem; margin: 0 0 2.5rem;
+}
+.section { margin-bottom: 2.4rem; }
+.h { font-family: var(--sans); font-size: 1.02rem; font-weight: 650; margin: 0 0 0.7rem; }
+.p { font-family: var(--sans); font-size: 0.95rem; line-height: 1.8; color: var(--ink-soft); margin: 0 0 0.7rem; }
+.list { margin: 0 0 0.7rem; padding-left: 1.1rem; }
+.list li { font-family: var(--sans); font-size: 0.95rem; line-height: 1.8; color: var(--ink-soft); }
+.tableWrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; font-family: var(--sans); font-size: 0.86rem; }
+.table th, .table td {
+  border: 1px solid rgb(255 255 255 / 0.1);
+  padding: 0.5rem 0.65rem; text-align: left; vertical-align: top;
+  color: var(--ink-soft); line-height: 1.6;
+}
+.table th { color: var(--ink); font-weight: 600; white-space: nowrap; }
+.back { display: inline-block; margin-bottom: 2rem; font-family: var(--mono); font-size: 0.8rem; color: var(--ink-soft); }
