@@ -81,6 +81,6 @@ test("보유 기간을 0 이나 음수로 두지 않는다 — 그러면 들어�
   그게 방침 위반이므로 여기서 두 값이 같은지 못 박는다.
 */
 test("방침의 보유 기간과 파기 작업의 보유 기간이 같다", async () => {
-  const { RETENTION_DAYS: fromDigest } = await import("../../api/_lib/digest");
+  const { RETENTION_DAYS: fromDigest } = await import("../../api/leads-digest");
   expect(fromDigest).toBe(RETENTION_DAYS);
 });

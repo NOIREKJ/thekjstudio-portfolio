@@ -1,7 +1,7 @@
 import {
   combine, DELETE_CAP, deletionMessage, overdueMessage, planDeletion, sortOverdue, weeklyMessage,
   RETENTION_DAYS,
-} from "../../api/_lib/digest";
+} from "../../api/leads-digest";
 
 const NOW = new Date("2026-11-22T00:00:00.000Z");
 const lead = (id: string, daysOld: number, over: Partial<Record<string, string | null>> = {}) => ({
