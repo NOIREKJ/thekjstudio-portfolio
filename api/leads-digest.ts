@@ -191,7 +191,12 @@ async function notify(text: string): Promise<boolean> {
   return res.ok;
 }
 
-export default async function handler(req: Request): Promise<Response> {
+/*
+  ⚠️ `export default` 가 아니라 이름 있는 메서드여야 한다 — default 는 Vercel 이
+  Node 스타일 `(req, res)` 로 보고 return 한 Response 를 버린다(요청이 매달린다).
+  Vercel cron 은 GET 으로 호출한다.
+*/
+export async function GET(req: Request): Promise<Response> {
   // CRON_SECRET 을 설정해 두면 Vercel cron 이 이 헤더로 부른다. 설정했으면 반드시 본다.
   const secret = env("CRON_SECRET");
   if (secret && req.headers.get("authorization") !== `Bearer ${secret}`) {

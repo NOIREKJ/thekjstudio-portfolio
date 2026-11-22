@@ -262,8 +262,20 @@ const json = (body: unknown, status: number): Response =>
     headers: { "Content-Type": "application/json; charset=utf-8", "Cache-Control": "no-store" },
   });
 
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== "POST") return json({ ok: false, error: "POST 만 받습니다" }, 405);
+/*
+  ⚠️ 반드시 **이름 있는 HTTP 메서드 export** 여야 한다 (`export default` 금지).
+
+  Vercel 은 default export 를 Node 스타일 `(req, res) => void` 로 취급한다.
+  Web 스타일로 `Response` 를 return 하면 **그 값이 그냥 버려지고** 응답이
+  영영 쓰이지 않아 요청이 매달린다(504 / 무응답). 실제로 그렇게 죽었다:
+
+    WARN: default export returned a `Response`.
+          The default-export signature is `(req, res) => void` — returns are ignored.
+
+  이름 있는 메서드로 내보내면 Web `Request`/`Response` 규약이 적용되고,
+  메서드 라우팅도 Vercel 이 해 준다(POST 아닌 요청은 여기 오지 않는다).
+*/
+export async function POST(req: Request): Promise<Response> {
 
   let raw: unknown;
   try {

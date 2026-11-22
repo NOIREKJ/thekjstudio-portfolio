@@ -36,3 +36,32 @@ test("api/ 핸들러에 로컬 상대 import 가 없다", async () => {
   }
   expect(offenders, "배포 시 번들되지 않아 런타임에 죽는다").toEqual([]);
 });
+
+/*
+  Vercel 은 `export default` 를 Node 스타일 `(req, res) => void` 로 본다.
+  Web 스타일로 `Response` 를 return 하면 그 값이 **버려지고** 응답이 쓰이지 않아
+  요청이 매달린다 — 504 또는 무응답. 로컬에서는 핸들러를 직접 호출하니 멀쩡해
+  보이고, 빌드·타입체크·테스트가 전부 통과한다. 배포해야만 드러난다.
+
+    WARN: default export returned a `Response`.
+          The default-export signature is `(req, res) => void` — returns are ignored.
+*/
+test("api/ 핸들러는 export default 가 아니라 이름 있는 HTTP 메서드를 쓴다", async () => {
+  const { readdir, readFile } = await import("node:fs/promises");
+  const { join } = await import("node:path");
+  const dir = join(process.cwd(), "api");
+  const files = (await readdir(dir)).filter(
+    (f) => f.endsWith(".ts") && !f.endsWith(".test.ts"),
+  );
+  expect(files.length).toBeGreaterThan(0);
+
+  const METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"];
+  for (const f of files) {
+    const src = await readFile(join(dir, f), "utf8");
+    expect(/^\s*export\s+default\b/m.test(src), `${f}: export default 금지`).toBe(false);
+    const has = METHODS.some((m) =>
+      new RegExp(`^\\s*export\\s+(?:async\\s+)?function\\s+${m}\\b`, "m").test(src),
+    );
+    expect(has, `${f}: GET/POST 같은 이름 있는 메서드 export 가 없다`).toBe(true);
+  }
+});
