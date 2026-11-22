@@ -81,3 +81,26 @@ test("예산을 묻지 않는다 — 가격을 말하지 않으면서 예산을 
     expect(screen.queryByText(new RegExp(word))).toBeNull();
   }
 });
+
+/*
+  카드뉴스는 사이트 코드가 아니라 public 의 정적 파일이라 i18n 검사에 안 걸린다.
+  같은 톤 규칙이 걸려 있으므로 파일을 직접 훑는다 — 인스타에 올라가는 순간
+  되돌리기 어려운 쪽이라 오히려 더 조여야 한다.
+*/
+test("카드뉴스에도 금지된 표현과 금액이 없다", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { join } = await import("node:path");
+  const html = await readFile(join(process.cwd(), "public/marketing/koinon-cards.html"), "utf8");
+
+  expect(html).toContain("KOINON"); // 파일을 제대로 읽었는지
+
+  // 주석에는 규칙 자체가 적혀 있으므로(= 금지어가 등장한다) 떼고 본다.
+  const body = html.replace(/<!--[\s\S]*?-->/g, "");
+
+  for (const bad of [...BANNED, "현역 군인", "군인"]) {
+    expect(body, `카드뉴스에 "${bad}" 가 들어 있다`).not.toContain(bad);
+  }
+  expect(body).not.toMatch(/[0-9][0-9,]*\s*(원|만원)\b/);
+  expect(body).not.toMatch(/\$\s?[0-9]/);
+  expect(body).not.toMatch(/[0-9]+\s*개?\s*교회\s*(모집|한정|선정)/);
+});
