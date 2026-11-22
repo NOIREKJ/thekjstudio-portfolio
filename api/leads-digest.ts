@@ -18,10 +18,9 @@
             TELEGRAM_CHAT_ID · (선택) CRON_SECRET
 */
 import {
-  combine, daysAgo, deletionMessage, OVERDUE_DAYS, overdueMessage, planDeletion, weeklyMessage,
-  type Lead, type StageCount,
-} from "../src/lib/digest";
-import { RETENTION_DAYS } from "../src/lib/privacy";
+  combine, daysAgo, deletionMessage, OVERDUE_DAYS, overdueMessage, planDeletion,
+  RETENTION_DAYS, weeklyMessage, type Lead, type StageCount,
+} from "./_lib/digest";
 
 const env = (k: string): string | undefined => {
   const v = process.env[k];

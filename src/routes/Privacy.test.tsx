@@ -71,3 +71,16 @@ test("고유식별정보·금융정보는 받지 않는다고 못 박는다", ()
 test("보유 기간을 0 이나 음수로 두지 않는다 — 그러면 들어오자마자 지워진다", () => {
   expect(RETENTION_DAYS).toBeGreaterThan(0);
 });
+
+/*
+  ⚠️ 보유 기간이 두 곳에 있다 — 화면(src/lib/privacy.ts)과 매일 도는 파기
+  작업(api/_lib/digest.ts). 원래 한 곳이었는데, Vercel 이 함수를 번들할 때
+  api/ 바깥 파일을 넣지 않아 배포된 함수가 죽어서 떼어냈다.
+
+  떼어낸 순간 "방침엔 1년이라 적고 실제로는 다른 기준으로 지운다" 가 가능해진다.
+  그게 방침 위반이므로 여기서 두 값이 같은지 못 박는다.
+*/
+test("방침의 보유 기간과 파기 작업의 보유 기간이 같다", async () => {
+  const { RETENTION_DAYS: fromDigest } = await import("../../api/_lib/digest");
+  expect(fromDigest).toBe(RETENTION_DAYS);
+});

@@ -3,7 +3,16 @@
 
   네트워크·비밀은 `api/leads-digest.ts` 가 들고 있다.
 */
-import { RETENTION_DAYS, retentionLabel } from "./privacy";
+/*
+  ⚠️ 보유 기간은 화면(src/lib/privacy.ts)과 이 작업이 **같은 값**을 봐야 한다.
+  원래 한 파일에서 import 했는데, Vercel 이 함수를 번들할 때 api/ 바깥 파일을
+  넣어 주지 않아 배포된 함수가 ERR_MODULE_NOT_FOUND 로 죽었다. 그래서 여기에
+  따로 두되, 두 값이 어긋나면 테스트(src/routes/Privacy.test.tsx)가 잡는다.
+*/
+export const RETENTION_DAYS = 365;
+
+const retentionLabel = (days = RETENTION_DAYS): string =>
+  days % 365 === 0 ? `${days / 365}년` : days % 30 === 0 ? `${days / 30}개월` : `${days}일`;
 
 /** 이만큼 답이 없으면 늦은 것으로 본다. 영업에서 실제로 돈을 잃는 지점이다. */
 export const OVERDUE_DAYS = 3;

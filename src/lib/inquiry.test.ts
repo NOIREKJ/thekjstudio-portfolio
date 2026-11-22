@@ -1,4 +1,4 @@
-import { clean, formatMail, formatTelegram, Rejected } from "./inquiry";
+import { clean, formatMail, formatTelegram, Rejected } from "../../api/_lib/inquiry";
 
 const ok = { contact: "kj@example.com", message: "편곡 문의드립니다" };
 

@@ -26,8 +26,8 @@
 
   ⚠️ 서비스 롤 키에 `VITE_` 접두사를 붙이면 **번들에 박혀 공개된다.** 절대 금지.
 */
-import { clean, formatMail, formatTelegram, Rejected } from "../src/lib/inquiry";
-import type { CleanInquiry } from "../src/lib/inquiry";
+import { clean, formatMail, formatTelegram, Rejected } from "./_lib/inquiry";
+import type { CleanInquiry } from "./_lib/inquiry";
 
 const env = (k: string): string | undefined => {
   const v = process.env[k];
