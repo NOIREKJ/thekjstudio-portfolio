@@ -4,6 +4,7 @@ import { getWorks } from "../lib/works";
 import { applyMeta } from "../lib/meta";
 import { useLang, useT } from "../i18n";
 import { TrackEmbed } from "../components/TrackEmbed";
+import { KoinonInquiry } from "../components/KoinonInquiry";
 import styles from "./Work.module.css";
 
 export function Work() {
@@ -100,6 +101,9 @@ export function Work() {
           </div>
         </section>
       )}
+
+      {/* 도입 문의는 코이논에만 붙인다 — 다른 작업은 파는 것이 아니다. */}
+      {work.slug === "koinon" && <KoinonInquiry />}
 
       <nav className={styles.pager} aria-label={t.workdetail.more}>
         {prev ? (

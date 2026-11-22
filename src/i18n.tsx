@@ -3,7 +3,8 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 export type Lang = "ko" | "en";
 
 // UI 문자열 사전. 곡·앱 '설명 본문'(work.body)은 데이터라 여기 없다(한국어 유지).
-const STR = {
+// 테스트가 문구 규칙(금지 표현·금액 노출)을 검사하므로 내보낸다.
+export const STR = {
   en: {
     nav: { work: "Work", arrangements: "Live Arrangements", studio: "Studio", collection: "Collection", about: "About", contact: "Contact" },
     hero: {
@@ -45,6 +46,29 @@ const STR = {
     },
     workcard: { music: "Music", app: "App" },
     workdetail: { back: "← Back", screens: "Screens", notFound: "Work not found.", more: "More work", play: "Listen" },
+    /*
+      KOINON 도입 문의. 톤 규칙 — "무료 파일럿" 이라는 표현을 쓰지 않고,
+      요금제가 미확정이라 금액·모집 인원을 노출하지 않는다. 그래서 예산도 묻지 않는다.
+    */
+    koinon: {
+      label: "Inquiries",
+      title: "Bringing KOINON to your church",
+      lede: "KOINON is in weekly use at Hanil Church — the member directory, mobile payments and finance approvals all run on it. If your church is considering it, leave a few details and we will be in touch as onboarding opens.",
+      sizes: ["Under 100", "100-300", "300-1,000", "Over 1,000"],
+      interests: ["Directory", "Attendance", "Mobile payments", "Finance approvals", "Announcements", "Admin console"],
+      f: {
+        church: "Church", person: "Contact person", contact: "Email or phone",
+        contactPlaceholder: "Where we can reply",
+        size: "Members", sizeAny: "Prefer not to say",
+        interests: "What interests you",
+        note: "Anything else",
+        notePlaceholder: "What you are hoping to solve, or when you would like to start.",
+        consent: "I agree to the collection of the church name, contact person and contact details for the purpose of answering this inquiry. Kept until the inquiry is closed, then deleted.",
+        submit: "Send inquiry", sending: "Sending...",
+        ok: "Received. We will reply to the contact you left.",
+        err: "Could not send. Please reach out by Instagram DM.",
+      },
+    },
     arrangements: {
       label: "Live Arrangements", title: "Live Arrangements",
       lede: (n: number) => `Arrangements written for the stage — ${n} tracked here.`,
@@ -157,6 +181,25 @@ I release music under the name K_Joon_P.`,
     },
     workcard: { music: "음악", app: "앱" },
     workdetail: { back: "← 처음으로", screens: "화면", notFound: "찾을 수 없는 작업입니다.", more: "다른 작업", play: "들어보기" },
+    koinon: {
+      label: "도입 문의",
+      title: "우리 교회에 KOINON 도입하기",
+      lede: "KOINON 은 한일교회에서 매주 실제로 쓰이고 있습니다 — 교인 요람·모바일 결제·재정 결재가 모두 이 위에서 돌아갑니다. 도입을 검토 중이시라면 간단히 남겨 주세요. 출시·도입이 열리는 대로 연락드립니다.",
+      sizes: ["100명 미만", "100~300명", "300~1,000명", "1,000명 이상"],
+      interests: ["교인 요람", "출석 관리", "모바일 결제", "재정 결재", "공지·주보", "관리자 콘솔"],
+      f: {
+        church: "교회명", person: "담당자", contact: "이메일 또는 전화",
+        contactPlaceholder: "답을 드릴 수 있는 연락처",
+        size: "교인 수", sizeAny: "밝히지 않음",
+        interests: "관심 있는 기능",
+        note: "하고 싶은 말",
+        notePlaceholder: "어떤 점을 해결하고 싶으신지, 또는 언제쯤 시작하고 싶으신지.",
+        consent: "문의에 답변하기 위해 교회명·담당자명·연락처를 수집하는 데 동의합니다. 문의가 종료될 때까지 보관한 뒤 삭제합니다.",
+        submit: "문의 보내기", sending: "보내는 중...",
+        ok: "접수됐습니다. 남겨 주신 연락처로 답을 드립니다.",
+        err: "보내지 못했습니다. 인스타그램 DM 으로 연락 주세요.",
+      },
+    },
     arrangements: {
       label: "라이브 편곡", title: "라이브 편곡",
       lede: (n: number) => `무대에서 쓰려고 쓴 편곡 ${n}곡을 여기서 추적합니다.`,
