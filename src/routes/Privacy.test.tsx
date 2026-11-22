@@ -4,7 +4,25 @@ import { Privacy } from "./Privacy";
 import { LanguageProvider } from "../i18n";
 import { PROCESSORS, RETENTION_DAYS, retentionLabel } from "../lib/privacy";
 
-beforeEach(() => localStorage.setItem("lang", "ko"));
+/*
+  언어 고정 — localStorage 를 쓰지 않는다.
+
+  ⚠️ 빌드 환경(Vercel)의 Node 에는 실험적 `localStorage` 전역이 있는데 값이
+  undefined 이고, 그게 jsdom 의 window.localStorage 를 가린다. 그래서
+  `localStorage.setItem(...)` 이 "Cannot read properties of undefined" 로
+  터졌다 — 내 맥에서는 jsdom 것이 잡혀 통과했고 CI 에서만 깨졌다.
+
+  i18n 은 저장된 언어 → navigator.language 순으로 보므로, 저장분을 지우고
+  navigator 로 고정하면 두 환경에서 똑같이 동작한다.
+*/
+beforeEach(() => {
+  try {
+    window.localStorage.removeItem("lang");
+  } catch {
+    /* localStorage 가 없는 환경일 수 있다 — 없으면 저장분도 없다 */
+  }
+  Object.defineProperty(window.navigator, "language", { value: "ko", configurable: true });
+});
 const show = () =>
   render(<MemoryRouter><LanguageProvider><Privacy /></LanguageProvider></MemoryRouter>);
 
