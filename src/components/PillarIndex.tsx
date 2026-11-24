@@ -1,17 +1,18 @@
 import { Link } from "react-router";
 import { getWorks } from "../lib/works";
 import { getGear } from "../lib/gear";
-import { getLps } from "../lib/lp";
+import { getArrangements } from "../lib/arrangements";
 import { useT } from "../i18n";
 import styles from "./PillarIndex.module.css";
 
-// 홈의 세 기둥 — 잡지 목차처럼 큰 행. 클릭하면 각 페이지로.
-export function PillarIndex() {
+// 홈의 바로가기. 기존 목차 레이아웃을 공유한다.
+export function PillarIndex({ lpCount }: { lpCount: number }) {
   const t = useT();
   const rows = [
     { to: "/work", tag: t.pillars.workTag, title: t.pillars.work, count: getWorks().length },
+    { to: "/arrangements", tag: t.pillars.arrangementsTag, title: t.nav.arrangements, count: getArrangements().length },
     { to: "/studio", tag: t.pillars.studioTag, title: t.pillars.studio, count: getGear().length },
-    { to: "/collection", tag: t.pillars.collectionTag, title: t.pillars.collection, count: getLps().length },
+    { to: "/collection", tag: t.pillars.collectionTag, title: t.pillars.collection, count: lpCount },
   ];
   return (
     <nav className={styles.index} aria-label={t.pillars.browse}>

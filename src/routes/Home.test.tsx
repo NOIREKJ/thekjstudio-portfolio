@@ -18,10 +18,12 @@ test("히어로 제목이 있다", () => {
   expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
 });
 
-test("세 기둥(작업·스튜디오·컬렉션)으로 가는 링크가 있다", () => {
+test("작업·라이브 편곡·스튜디오·컬렉션으로 가는 링크가 있다", () => {
   renderHome();
-  const hrefs = screen.getAllByRole("link").map((a) => a.getAttribute("href"));
+  const shortcuts = screen.getByRole("navigation", { name: "Browse" });
+  const hrefs = Array.from(shortcuts.querySelectorAll("a"), a => a.getAttribute("href"));
   expect(hrefs).toContain("/work");
+  expect(hrefs).toContain("/arrangements");
   expect(hrefs).toContain("/studio");
   expect(hrefs).toContain("/collection");
 });

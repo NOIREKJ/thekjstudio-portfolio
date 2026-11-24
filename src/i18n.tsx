@@ -13,7 +13,7 @@ export const STR = {
       sub: "Composer and developer — sound and software, made by the same hands.",
     },
     pillars: {
-      workTag: "Music & Apps", studioTag: "Gear & Rack", collectionTag: "Vinyl",
+      workTag: "Music & Apps", arrangementsTag: "Arrangements", studioTag: "Gear & Rack", collectionTag: "Vinyl",
       work: "Work", studio: "Studio", collection: "Collection", browse: "Browse",
     },
     home: {
@@ -149,7 +149,7 @@ I release music under the name K_Joon_P.`,
       sub: "작곡가이자 개발자 — 소리와 소프트웨어를 같은 손으로 다룹니다.",
     },
     pillars: {
-      workTag: "음악 · 앱", studioTag: "장비 · 랙", collectionTag: "바이닐",
+      workTag: "음악 · 앱", arrangementsTag: "편곡 아카이브", studioTag: "장비 · 랙", collectionTag: "바이닐",
       work: "작업", studio: "스튜디오", collection: "컬렉션", browse: "둘러보기",
     },
     home: {

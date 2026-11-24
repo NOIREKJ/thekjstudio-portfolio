@@ -8,10 +8,12 @@ import { LpMarquee } from "../components/LpMarquee";
 import { CatalogueIndex } from "../components/CatalogueIndex";
 import { Reveal } from "../components/Reveal";
 import { getWorks } from "../lib/works";
+import { usePublicLps } from "../lib/usePublicLps";
 import styles from "./Home.module.css";
 
 export function Home() {
   const t = useT();
+  const lps = usePublicLps();
   /*
     인덱스는 전부 싣는다. 대표작을 골라 몇 개만 보여주던 것은 카드 격자라
     자리가 비쌌기 때문이다. 줄은 싸다 — 아홉 줄이 카드 넉 장보다 짧고,
@@ -36,7 +38,7 @@ export function Home() {
       <div className={styles.inner}>
         <Reveal>
           <section className={styles.pillars} aria-label={t.pillars.browse}>
-            <PillarIndex />
+            <PillarIndex lpCount={lps.length} />
           </section>
         </Reveal>
 
@@ -72,7 +74,7 @@ export function Home() {
       </div>
 
       <section className={styles.marquee} aria-label={t.collection.preview}>
-        <LpMarquee />
+        <LpMarquee lps={lps} />
       </section>
 
       <div className={styles.inner}>

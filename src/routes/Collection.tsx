@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { getLps, type Lp } from "../lib/lp";
+import { usePublicLps } from "../lib/usePublicLps";
 import { availableGenres, filterAndSortLps, type LpSort } from "../lib/lpFilter";
 import { applyMeta } from "../lib/meta";
 import { useT } from "../i18n";
@@ -10,11 +10,13 @@ import { Reveal } from "../components/Reveal";
 import styles from "./Collection.module.css";
 
 export function Collection() {
-  const lps = useMemo(() => getLps(), []);
+  const lps = usePublicLps();
   const genres = useMemo(() => availableGenres(lps), [lps]);
   const [genre, setGenre] = useState<string | null>(null);
   const [sort, setSort] = useState<LpSort>("year-desc");
-  const [selected, setSelected] = useState<Lp | null>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = lps.find(lp => lp.id === selectedId);
+  const activeGenre = genre && genres.includes(genre) ? genre : null;
   const t = useT();
 
   const SORTS: { key: LpSort; label: string }[] = [
@@ -27,14 +29,14 @@ export function Collection() {
     applyMeta({ title: "Collection — the KJ Studio", description: "The vinyl collection." });
   }, []);
 
-  const shown = useMemo(() => filterAndSortLps(lps, { genre, sort }), [lps, genre, sort]);
+  const shown = useMemo(() => filterAndSortLps(lps, { genre: activeGenre, sort }), [lps, activeGenre, sort]);
 
   return (
     <main className={styles.page}>
       {/* 홈처럼 — 흐르는 LP 커버를 배경으로 한 히어로 */}
       <header className={styles.hero}>
         <div className={styles.heroBg}>
-          <LpMarquee to={null} />
+          <LpMarquee lps={lps} to={null} />
           <div className={styles.heroScrim} />
         </div>
         <div className={styles.heroInner}>
@@ -47,11 +49,11 @@ export function Collection() {
       <div className={styles.body}>
         <div className={styles.controls}>
           <div className={styles.genres} role="group" aria-label={t.collection.filterAria}>
-            <button type="button" className={genre == null ? styles.chipOn : styles.chip} onClick={() => setGenre(null)}>
+            <button type="button" className={activeGenre == null ? styles.chipOn : styles.chip} onClick={() => setGenre(null)}>
               {t.collection.all}
             </button>
             {genres.map((g) => (
-              <button key={g} type="button" className={genre === g ? styles.chipOn : styles.chip} onClick={() => setGenre(g)}>
+              <button key={g} type="button" className={activeGenre === g ? styles.chipOn : styles.chip} onClick={() => setGenre(g)}>
                 {g}
               </button>
             ))}
@@ -66,11 +68,11 @@ export function Collection() {
         </div>
 
         <Reveal>
-          <LpGrid lps={shown} onOpen={setSelected} />
+          <LpGrid lps={shown} onOpen={lp => setSelectedId(lp.id)} />
         </Reveal>
       </div>
 
-      {selected && <LpDetail lp={selected} onClose={() => setSelected(null)} />}
+      {selected && <LpDetail lp={selected} onClose={() => setSelectedId(null)} />}
     </main>
   );
 }
