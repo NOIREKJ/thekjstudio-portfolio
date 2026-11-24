@@ -3,6 +3,7 @@ import type { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
 import { TABLES } from "./config";
 import { TableEditor } from "./TableEditor";
+import { RedeployPanel } from "./RedeployPanel";
 import styles from "./Admin.module.css";
 
 export function Admin() {
@@ -31,7 +32,7 @@ export function Admin() {
 
   if (!ready) return <main className={styles.page}><p className={styles.notice}>불러오는 중…</p></main>;
   if (!session) return <Login />;
-  return <Dashboard email={session.user.email ?? ""} userId={session.user.id} />;
+  return <Dashboard email={session.user.email ?? ""} userId={session.user.id} accessToken={session.access_token} />;
 }
 
 function Login() {
@@ -84,7 +85,8 @@ function Login() {
   );
 }
 
-function Dashboard({ email, userId }: { email: string; userId: string }) {
+function Dashboard({ email, userId, accessToken }: { email: string; userId: string; accessToken: string }) {
+  const [editing, setEditing] = useState(false);
   const [tableKey, setTableKey] = useState(TABLES[0].key);
   const [householdId, setHouseholdId] = useState<string | null>(null);
   const table = TABLES.find((t) => t.key === tableKey)!;
@@ -118,6 +120,8 @@ function Dashboard({ email, userId }: { email: string; userId: string }) {
         </div>
       </header>
 
+      <RedeployPanel accessToken={accessToken} editing={editing} />
+
       <nav className={styles.tabs}>
         {TABLES.map((t) => (
           <button
@@ -130,7 +134,7 @@ function Dashboard({ email, userId }: { email: string; userId: string }) {
         ))}
       </nav>
 
-      <TableEditor table={table} userId={userId} householdId={householdId} />
+      <TableEditor key={table.key} table={table} userId={userId} householdId={householdId} accessToken={accessToken} onEditingChange={setEditing} />
     </main>
   );
 }

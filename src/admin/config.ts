@@ -150,7 +150,7 @@ export const TABLES: TableConfig[] = [
     label: "라이브 편곡",
     titleCol: "title",
     subtitleCol: "slug",
-    readOnly: true, // 원본은 노션 트래커다 — 아래 '노션 주소'로 가서 고친다
+    readOnly: true, // 상세 편집은 원본에서 한다. 공개 상태는 목록에서 변경한다.
     fields: [
       { col: "notion_url", label: "노션 주소", type: "text", help: "여기서 고치지 말고 이 주소의 노션 페이지에서 고칩니다" },
       { col: "slug", label: "슬러그", type: "text" },
