@@ -12,10 +12,8 @@ export function RedeployPanel({ accessToken, editing }: { accessToken: string; e
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const requestInFlight = useRef(false);
 
-  if (!canRedeploy) return null;
-
   async function redeploy() {
-    if (editing || requestInFlight.current) return;
+    if (!canRedeploy || editing || requestInFlight.current) return;
     requestInFlight.current = true;
     setSending(true);
     setFeedback(null);
@@ -45,10 +43,11 @@ export function RedeployPanel({ accessToken, editing }: { accessToken: string; e
         <h2 id="redeploy-heading">운영 사이트에 반영</h2>
         <p>수정을 모두 저장한 뒤 재배포하면 변경사항이 운영 사이트에 반영됩니다.</p>
       </div>
-      <button className={styles.btnPrimary} type="button" onClick={redeploy} disabled={sending || editing}>
+      <button className={styles.btnPrimary} type="button" onClick={redeploy} disabled={!canRedeploy || sending || editing}>
         {sending ? "배포 요청 중…" : "사이트 재배포"}
       </button>
-      {editing && <p className={styles.redeployFeedback}>편집을 저장하거나 취소한 뒤 재배포할 수 있습니다.</p>}
+      {!canRedeploy && <p className={styles.redeployFeedback}>배포 서버 연결과 권한 확인이 필요합니다.</p>}
+      {canRedeploy && editing && <p className={styles.redeployFeedback}>편집을 저장하거나 취소한 뒤 재배포할 수 있습니다.</p>}
       {feedback && (
         <p className={styles.redeployFeedback} role={feedback.kind === "error" ? "alert" : "status"}>
           {feedback.message}
