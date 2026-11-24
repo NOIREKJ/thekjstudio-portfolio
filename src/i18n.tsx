@@ -44,7 +44,7 @@ const STR = {
       apple: "Apple Music", spotify: "Spotify", youtube: "YouTube", close: "Close", listen: "Listen on",
     },
     workcard: { music: "Music", app: "App" },
-    workdetail: { back: "← Back", screens: "Screens", notFound: "Work not found.", more: "More work", play: "Listen" },
+    workdetail: { back: "← Back", screens: "Screens", notFound: "Work not found.", more: "More work", play: "Listen", koinonIntro: "Explore KOINON" },
     footer: { note: "© 2026 the KJ Studio — sound and software by Joon Kim." },
     contact: {
       label: "Inquiries", title: "Work & Lessons",
@@ -136,7 +136,7 @@ I release music under the name K_Joon_P.`,
       apple: "Apple Music", spotify: "Spotify", youtube: "YouTube", close: "닫기", listen: "듣기",
     },
     workcard: { music: "음악", app: "앱" },
-    workdetail: { back: "← 처음으로", screens: "화면", notFound: "찾을 수 없는 작업입니다.", more: "다른 작업", play: "들어보기" },
+    workdetail: { back: "← 처음으로", screens: "화면", notFound: "찾을 수 없는 작업입니다.", more: "다른 작업", play: "들어보기", koinonIntro: "코이논 자세히 보기" },
     footer: { note: "© 2026 the KJ Studio — 김준의 소리와 소프트웨어." },
     contact: {
       label: "문의", title: "의뢰 · 레슨",
