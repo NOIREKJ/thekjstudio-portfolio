@@ -73,6 +73,12 @@ export function Work() {
         />
       )}
 
+      {work.slug === "koinon" && (
+        <a className={styles.productLink} href="/koinon/index.html">
+          {t.workdetail.koinonIntro}
+        </a>
+      )}
+
       <div className={styles.body}>{body}</div>
 
       {work.kind === "music" && (

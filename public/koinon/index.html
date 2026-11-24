@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="주보와 교인 명부를 여는 코이논 요람, 교회 안에서 쓰는 코이논페이, 교회 예산과 지출을 관리하는 PassBill.">
+  <title>KOINON 코이논 | 교회의 일상이 한곳에</title>
+  <link rel="stylesheet" href="site.css">
+  <script src="site.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a class="wordmark" href="#top" aria-label="KOINON 페이지 처음으로"><span class="mark" aria-hidden="true"></span>KOINON</a>
+      <nav aria-label="페이지 탐색">
+        <a href="#products">제품 보기</a>
+        <a class="nav-contact" href="#contact">도입 문의</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> 교회를 위한 세 가지 앱</p>
+          <h1 id="hero-title">교회의 일상이<br><em>한곳에.</em></h1>
+          <p class="hero-text">성도는 주보를 열고 교회 카페에서 결제합니다.<br class="desktop-break"> 담당자는 교인 명부와 교회 예산을 챙깁니다.</p>
+          <a href="#products" class="button button-light">세 앱 둘러보기</a>
+        </div>
+        <div class="hero-visual">
+          <div class="device-stage">
+            <div class="device device-pay"><img src="media/wallet.webp" width="510" height="1109" alt="코이논페이 지갑"></div>
+            <div class="device device-budget"><img src="media/budget.webp" width="510" height="1109" alt="PassBill 부서별 예산"></div>
+            <div class="device device-home"><img src="media/home.webp" width="510" height="1109" alt="코이논 요람 홈과 바로가기" fetchpriority="high"></div>
+          </div>
+          <p class="visual-caption">코이논교회 시연 화면</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="products" id="products" aria-labelledby="products-title">
+      <div class="wrap">
+        <h2 id="products-title">교회에서 이렇게 씁니다.</h2>
+        <div class="product-nav" aria-label="제품 선택">
+          <a href="#yoram" id="link-yoram">코이논 요람</a>
+          <a href="#pay" id="link-pay">코이논페이</a>
+          <a href="#passbill" id="link-passbill">PassBill</a>
+        </div>
+        <div class="showcase" id="yoram">
+          <div class="product-copy">
+            <p class="product-name">코이논 요람</p>
+            <h3>이번 주 주보를<br>홈에서 바로.</h3>
+            <p class="product-lead">주일 아침에 필요한 주보와 예배 일정, 교회 공지를 코이논 요람에서 열어보세요.</p>
+            <dl class="features">
+              <div><dt>예배 준비</dt><dd>홈에서 주보 PDF를 열고, 말씀 탭에서 지난 예배 영상을 찾아요.</dd></div>
+              <div><dt>교인 명부</dt><dd>교구와 구역을 따라 성도 카드를 열고, 마이에서 내 정보를 관리해요.</dd></div>
+              <div><dt>교회 소식</dt><dd>공지와 일정을 확인하고 새가족 등록 안내를 볼 수 있어요.</dd></div>
+            </dl>
+          </div>
+          <figure class="demo">
+            <div class="video-device"><video controls playsinline muted preload="none" width="480" height="1042" poster="media/yoram-poster.webp" aria-label="코이논 요람 홈에서 주보 PDF 열기 시연"><source src="media/yoram.mp4" type="video/mp4"><a href="media/yoram.mp4">주보 시연 영상 열기</a></video></div>
+            <figcaption>주보 열기 영상 · 화면 속 교인 정보는 가상입니다.</figcaption>
+          </figure>
+        </div>
+        <div class="showcase" id="pay">
+          <div class="product-copy">
+            <p class="product-name">코이논페이</p>
+            <h3>예배 뒤 카페 결제,<br>지갑에서 내역까지.</h3>
+            <p class="product-lead">교회 안에서 쓸 수 있는 곳을 찾고, 지갑에서 결제를 마친 뒤 내역을 확인할 수 있어요.</p>
+            <dl class="features">
+              <div><dt>결제와 내역</dt><dd>결제 전에 잔액을 보고, 완료한 결제는 내역에서 다시 확인해요.</dd></div>
+              <div><dt>사용처 지도</dt><dd>영업 상태를 보고, 자주 가는 곳에 별을 눌러 지갑에서 바로 열어요.</dd></div>
+              <div><dt>충전과 쿠폰함</dt><dd>충전권은 바로 사용하거나 쿠폰함에 보관할 수 있어요.</dd></div>
+            </dl>
+          </div>
+          <figure class="demo">
+            <div class="video-device"><video controls playsinline muted preload="none" width="480" height="1042" poster="media/pay-poster.webp" aria-label="코이논페이에서 교회 카페 결제 시연"><source src="media/pay.mp4" type="video/mp4"><a href="media/pay.mp4">결제 시연 영상 열기</a></video></div>
+            <figcaption>교회 카페 결제 영상 · 가맹점과 거래는 시연용입니다.</figcaption>
+          </figure>
+        </div>
+        <div class="showcase" id="passbill">
+          <div class="product-copy">
+            <p class="product-name">PassBill</p>
+            <h3>장비를 사기 전에<br>남은 예산부터.</h3>
+            <p class="product-lead">부서별로 얼마를 배정받고 얼마를 썼는지, 다음 지출에 쓸 수 있는 예산이 얼마인지 확인할 수 있어요.</p>
+            <dl class="features">
+              <div><dt>예산과 지출</dt><dd>부서별 잔액을 비교하고, 월별로 지출이 몰린 시기를 확인해요.</dd></div>
+              <div><dt>결의서와 결재</dt><dd>품목을 적어 올리고, 사역장 승인부터 재정부 확인까지 결재선에서 봐요.</dd></div>
+              <div><dt>문서와 물품</dt><dd>승인된 문서를 다시 찾고, 장비의 보증 기한과 폐기 상태를 확인해요.</dd></div>
+            </dl>
+          </div>
+          <figure class="demo">
+            <div class="video-device"><video controls playsinline muted preload="none" width="480" height="1042" poster="media/passbill-poster.webp" aria-label="PassBill 부서별 예산 현황 시연"><source src="media/passbill.mp4" type="video/mp4"><a href="media/passbill.mp4">예산 현황 시연 영상 열기</a></video></div>
+            <figcaption>예산 현황 영상 · 예산과 지출은 시연 데이터입니다.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div class="wrap contact-inner">
+        <div>
+          <h2 id="contact-title">우리 교회에 맞는 앱이 궁금하신가요?</h2>
+          <p>지금 쓰는 주보·교인 명부·결제·예산 관리 방식과 관심 있는 앱을 알려주세요.</p>
+        </div>
+        <a class="button button-light" href="https://www.instagram.com/thekjstudio.kr/">인스타그램에서 문의하기</a>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <span>the KJ Studio</span>
+      <a href="/">스튜디오 소개</a>
+    </div>
+  </footer>
+</body>
+</html>

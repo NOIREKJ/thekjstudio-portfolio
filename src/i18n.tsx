@@ -45,7 +45,7 @@ export const STR = {
       apple: "Apple Music", spotify: "Spotify", youtube: "YouTube", close: "Close", listen: "Listen on",
     },
     workcard: { music: "Music", app: "App" },
-    workdetail: { back: "← Back", screens: "Screens", notFound: "Work not found.", more: "More work", play: "Listen" },
+    workdetail: { back: "← Back", screens: "Screens", notFound: "Work not found.", more: "More work", play: "Listen", koinonIntro: "Explore KOINON" },
     /*
       KOINON 도입 문의. 톤 규칙 — "무료 파일럿" 이라는 표현을 쓰지 않고,
       요금제가 미확정이라 금액·모집 인원을 노출하지 않는다. 그래서 예산도 묻지 않는다.
@@ -181,7 +181,7 @@ I release music under the name K_Joon_P.`,
       apple: "Apple Music", spotify: "Spotify", youtube: "YouTube", close: "닫기", listen: "듣기",
     },
     workcard: { music: "음악", app: "앱" },
-    workdetail: { back: "← 처음으로", screens: "화면", notFound: "찾을 수 없는 작업입니다.", more: "다른 작업", play: "들어보기" },
+    workdetail: { back: "← 처음으로", screens: "화면", notFound: "찾을 수 없는 작업입니다.", more: "다른 작업", play: "들어보기", koinonIntro: "코이논 자세히 보기" },
     koinon: {
       label: "도입 문의",
       title: "우리 교회에 KOINON 도입하기",
