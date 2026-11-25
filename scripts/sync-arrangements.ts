@@ -77,6 +77,42 @@ async function rest(
   return res.status === 204 ? null : await res.json();
 }
 
+/* ── 소유자 ───────────────────────────────────────────────────────────
+
+  `arrangements.user_id` 는 NOT NULL DEFAULT `auth.uid()` 이고
+  `household_id` 는 NOT NULL DEFAULT `my_default_household_id()` 다.
+
+  이 스크립트는 **service_role 키**로 쓴다. 서비스 롤에는 `auth.uid()` 가
+  없어서 두 기본값이 NULL 로 계산되고, 그대로 NOT NULL 위반(23502)이 난다.
+  그래서 INSERT 든 upsert 든 **두 값을 직접 보내야 한다.**
+
+  ⚠️ 2026-11-25 까지 이 동기화는 쓰기에 **한 번도 성공하지 못했다.** 최초
+     적재만 사람이 값을 명시해서 넣었고(73행 전부 created_at 이 한 시각이다),
+     그 뒤 스케줄 실행은 곡이 하나라도 바뀌면 전부 23502 로 죽었다. 노션을
+     읽는 데까지는 성공해서 "노션 8행 · DB 8행" 까지 찍힌다 — 로그 앞부분만
+     보면 멀쩡해 보인다. 그래서 오래 묻혀 있었다.
+
+  값은 **표에서 읽어 온다.** 공개 저장소라 uuid 를 코드에 박지 않고, 새
+  시크릿도 만들지 않는다. 표가 비어 있는 첫 적재에만 환경변수로 받는다.
+*/
+type Owner = { user_id: string; household_id: string };
+
+async function resolveOwner(e: Env): Promise<Owner> {
+  const rows = (await rest(
+    e, "arrangements?select=user_id,household_id&limit=1", { method: "GET" },
+  )) as { user_id?: string | null; household_id?: string | null }[];
+  const seed = rows.find((r) => r.user_id && r.household_id);
+  if (seed) return { user_id: seed.user_id!, household_id: seed.household_id! };
+
+  const user = process.env.ARRANGEMENTS_USER_ID;
+  const household = process.env.ARRANGEMENTS_HOUSEHOLD_ID;
+  if (user && household) return { user_id: user, household_id: household };
+  throw new Error(
+    "소유자를 알 수 없습니다 — arrangements 가 비어 있습니다. " +
+    "첫 적재라면 ARRANGEMENTS_USER_ID 와 ARRANGEMENTS_HOUSEHOLD_ID 를 넣어 주세요",
+  );
+}
+
 type ExistingRow = {
   notion_page_id: string; slug: string; synced_at: string | null; sheet_url: string | null;
 };
@@ -139,13 +175,15 @@ async function uploadSheet(
 type Row = Record<string, unknown>;
 
 function buildRow(
-  page: NotionPage, slug: string, markdown: string, sheetUrl: string | null,
+  page: NotionPage, slug: string, markdown: string, sheetUrl: string | null, owner: Owner,
 ): Row {
   const body = parseBodyLabels(markdown);
   // 속성이 있으면 속성이 이긴다. 없으면 본문 라벨에서 읽는다(스펙의 폴백 규칙).
   const pick = (prop: string | null, fromBody: string | null) => prop ?? fromBody;
 
   return {
+    // NOT NULL 이고 기본값이 auth.uid() 라 서비스 롤로는 비어 버린다 — resolveOwner 참고.
+    ...owner,
     notion_page_id: page.id.replace(/-/g, ""),
     notion_url: page.url,
     source: "notion",
@@ -176,6 +214,8 @@ async function main(): Promise<void> {
   const e = env();
   console.log(DRY ? "· dry-run — 쓰지 않습니다" : "· 동기화 시작");
 
+  // 쓸 수 없는 상태면 노션을 긁기 전에 멈춘다.
+  const owner = await resolveOwner(e);
   const existing = await existingRows(e);
   const pages = await queryAllPages(e.token, e.db);
   console.log(`  노션 ${pages.length}행 · DB ${existing.size}행`);
@@ -218,7 +258,7 @@ async function main(): Promise<void> {
         sheetUrl = await uploadSheet(e, slug, files[0]);
       }
 
-      rows.push(buildRow(page, slug, markdown, sheetUrl));
+      rows.push(buildRow(page, slug, markdown, sheetUrl, owner));
     } catch (error) {
       problems.push(`${propText(page, "곡명") ?? page.id}: ${(error as Error).message}`);
     }
