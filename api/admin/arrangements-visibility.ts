@@ -56,6 +56,25 @@ export function stripLeadingEmoji(raw: string): string {
 /** 화면이 보내는 값 ↔ 노션 옵션 이름. 노션은 "공개"/"비공개" 로 쓴다. */
 const LABEL: Record<Visibility, string> = { public: "공개", private: "비공개" };
 
+/*
+  실패한 지점을 한 줄 남긴다.
+
+  이게 없어서 "0개 저장, 1개 실패" 가 떴을 때 **어디서 멈췄는지 알 수 없었다.**
+  화면은 서버가 돌려준 error 문구를 쓰지 않고 자기 문구를 띄우고, 성공 요약
+  로그는 함수 끝에만 있어서 중간에 502 로 빠지면 아무 흔적이 없었다.
+
+  곡명·id·토큰·URL 은 적지 않는다. 단계 이름과 상태 코드만 적는다.
+*/
+function stage(name: string, detail?: string): void {
+  console.log("admin.arrangements-visibility", `stop=${name}${detail ? ` ${detail}` : ""}`);
+}
+
+/** 던져진 오류를 로그에 안전한 형태로 바꾼다. URL 이 섞이지 않게 한다. */
+function why(e: unknown): string {
+  const m = e instanceof Error ? e.message : "";
+  return /^HTTP \d{3}$/.test(m) ? m.replace(" ", "=") : "network";
+}
+
 export type Visibility = "public" | "private";
 
 /* ── 권한 ─────────────────────────────────────────────────────────────
@@ -206,15 +225,20 @@ export async function POST(req: Request): Promise<Response> {
     if (body.visibility !== "public" && body.visibility !== "private") throw new Error("visibility");
     visibility = body.visibility;
   } catch {
+    stage("body");
     return json({ updatedIds: [], error: "요청 본문이 올바르지 않습니다" }, 400);
   }
-  if (!ids.length) return json({ updatedIds: [] }, 200);
+  if (!ids.length) {
+    stage("no-ids");
+    return json({ updatedIds: [] }, 200);
+  }
   /*
     한 건마다 노션을 때리고 rate limit 때문에 사이를 띄우므로, 너무 많이 받으면
     함수 실행 시간을 넘겨 중간에 끊긴다. 끊기면 어디까지 갔는지 화면이 알 수 없다.
     상한을 두고 거절해 나눠 보내게 한다.
   */
   if (ids.length > MAX_BATCH) {
+    stage("batch-limit", `asked=${ids.length}`);
     return json(
       { updatedIds: [], error: `한 번에 ${MAX_BATCH}건까지 바꿀 수 있습니다` },
       413,
@@ -244,12 +268,16 @@ export async function POST(req: Request): Promise<Response> {
     const res = await fetchT(`${dbUrl}/rest/v1/arrangements?${q}`, { headers: sbHeaders });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     rows = (await res.json()) as Row[];
-  } catch {
+  } catch (e) {
+    stage("db-lookup", why(e));
     return json({ updatedIds: [], error: "대상을 찾지 못했습니다" }, 502);
   }
 
   const targets = rows.filter((r) => r.notion_page_id);
-  if (!targets.length) return json({ updatedIds: [] }, 200);
+  if (!targets.length) {
+    stage("no-targets", `asked=${ids.length} rows=${rows.length}`);
+    return json({ updatedIds: [] }, 200);
+  }
 
   // 노션 속성 모양을 한 번만 읽는다.
   let shape: PropShape;
@@ -259,14 +287,17 @@ export async function POST(req: Request): Promise<Response> {
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     shape = readPropShape(await res.json());
-  } catch {
+  } catch (e) {
+    stage("notion-schema", why(e));
     return json({ updatedIds: [], error: "노션 설정을 읽지 못했습니다" }, 502);
   }
   if (!shape) {
+    stage("notion-prop-missing");
     return json({ updatedIds: [], error: `노션에 '${VISIBILITY_PROP}' 속성이 없습니다` }, 502);
   }
   const payload = propertyPayload(shape, visibility);
   if (!payload) {
+    stage("notion-option-missing", `kind=${shape.kind}`);
     return json(
       { updatedIds: [], error: `노션에 '${LABEL[visibility]}' 옵션이 없습니다` },
       502,
@@ -286,8 +317,12 @@ export async function POST(req: Request): Promise<Response> {
         },
         body: JSON.stringify({ properties: { [VISIBILITY_PROP]: payload } }),
       });
-      if (!res.ok) continue;
-    } catch {
+      if (!res.ok) {
+        stage("notion-patch", `HTTP=${res.status}`);
+        continue;
+      }
+    } catch (e) {
+      stage("notion-patch", why(e));
       continue;
     }
 
@@ -316,8 +351,12 @@ export async function POST(req: Request): Promise<Response> {
       if (res.ok) {
         const patched = (await res.json()) as { id?: unknown }[];
         dbOk = Array.isArray(patched) && patched.some((r) => r.id === row.id);
+        if (!dbOk) stage("db-patch-empty");
+      } else {
+        stage("db-patch", `HTTP=${res.status}`);
       }
-    } catch {
+    } catch (e) {
+      stage("db-patch", why(e));
       dbOk = false;
     }
     if (dbOk) updatedIds.push(row.id);
