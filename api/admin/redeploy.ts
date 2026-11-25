@@ -54,7 +54,19 @@ export type AdminCheck =
   | { ok: true; userId: string }
   | { ok: false; status: number; error: string };
 
+/*
+  거절 사유를 한 줄 남긴다. 이게 없으면 화면에 버튼이 안 나타날 때
+  401(토큰)·403(허용 목록)·503(설정) 중 어느 것인지 밖에서 알 길이 없다.
+  실제로 한 번 당했다 — 로그에 호출 기록만 있고 결과가 없어서 추론해야 했다.
+  user id 도 토큰도 적지 않는다. 상태 코드만 적는다.
+*/
 export async function checkAdmin(req: Request): Promise<AdminCheck> {
+  const result = await runAdminCheck(req);
+  if (!result.ok) console.log("admin.auth", `deny status=${result.status}`);
+  return result;
+}
+
+async function runAdminCheck(req: Request): Promise<AdminCheck> {
   const auth = req.headers.get("authorization") ?? "";
   const token = auth.toLowerCase().startsWith("bearer ") ? auth.slice(7).trim() : "";
   if (!token) return { ok: false, status: 401, error: "인증이 필요합니다" };
