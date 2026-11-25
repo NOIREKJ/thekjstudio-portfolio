@@ -18,10 +18,20 @@ import { join } from "node:path";
   (npm 패키지 import 는 node_modules 가 번들되므로 괜찮다.)
 */
 test("api/ 핸들러에 로컬 상대 import 가 없다", async () => {
+  // 하위 폴더까지 본다. api/admin/*.ts 처럼 중첩된 라우트도 같은 제약을 받는데,
+  // 한 단계만 훑으면 그것들이 조용히 빠져나간다.
+  async function handlerFiles(dir: string, prefix = ""): Promise<string[]> {
+    const out: string[] = [];
+    for (const e of await readdir(dir, { withFileTypes: true })) {
+      const rel = prefix ? `${prefix}/${e.name}` : e.name;
+      if (e.isDirectory()) out.push(...(await handlerFiles(join(dir, e.name), rel)));
+      else if (e.name.endsWith(".ts") && !e.name.endsWith(".test.ts")) out.push(rel);
+    }
+    return out;
+  }
+
   const dir = join(process.cwd(), "api");
-  const files = (await readdir(dir)).filter(
-    (f) => f.endsWith(".ts") && !f.endsWith(".test.ts"),
-  );
+  const files = await handlerFiles(dir);
   expect(files.length).toBeGreaterThan(0); // 정규식이 죽으면 조용히 통과해 버린다
 
   const offenders: string[] = [];
@@ -49,10 +59,20 @@ test("api/ 핸들러에 로컬 상대 import 가 없다", async () => {
 test("api/ 핸들러는 export default 가 아니라 이름 있는 HTTP 메서드를 쓴다", async () => {
   const { readdir, readFile } = await import("node:fs/promises");
   const { join } = await import("node:path");
+  // 하위 폴더까지 본다. api/admin/*.ts 처럼 중첩된 라우트도 같은 제약을 받는데,
+  // 한 단계만 훑으면 그것들이 조용히 빠져나간다.
+  async function handlerFiles(dir: string, prefix = ""): Promise<string[]> {
+    const out: string[] = [];
+    for (const e of await readdir(dir, { withFileTypes: true })) {
+      const rel = prefix ? `${prefix}/${e.name}` : e.name;
+      if (e.isDirectory()) out.push(...(await handlerFiles(join(dir, e.name), rel)));
+      else if (e.name.endsWith(".ts") && !e.name.endsWith(".test.ts")) out.push(rel);
+    }
+    return out;
+  }
+
   const dir = join(process.cwd(), "api");
-  const files = (await readdir(dir)).filter(
-    (f) => f.endsWith(".ts") && !f.endsWith(".test.ts"),
-  );
+  const files = await handlerFiles(dir);
   expect(files.length).toBeGreaterThan(0);
 
   const METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"];
