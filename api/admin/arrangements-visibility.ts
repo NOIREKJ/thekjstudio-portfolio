@@ -31,6 +31,10 @@ const NOTION_VERSION = "2022-06-28";
 const VISIBILITY_PROP = "사이트 공개";
 /** 노션 rate limit(초당 3건)에 걸리지 않게 페이지 사이를 띄운다. */
 const THROTTLE_MS = 350;
+/** arrangements.id 는 uuid 다. */
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+/** 한 건마다 노션을 때리고 사이를 띄우므로 함수 실행 시간 안에 끝날 만큼만 받는다. */
+const MAX_BATCH = 50;
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -177,13 +181,33 @@ export async function POST(req: Request): Promise<Response> {
   try {
     const body = (await req.json()) as { ids?: unknown; visibility?: unknown };
     if (!Array.isArray(body.ids)) throw new Error("ids");
-    ids = body.ids.filter((v): v is string => typeof v === "string" && v.trim() !== "");
+    /*
+      arrangements.id 는 uuid 다. 모양을 먼저 검사한다 — 아래에서 PostgREST 의
+      `in.(...)` 필터에 문자열로 끼워 넣으므로, 형식을 보장해 두지 않으면
+      따옴표나 쉼표가 섞인 값이 필터를 비집고 들어갈 수 있다.
+    */
+    const seen = new Set<string>();
+    ids = body.ids
+      .filter((v): v is string => typeof v === "string" && UUID_RE.test(v.trim()))
+      .map((v) => v.trim().toLowerCase())
+      .filter((v) => (seen.has(v) ? false : (seen.add(v), true)));
     if (body.visibility !== "public" && body.visibility !== "private") throw new Error("visibility");
     visibility = body.visibility;
   } catch {
     return json({ updatedIds: [], error: "요청 본문이 올바르지 않습니다" }, 400);
   }
   if (!ids.length) return json({ updatedIds: [] }, 200);
+  /*
+    한 건마다 노션을 때리고 rate limit 때문에 사이를 띄우므로, 너무 많이 받으면
+    함수 실행 시간을 넘겨 중간에 끊긴다. 끊기면 어디까지 갔는지 화면이 알 수 없다.
+    상한을 두고 거절해 나눠 보내게 한다.
+  */
+  if (ids.length > MAX_BATCH) {
+    return json(
+      { updatedIds: [], error: `한 번에 ${MAX_BATCH}건까지 바꿀 수 있습니다` },
+      413,
+    );
+  }
 
   const sbHeaders = {
     apikey: serviceKey,
@@ -202,7 +226,8 @@ export async function POST(req: Request): Promise<Response> {
       select: "id,notion_page_id",
       source: "eq.notion",
       archived: "is.false",
-      id: `in.(${ids.map((i) => `"${i.replace(/"/g, "")}"`).join(",")})`,
+      // 위에서 uuid 모양을 보장했으므로 그대로 끼워도 된다.
+      id: `in.(${ids.join(",")})`,
     });
     const res = await fetchT(`${dbUrl}/rest/v1/arrangements?${q}`, { headers: sbHeaders });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -255,23 +280,35 @@ export async function POST(req: Request): Promise<Response> {
     }
 
     /*
-      노션이 원본이지만 DB 도 같이 고친다. 안 고치면 다음 동기화(15분 cron)
-      전까지 사이트와 목록이 옛 값을 보여 준다. 노션이 성공한 것만 고친다 —
-      둘이 어긋나느니 한쪽만 맞는 편이 낫다.
+      노션이 원본이지만 DB 도 같이 고친다. 안 고치면 다음 동기화 전까지
+      사이트와 목록이 옛 값을 보여 준다.
+
+      ⚠️ **DB 까지 확인된 것만 성공으로 센다.** 처음에는 '노션이 원본이니
+      노션만 되면 성공' 으로 뒀는데, 그러면 DB 가 실패해도 화면은 '저장했습니다'
+      를 띄우고 새 값으로 바뀐다. 사이트는 옛 값인데 아무도 모르고, 재시도할
+      길도 없다. 노션 PATCH 는 같은 값을 다시 써도 그만이라(멱등) 실패로 돌려
+      다시 누르게 하는 쪽이 안전하다. Codex 가 PR 검토에서 잡아 줬다.
     */
+    let dbOk = false;
     try {
-      await fetchT(
+      const res = await fetchT(
         `${dbUrl}/rest/v1/arrangements?id=eq.${encodeURIComponent(row.id)}&source=eq.notion`,
         {
           method: "PATCH",
-          headers: { ...sbHeaders, Prefer: "return=minimal" },
+          // 실제로 바뀐 행을 돌려받아 확인한다. 200 이어도 조건에 맞는 행이
+          // 없으면 빈 배열이 온다 — 그건 바뀐 게 아니다.
+          headers: { ...sbHeaders, Prefer: "return=representation" },
           body: JSON.stringify({ visibility }),
         },
       );
+      if (res.ok) {
+        const patched = (await res.json()) as { id?: unknown }[];
+        dbOk = Array.isArray(patched) && patched.some((r) => r.id === row.id);
+      }
     } catch {
-      // DB 반영이 늦어도 노션은 바뀌었다. 다음 동기화가 맞춰 준다.
+      dbOk = false;
     }
-    updatedIds.push(row.id);
+    if (dbOk) updatedIds.push(row.id);
   }
 
   // 곡명·본문은 남기지 않는다. 몇 건이 어디까지 갔는지만 남긴다.
@@ -281,6 +318,7 @@ export async function POST(req: Request): Promise<Response> {
     `asked=${ids.length}`,
     `eligible=${targets.length}`,
     `ok=${updatedIds.length}`,
+    `fail=${targets.length - updatedIds.length}`,
   );
   return json({ updatedIds }, 200);
 }
