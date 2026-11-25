@@ -74,7 +74,19 @@ async function rest(
     }
     throw new Error(`Supabase ${init.method} ${path} 실패: ${res.status} ${text}`);
   }
-  return res.status === 204 ? null : await res.json();
+  /*
+    PostgREST 는 `Prefer: return=minimal` 일 때 **201 에 빈 본문**을 준다.
+    204 만 걸러내면 그 빈 본문에서 res.json() 이
+    "Unexpected end of JSON input" 으로 터진다.
+
+    ⚠️ 이 터짐은 **쓰기가 이미 성공한 뒤**에 일어난다. 그래서 들어갈 건 다
+       들어갔는데 스크립트는 실패로 끝나고, 뒤에 있는 archived 처리와 재배포
+       훅 호출을 건너뛴다. 2026-11-25 에 실제로 당했다 — 로그는 "동기화하지
+       못했습니다" 인데 DB 에는 4곡이 갱신돼 있었다.
+  */
+  if (res.status === 204) return null;
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
 }
 
 /* ── 소유자 ───────────────────────────────────────────────────────────
